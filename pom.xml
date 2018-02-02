@@ -28,7 +28,7 @@
 							<target>
 								<copy
 									file="${project.build.directory}/${project.build.finalName}.war"
-									todir="/apps/lab-sdapp/apache-tomcat-8.5.9/webapps"/>
+									todir="/soft/apache-tomcat-8.5.23/webapps"/>
 							</target>
 						</configuration>
 						<goals>
