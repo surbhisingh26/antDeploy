@@ -227,7 +227,7 @@ Remember to book your tickets!</p>
       <p>Man, we've been on the road for some time now. Looking forward to lorem ipsum.</p>
     </div>
     <div id="menu1" class="tab-pane fade">
-      <h3>Chandler Bing, Guitarist</h3>
+      <h3>Chandler Bing, Guitar</h3>
       <p>Always a pleasure people! Hope you enjoyed it as much as I did. Could I BE.. any more pleased?</p>
     </div>
     <div id="menu2" class="tab-pane fade">
