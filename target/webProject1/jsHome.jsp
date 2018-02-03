@@ -59,7 +59,7 @@ function overMe(){
 	alert("Yes you got that right:):):):):):):):)\n I am just Kidding");
 }
 function date(){
-    document.getElementById("texts").innerHTML="Book Tickets Today and get upto 10000000000000000000000 cashback";
+    document.getElementById("texts").innerHTML="Book Tickets Today and get upto 100% cashback";
     
 }
 function logo(){
