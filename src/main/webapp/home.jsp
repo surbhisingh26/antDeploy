@@ -163,10 +163,14 @@ Remember to book your tickets!</p>
           <h1 class="modal-title text-center" style="font-size:16">Tickets</h1><br><br><br><br>
         </div>
         <div class="modal-body" style="background-color:white;"><br><br>
-          <form action="/action_page.php">
+          <form action="Passenger.java">
+          <div class="form-group">
+          <label for="text">Your Name</label>
+          <input type="text" class="from-control" placeholder="Enter Name" name="name">
+          </div>
   <div class="form-group ">
     <label for="text"> Tickets, $23 per person</label>
-        <input type="text" class="form-control" value="0" >
+        <input type="text" class="form-control" value="0" name="tickets" >
   </div>
   <div class="form-group input-append spinner" data-trigger="spinner">
     <label for="email">Send To</label>
@@ -232,7 +236,7 @@ Remember to book your tickets!</p>
     </div>
     <div id="menu2" class="tab-pane fade">
       <h3>Peter Griffin, Bass player</h3>
-      <p>I mean, sometimes I enjoy the show, but other times I enjoy other things.</p>
+      <p>I mean, sometimes I enjoy the show, but other  I enjoy other things.</p>
     </div><br><br>
     </div>
     </div>

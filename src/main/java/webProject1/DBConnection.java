@@ -3,24 +3,24 @@ package webProject1;
  
 import com.mongodb.MongoClient;  
 import com.mongodb.client.MongoCollection;  
-import com.mongodb.client.MongoDatabase;  
-import org.bson.Document;  
-public class DBConnection {  
-public static void main(String[] args){  
+import com.mongodb.client.MongoDatabase; 
+import com.mongodb.DBCollection;
+import org.bson.Document; 
+public class DBConnection { 
+public MongoDatabase getDB(){  
 try{  
+	String name="Surbhi";
 //---------- Connecting DataBase -------------------------//  
 MongoClient mongoClient = new MongoClient( "localhost" , 27017 );  
 //---------- Creating DataBase ---------------------------//  
-MongoDatabase db = mongoClient.getDatabase("bookTickets");  
-//---------- Creating Collection -------------------------//  
-MongoCollection<Document> table = db.getCollection("passenger");  
-//---------- Creating Document ---------------------------//    
-Document doc = new Document("name", "Peter John");  
- doc.append("id",12);  
-//----------- Inserting Data ------------------------------//  
-table.insertOne(doc); 
+MongoDatabase db = mongoClient.getDatabase("Reservation");  
+
+return db;
+
 }catch(Exception e){  
 System.out.println(e);  
-}  
+
+}
+return null;  
 }  
 }  
