@@ -236,7 +236,7 @@ Remember to book your tickets!</p>
     </div>
     <div id="menu2" class="tab-pane fade">
       <h3>Peter Griffin, Bass player</h3>
-      <p>I mean, sometimes I enjoy the show, but other times I enjoy other things.</p>
+      <p>I mean, sometimes I enjoy the show, but other  I enjoy other things.</p>
     </div><br><br>
     </div>
     </div>
