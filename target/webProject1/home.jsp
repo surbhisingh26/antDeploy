@@ -228,7 +228,7 @@ Remember to book your tickets!</p>
   <div class="tab-content">
     <div id="home" class="tab-pane fade in active">
       <h3>Mike Ross, Manager</h3>
-      <p>Man, we've been on the road for some time now. Looking forward to lorem ipsum.</p>
+      <p>Man, we've been on the rd for some time now. Looking forward to lorem ipsum.</p>
     </div>
     <div id="menu1" class="tab-pane fade">
       <h3>Chandler Bing, Guitarist</h3>
@@ -236,7 +236,7 @@ Remember to book your tickets!</p>
     </div>
     <div id="menu2" class="tab-pane fade">
       <h3>Peter Griffin, Bass player</h3>
-      <p>I mean, sometimes I enjoy the show, but other times I enjoy other things.</p>
+      <p>I mean, sometimes I enjoy the show,  othr times I enjoy other things.</p>
     </div><br><br>
     </div>
     </div>
