@@ -7,11 +7,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.bson.Document;
-
+import com.mongodb.DBCollection;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import webProject1.DBConnection;
+
+
 
 /**
  * Servlet implementation class GetData
@@ -30,10 +32,7 @@ public class GetData extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
+	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -48,11 +47,11 @@ public class GetData extends HttpServlet {
 		MongoCollection collection = mongo.getCollection("passenger");
 		Document doc=new Document();
 		doc.put("name", fname);
-		/*PrintWriter writer = response.getWriter();
+		PrintWriter writer = response.getWriter();
 	        String htmlRespone = "<html>";
 	        htmlRespone += "<h2>Your name is: " + fname + "</h2>";
 	        htmlRespone += "</html>";
-	        writer.println(htmlRespone);*/
+	        writer.println(htmlRespone);
 	}
 
 }
