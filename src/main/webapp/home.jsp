@@ -163,7 +163,7 @@ Remember to book your tickets!</p>
           <h1 class="modal-title text-center" style="font-size:16">Tickets</h1><br><br><br><br>
         </div>
         <div class="modal-body" style="background-color:white;"><br><br>
-          <form action="WEB-INF/classes/webProject1/GetData.java" method="post">
+          <form action="GetData.java" method="post">
           <div class="form-group">
           <label for="text">Your Name</label>
           <input type="text" class="form-control" placeholder="Enter Name" name="name">
