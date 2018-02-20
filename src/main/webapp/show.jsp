@@ -1,4 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <body>
-<p>name.g</p>
+<p>Payment done</p>
+</body>
+</html>
