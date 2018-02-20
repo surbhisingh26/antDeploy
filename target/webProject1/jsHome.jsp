@@ -25,15 +25,15 @@
 <nav class="navbar navbar-inverse" data-spy="affix" data-offset-top="197">
   
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">Logo</a>
+      <a class="navbar-brand" href="#" onclick="logo()" id="logo">Logo</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
           <ul class="nav navbar-nav navbar-right">
-      <li class="active"><a href="#home">Home</a></li>
+      <li class="active" onclick=beAlert() ><a href="#home">Home</a></li>
       <li><a href="#band">Band</a></li>
       <li><a href="#tour">Tour</a></li>
       <li><a href="#contact">Contact</a></li>
-      <li class="dropdown"><a class="deopdown-toggle" data-toggle="dropdown" href="#">More<span class="caret"></span></a>
+      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">More<span class="caret"></span></a>
       <ul class="dropdown-menu">
           <li><a href="#">Merchandise</a></li>
           <li><a href="#">Extras</a></li>
@@ -46,8 +46,41 @@
     </ul>
   </div>
 </nav>
+<script>
+function beAlert() {
+    alert("How dare you to come to my home!!!");
+    alert("Don't be scared...just kidding\nWELCOME");
+    }
+function overMe(){
+	alert("SMILE :)\nI will click your picture");
+		window.confirm("Are you sure you want your picture to be click");
+	alert("If i like your picture, I am gonna use it in my website");
+	
+	alert("Yes you got that right:):):):):):):):)\n I am just Kidding");
+}
+function date(){
+    document.getElementById("texts").innerHTML="Book Tickets Today and get upto 100% cashback";
+    
+}
+function logo(){
+    document.getElementById("logo").innerHTML="Kuch to log kahenge.... \n\n LOGO ka kaam hai kehna";
+    
+}
+function back(){
+	
+    document.getElementById("texts").innerHTML="T O U R &nbsp;&nbsp;&nbsp; D A T E S ";
+}
+function joke() {
+	document.getElementById("modalBody").innerHTML="This page contains nothing accept jokes :-D ";
+}
+	function noName() {
+		alert("\n\n\nSORRY!!!\n\n\n\nWe don't accept people having a name ");
+}
+	
+</script>
 
   <div id="home">
+ 
      <div id="myCarousel " class="carousel slide" data-ride="carousel" >
        <ol class="carousel-indicators">
       <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -100,13 +133,13 @@
 
 We have created a fictional band website. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p><br><br>
 <div class="row">
-    <div class="container-fluid" style="background-color:white;">
+    <div class="container-fluid" style="background-color:white;" >
     <div class="col-xs-4 ">
-    <p class="text-center"><b>Name</b><br><br><img src="images/bandmember.jpg" class="img-circle person" alt="member"  width="255" height="255"></p></div>
+    <p class="text-center"  onmouseover="overMe()"><b>Name</b><br><br><img src="images/bandmember.jpg" class="img-circle person" alt="member"  width="255" height="255"></p></div>
     <div class="col-xs-4" >
-    <p class="text-center"><b>Name</b><br><br><img src="images/bandmember.jpg" class="img-circle person" alt="member"  width="255" height="255"></p></div>
+    <p class="text-center" onmouseover="overMe()"><b>Name</b><br><br><img src="images/bandmember.jpg" class="img-circle person" alt="member"  width="255" height="255"></p></div>
     <div class="col-xs-4">
-    <p class="text-center"><b>Name</b><br><br><img src="images/bandmember.jpg" class="img-circle person" alt="member"  width="255" height="255"></p></div>
+    <p class="text-center" onmouseover="overMe()"><b>Name</b><br><br><img src="images/bandmember.jpg" class="img-circle person" alt="member"  width="255" height="255"></p></div>
     </div>
     <br><br><br><br><br><br><br>
   </div>
@@ -114,7 +147,7 @@ We have created a fictional band website. Lorem ipsum dolor sit amet, consectetu
 <div id = "tour" class="container-fluid" style="background-color:black;">
 <div class="container" style="background-color:black;">
 <br><br><br>
-<h4 class="text-center">T O U R &nbsp;&nbsp;&nbsp; D A T E S </h4><br>
+<h4 class="text-center" id= "texts" onmouseover="date()" onmouseout="back()">T O U R &nbsp;&nbsp;&nbsp; D A T E S </h4><br>
 <p class="text-center">Lorem ipsum we'll play you some music.<br>
 Remember to book your tickets!</p>
 <br>
@@ -162,21 +195,17 @@ Remember to book your tickets!</p>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h1 class="modal-title text-center" style="font-size:16">Tickets</h1><br><br><br><br>
         </div>
-        <div class="modal-body" style="background-color:white;"><br><br>
-          <form action="GetData.java" method="post">
-          <div class="form-group">
-          <label for="text">Your Name</label>
-          <input type="text" class="form-control" placeholder="Enter Name" name="name">
-          </div>
+        <div class="modal-body" style="background-color:white;" id="modalBody"><br><br>
+          <form action="#">
   <div class="form-group ">
     <label for="text"> Tickets, $23 per person</label>
-        <input type="text" class="form-control" value="0" name="tickets" >
+        <input type="text" class="form-control" value="0" >
   </div>
   <div class="form-group input-append spinner" data-trigger="spinner">
     <label for="email">Send To</label>
     <input type="email" class="form-control " id="email" placeholder="Enter Email">
   </div>
-    <button type="submit" class="btn btn-block">Pay</button>
+    <button class="btn btn-block" onclick="joke()">Pay</button>
 </form>
         </div>
         <div class="modal-footer">
@@ -204,7 +233,7 @@ Remember to book your tickets!</p>
 
  <form class="form-inline" action="/action_page.php">
    <div class="form-group" >
-      <input type="text" class="form-control input-lg"  placeholder="Name" >
+      <input type="text" class="form-control input-lg"  placeholder="Name" onkeydown="noName()">
     </div>
     <div class="form-group"> 
       <input type="email" class="form-control input-lg" id="email" placeholder="Email" name="email">

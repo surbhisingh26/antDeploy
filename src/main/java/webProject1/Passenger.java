@@ -15,11 +15,12 @@ public static void main(String args[]){
 	//---------- Creating Collection ------------
 	MongoCollection collection = mongo.getCollection("passenger");
 		Document doc=new Document();
-	doc.put("name", "sur");
-	doc.put("tickets", 2);
-	doc.put("email", "surabhi@gmail.com");
-	collection.insertOne(doc);
-	System.out.println("Record inserted");
+		//String name = 
+	//doc.put("name", "sur");
+	//doc.put("tickets", 2);
+	//doc.put("email", "surabhi@gmail.com");
+	//collection.insertOne(doc);
+	//System.out.println("Record inserted");
 
 }
 }
