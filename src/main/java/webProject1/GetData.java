@@ -1,6 +1,8 @@
 package webProject1;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -34,6 +36,12 @@ public class GetData extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		 String fname = request.getParameter("name");
 	        System.out.println("My name "+fname);
+	        PrintWriter writer = response.getWriter();
+	        String htmlRespone = "<html>";
+	        htmlRespone += "<h2>Your name is: " + fname + "</h2>";
+	        htmlRespone += "</html>";
+	         
+	        writer.println(htmlRespone);
 	}
 
 }
