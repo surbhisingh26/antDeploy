@@ -72,7 +72,7 @@
       </div>
     
       <div class="item">
-        <img src="images/chicago.jpg" alt="New york" style="width:100%;">
+        <img src="images/ny.jpg" alt="New york" style="width:100%;">
       
       <div class="carousel-caption">
           <h3>New York</h3>
