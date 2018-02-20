@@ -34,15 +34,18 @@ public class GetData extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		 /*String fname = request.getParameter("name");
+		 String fname = request.getParameter("name");
 	        System.out.println("My name "+fname);
-	        PrintWriter writer = response.getWriter();
-	        String htmlRespone = "<html>";
-	        htmlRespone += "<h2>Your name is: " + fname + "</h2>";
-	        htmlRespone += "</html>";
+	        PrintWriter out = response.getWriter();
+	        out.println("<html>");
+	        out.println("<head>");
+	        out.println("<title>Hola</title>");
+	        out.println("</head>");
+	        out.println("<body bgcolor=\"white\">");
+	        out.println("</body>");
+	        out.println("</html>");
 	         
-	        writer.println(htmlRespone);*/
-		System.out.println("Welcome");
+	        
 	}
 
 }
