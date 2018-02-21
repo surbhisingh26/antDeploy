@@ -56,8 +56,8 @@ public class GetData extends HttpServlet {
 		PrintWriter writer = response.getWriter();
 	        String htmlResponse = "<html>";
 	        htmlResponse += "<h2>Welcome: " + fname + "</h2>";
-	        htmlResponse +="<h3>You have booked" + Tick + "tickets</h3>";
-	        htmlResponse +="<h3>We will send your tickets on your mail" + Email + "</h3>";
+	        htmlResponse +="<h3>You have booked " + Tick + " tickets</h3>";
+	        htmlResponse +="<h3>We will send your tickets on your mail " + Email + "</h3>";
 	        htmlResponse +="<h3>You have to pay a total of $" + 23*Tick + "</h3>";
 	        htmlResponse += "</html>";
 	        writer.println(htmlResponse);
