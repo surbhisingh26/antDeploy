@@ -3,27 +3,27 @@
  "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
-  <display-name>Archetype Created Web Application</display-name>
-  <servlet>
-  	<servlet-name>DBConnection</servlet-name>
-  	<display-name>DBConnection</display-name>
-  	<description></description>
-  	<servlet-class>DBConnection</servlet-class>
-  </servlet>
-  <servlet>
-  	<servlet-name>GetDataa</servlet-name>
-  	<display-name>GetData</display-name>
-  	<description></description>
-  	<servlet-class>webProject1.GetData</servlet-class>
-  </servlet>
-  
-  <servlet-mapping>
-  	<servlet-name>DBConnection</servlet-name>
-  	<url-pattern>/DBConnection</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-  	<servlet-name>GetDataa</servlet-name>
-  	<url-pattern>/GetData</url-pattern>
-  </servlet-mapping>
-  
+	<display-name>Archetype Created Web Application</display-name>
+	<servlet>
+		<servlet-name>DBConnection</servlet-name>
+		<display-name>DBConnection</display-name>
+		<description></description>
+		<servlet-class>DBConnection</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>GetDataa</servlet-name>
+		<display-name>GetData</display-name>
+		<description></description>
+		<servlet-class>webProject1.GetData</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>DBConnection</servlet-name>
+		<url-pattern>/DBConnection</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>GetDataa</servlet-name>
+		<url-pattern>/GetData</url-pattern>
+	</servlet-mapping>
+
 </web-app>
