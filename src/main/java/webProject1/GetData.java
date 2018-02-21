@@ -39,6 +39,8 @@ public class GetData extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String fname = request.getParameter("name");
+		int Tick =Integer.parseInt(request.getParameter("tickets"));
+		String Email =request.getParameter("email");
 		System.out.println("My name "+fname);
 		MongoDatabase mongo;
 		DBConnection db1 = new DBConnection();
@@ -47,11 +49,18 @@ public class GetData extends HttpServlet {
 		MongoCollection collection = mongo.getCollection("passenger");
 		Document doc=new Document();
 		doc.put("name", fname);
+		doc.put("tickets", Tick);
+		doc.put("email", Email);
+		doc.put("TotalPay","$"+23*Tick);
+		collection.insertOne(doc);
 		PrintWriter writer = response.getWriter();
-	        String htmlRespone = "<html>";
-	        htmlRespone += "<h2>Your name is: " + fname + "</h2>";
-	        htmlRespone += "</html>";
-	        writer.println(htmlRespone);
+	        String htmlResponse = "<html>";
+	        htmlResponse += "<h2>Welcome: " + fname + "</h2>";
+	        htmlResponse +="<h3>You have booked" + Tick + "tickets</h3>";
+	        htmlResponse +="<h3>We will send your tickets on your mail" + Email + "</h3>";
+	        htmlResponse +="<h3>You have to pay a total of $" + 23*Tick + "</h3>";
+	        htmlResponse += "</html>";
+	        writer.println(htmlResponse);
 	}
 
 }

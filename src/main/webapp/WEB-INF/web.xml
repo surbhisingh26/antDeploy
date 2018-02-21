@@ -11,27 +11,19 @@
   	<servlet-class>DBConnection</servlet-class>
   </servlet>
   <servlet>
-  	<servlet-name>GetData</servlet-name>
+  	<servlet-name>GetDataa</servlet-name>
   	<display-name>GetData</display-name>
   	<description></description>
   	<servlet-class>webProject1.GetData</servlet-class>
   </servlet>
-  <servlet>
-  	<servlet-name>GetDataa</servlet-name>
-  	<display-name>GetDataa</display-name>
-  	<description></description>
-  	<servlet-class>GetData</servlet-class>
-  </servlet>
+  
   <servlet-mapping>
   	<servlet-name>DBConnection</servlet-name>
   	<url-pattern>/DBConnection</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-  	<servlet-name>GetData</servlet-name>
+  	<servlet-name>GetDataa</servlet-name>
   	<url-pattern>/GetData</url-pattern>
   </servlet-mapping>
-  <servlet-mapping>
-  	<servlet-name>GetDataa</servlet-name>
-  	<url-pattern>/GetDataa</url-pattern>
-  </servlet-mapping>
+  
 </web-app>

@@ -5,8 +5,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+  
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ 
+  
   <style>
   /* Note: Try to remove the following lines to see the effect of CSS positioning */
   .affix {
@@ -18,36 +23,39 @@
   .affix + .container-fluid {
       padding-top: 70px;
   }
+   body {
+      font: 400 15px/1.8 Lato, sans-serif;
+      color: #777;
+  }
   </style>
 </head>
 <body data-spy="scroll" data-target=".navbar" data-offset="50">
-<div class="container-fluid">
-<nav class="navbar navbar-inverse" data-spy="affix" data-offset-top="197">
+<div class="container-full-width" >
+<nav class="navbar navbar-fixed-top navbar-inverse" style="opacity: 0.8; " data-spy="affix" data-offset-top="197">
   
     <div class="navbar-header">
       <a class="navbar-brand" href="#">Logo</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
           <ul class="nav navbar-nav navbar-right">
-      <li class="active"><a href="#home">Home</a></li>
+     <li class="active"><a href="#home">Home</a></li>
       <li><a href="#band">Band</a></li>
       <li><a href="#tour">Tour</a></li>
       <li><a href="#contact">Contact</a></li>
-      <li class="dropdown"><a class="deopdown-toggle" data-toggle="dropdown" href="#">More<span class="caret"></span></a>
+      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">More<span class="caret"></span></a>
       <ul class="dropdown-menu">
           <li><a href="#">Merchandise</a></li>
           <li><a href="#">Extras</a></li>
           <li><a href="#">Media</a></li>
         </ul>
       </li>
-      <li><button class="btn btn-default btn-sm" type="submit" style="background-color:black;">
-            <i class="glyphicon glyphicon-search" ></i>
-          </button></li>
+      <li><a href="#"><i class="glyphicon glyphicon-search" ></i>&nbsp;&nbsp;&nbsp;&nbsp;</a>
+          </li>
     </ul>
   </div>
 </nav>
 
-  <div id="home">
+  <div id="home" >
      <div id="myCarousel " class="carousel slide" data-ride="carousel" >
        <ol class="carousel-indicators">
       <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -132,7 +140,7 @@ Remember to book your tickets!</p>
     <div style="background-color:white;">
     <p class="text-center"><strong>Paris</strong><br>
     Friday 27 November 2015<br>
-    <button type="button" style="background-color:gray;" class="btn" data-toggle="modal" data-target="#myModal">Buy Tickets</button><br><br></p>
+    <button type="button" style="background-color:#A9A9A9;" class="btn" data-toggle="modal" data-target="#myModal">Buy Tickets</button><br><br></p>
     </div>
     <br>
     </div>
@@ -141,14 +149,14 @@ Remember to book your tickets!</p>
     <div style="background-color:white;">
     <p class="text-center"><strong>New York</strong><br>
     Saturday 28 November 2015<br>
-    <button type="button" style="background-color:gray;"class="btn" data-toggle="modal" data-target="#myModal">Buy Tickets</button><br><br></p>
+    <button type="button" style="background-color:#A9A9A9;"class="btn" data-toggle="modal" data-target="#myModal">Buy Tickets</button><br><br></p>
     </div><br></div>
     <div class="col-xs-4">
     <p class="text-center"><img src="images/sanfran.jpg" alt="sanfran"  style="width:100%;"></p>
     <div style="background-color:white;">
     <p class="text-center"><strong>San Francisco</strong><br>
     Sunday 29 November 2015<br>
-    <button type="button" style="background-color:gray;" class="btn" data-toggle="modal" data-target="#myModal">Buy Tickets</button><br><br></p></div><br>
+    <button type="button" style="background-color:#A9A9A9;" class="btn" data-toggle="modal" data-target="#myModal">Buy Tickets</button><br><br></p></div><br>
     </div>
     <br><br><br><br><br><br><br>
   </div>
@@ -160,10 +168,10 @@ Remember to book your tickets!</p>
       <div class="modal-content">
         <div class="modal-header" style="background-color:black;">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h1 class="modal-title text-center" style="font-size:16">Tickets</h1><br><br><br><br>
+          <h1 class="modal-title text-center" style="font-size:16">Tickets</h1><br><br><br>
         </div>
-        <div class="modal-body" style="background-color:white;"><br><br>
-          <form action="GetData.java" method="post">
+        <div class="modal-body" style="background-color:white;"><br>
+          <form action="GetData" method="post">
           <div class="form-group">
           <label for="text">Your Name</label>
           <input type="text" class="form-control" placeholder="Enter Name" name="name">
@@ -174,7 +182,7 @@ Remember to book your tickets!</p>
   </div>
   <div class="form-group input-append spinner" data-trigger="spinner">
     <label for="email">Send To</label>
-    <input type="email" class="form-control " id="email" placeholder="Enter Email">
+    <input type="email" class="form-control " id="email" placeholder="Enter Email"name="email">
   </div>
     <button type="submit" class="btn btn-block">Pay</button>
 </form>
@@ -214,7 +222,7 @@ Remember to book your tickets!</p>
   
   <textarea class="form-control " rows="5" id="comment" placeholder="Comment"></textarea>
 	</div>
-    <p class="text-right"><button type="submit" class="btn"  style="background-color:gray;"> Send </button></p>
+    <p class="text-right"><button type="submit" class="btn"  style="background-color:#A9A9A9;"> Send </button></p>
   </form>
   </div></div><br><br>
   <h4 class="text-center"><strong>From The Blog</strong></h4><br>
