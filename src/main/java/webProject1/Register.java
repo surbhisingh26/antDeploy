@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.bson.Document;
 
+import com.mongodb.DBObject;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
@@ -50,7 +51,16 @@ public class Register extends HttpServlet {
 		mongo=db1.getDB();
 		//---------- Creating Collection ------------
 		MongoCollection collection = mongo.getCollection("registration");
-		System.out.println(collection.find());
+		//System.out.println(collection.find());
+		DBObject dbo = (DBObject) collection.find();
+		if(dbo.get("username")==uname){
+			PrintWriter writer = response.getWriter();
+			String htmlResponse = "<html>";
+			htmlResponse += "<h2>matched</h2>";
+			
+			htmlResponse += "</html>";
+			writer.println(htmlResponse);
+		}
 		Document doc=new Document();
 		doc.put("name", fname+" "+lname);
 		doc.put("username", uname);
