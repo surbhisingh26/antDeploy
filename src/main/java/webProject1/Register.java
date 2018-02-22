@@ -40,7 +40,7 @@ public class Register extends HttpServlet {
 		String uname = request.getParameter("username");
 		String country = request.getParameter("country");
 		String city = request.getParameter("city");
-		int mobile =Integer.parseInt(request.getParameter("mobile"));
+		String mobile =request.getParameter("mobile");
 		String password = request.getParameter("pass");
 		String gender = request.getParameter("gender");
 		MongoDatabase mongo;
