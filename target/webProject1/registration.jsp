@@ -18,9 +18,12 @@
 
 </head>
 <body>
-	<div class="container">
-	<div class="col-xs-2"></div>
-	<div class="col-xs-8">
+
+	<div class="container-fluid" style="background-color:	#323232;">
+	
+	<div class="col-xs-3"></div>
+	<div class="col-xs-6">
+	<div class="jumbotron" style="background-color:	#eafbfb;">
 		<h1>
 			<center>Registration</center>
 		</h1>
@@ -73,14 +76,20 @@
 			</div>
 		</form>
 		</div>
-		<div class="col-xs-2"></div>
+		</div>
+		
+		<div class="col-xs-3"></div>
+	
 	</div>
 	<script>
 function check(){
 	var pass=document.getElementById("pass").value;
 	var passConfirm=document.getElementById("passConfirm").value;
-	var mobile =parseInt(document.getElementById("mobile").value);
-	var fname =document.getElementsByName("lname").value;
+	
+	var mobile= document.getElementById("mobile").value;
+	if(mobile!="")
+		mobile =parseInt(mobile);
+	//var fname =document.getElementsByName("lname").value;
 	if(passConfirm!=pass){
 		document.getElementById("wrong").innerText = "Passwords do not match!!!";
 		return false;

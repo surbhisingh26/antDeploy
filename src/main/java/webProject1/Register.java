@@ -62,14 +62,14 @@ public class Register extends HttpServlet {
 		
 		FindIterable cursor = collection.find();
 		while (cursor.iterator().hasNext()) {
-		    BasicDBObject obj = (BasicDBObject) cursor.iterator().next();
-		    if((obj.get("username"))==uname){
-				PrintWriter writer = response.getWriter();
-				String htmlResponse = "<html>";
-				htmlResponse += "<h2>matched</h2>";
-				htmlResponse += "</html>";
-				writer.println(htmlResponse);
-			}
+//		   // Document obj =  cursor.iterator().next();
+//		    if((obj.get("username"))==uname){
+//				PrintWriter writer = response.getWriter();
+//				String htmlResponse = "<html>";
+//				htmlResponse += "<h2>matched</h2>";
+//				htmlResponse += "</html>";
+//				writer.println(htmlResponse);
+			//}
 		}
 		//DBObject dbo = collection.find();
 		/*if(dbo.get("username")==uname){
