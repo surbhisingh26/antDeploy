@@ -10,7 +10,7 @@ import org.bson.Document;
 public class DBConnection { 
 	public MongoDatabase getDB(){  
 		try{  
-			MongoDatabase mongo;
+			
 			String name="Surbhi";
 			//---------- Connecting DataBase -------------------------//  
 			MongoClient mongoClient = new MongoClient( "localhost" , 27017 );  

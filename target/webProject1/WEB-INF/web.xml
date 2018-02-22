@@ -16,6 +16,12 @@
 		<description></description>
 		<servlet-class>webProject1.GetData</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>Register</servlet-name>
+		<display-name>Register</display-name>
+		<description></description>
+		<servlet-class>webProject1.Register</servlet-class>
+	</servlet>
 
 	<servlet-mapping>
 		<servlet-name>DBConnection</servlet-name>
@@ -24,6 +30,10 @@
 	<servlet-mapping>
 		<servlet-name>GetDataa</servlet-name>
 		<url-pattern>/GetData</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Register</servlet-name>
+		<url-pattern>/Register</url-pattern>
 	</servlet-mapping>
 
 </web-app>

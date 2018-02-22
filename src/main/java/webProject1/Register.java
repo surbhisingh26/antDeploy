@@ -42,6 +42,7 @@ public class Register extends HttpServlet {
 		String city = request.getParameter("city");
 		String mobile =request.getParameter("mobile");
 		String password = request.getParameter("pass");
+		String gender = request.getParameter("gender");
 		MongoDatabase mongo;
 		DBConnection db1 = new DBConnection();
 		mongo=db1.getDB();
@@ -50,6 +51,7 @@ public class Register extends HttpServlet {
 		Document doc=new Document();
 		doc.put("name", fname+" "+lname);
 		doc.put("username", uname);
+		doc.put("gender",gender);
 		doc.put("country",country);
 		doc.put("city",city);
 		doc.put("mobile",mobile);
