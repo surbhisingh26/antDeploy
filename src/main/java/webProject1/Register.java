@@ -2,6 +2,8 @@ package webProject1;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -10,7 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.bson.Document;
 
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
@@ -52,15 +57,29 @@ public class Register extends HttpServlet {
 		//---------- Creating Collection ------------
 		MongoCollection collection = mongo.getCollection("registration");
 		//System.out.println(collection.find());
-		DBObject dbo = (DBObject) collection.find();
-		if(dbo.get("username")==uname){
+	//	BasicDBObject query = new BasicDBObject();
+	//	BasicDBObject field = new BasicDBObject();
+		
+		FindIterable cursor = collection.find();
+		while (cursor.iterator().hasNext()) {
+		    BasicDBObject obj = (BasicDBObject) cursor.iterator().next();
+		    if(obj.get("username")==uname){
+				PrintWriter writer = response.getWriter();
+				String htmlResponse = "<html>";
+				htmlResponse += "<h2>matched</h2>";
+				htmlResponse += "</html>";
+				writer.println(htmlResponse);
+			}
+		}
+		//DBObject dbo = collection.find();
+		/*if(dbo.get("username")==uname){
 			PrintWriter writer = response.getWriter();
 			String htmlResponse = "<html>";
 			htmlResponse += "<h2>matched</h2>";
 			
 			htmlResponse += "</html>";
 			writer.println(htmlResponse);
-		}
+		}*/
 		Document doc=new Document();
 		doc.put("name", fname+" "+lname);
 		doc.put("username", uname);
@@ -70,12 +89,7 @@ public class Register extends HttpServlet {
 		doc.put("mobile",mobile);
 		doc.put("password",password);
 		collection.insertOne(doc);
-		PrintWriter writer = response.getWriter();
-		String htmlResponse = "<html>";
-		htmlResponse += "<h2>Welcome: " + collection.find() + "</h2>";
 		
-		htmlResponse += "</html>";
-		writer.println(htmlResponse);
 	}
 
 }
