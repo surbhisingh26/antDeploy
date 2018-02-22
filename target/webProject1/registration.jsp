@@ -46,7 +46,7 @@
 				</div>
 				<div>
 					<label for="text">Mobile :</label> <input type="text"
-						class="form-control" id="mobile" placeholder="Mobile Number" required>
+						class="form-control" id="mobile" name="mobile" placeholder="Mobile Number" required>
 						<p id = "nan" style="color:red;"></p>
 				</div>
 				<div>
