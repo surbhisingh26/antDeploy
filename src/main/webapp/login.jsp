@@ -37,11 +37,11 @@ body {
 </head>
 <body>
 	<div class="container">
-		<div class="jumbotron">
+		<div class="jumbotron jumnotron-info">
 			<form action=home.jsp>
 				<div class="form-group">
 					<label for="text">Username</label> <input type="text"
-						class="form-control" placeholder="Username" name="uname">
+						class="form-control " placeholder="Username" name="uname">
 				</div>
 				<div class="form-group">
 					<label for="pass">Password</label> <input type="password"
