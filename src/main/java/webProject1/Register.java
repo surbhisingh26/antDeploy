@@ -1,6 +1,8 @@
 package webProject1;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -48,6 +50,7 @@ public class Register extends HttpServlet {
 		mongo=db1.getDB();
 		//---------- Creating Collection ------------
 		MongoCollection collection = mongo.getCollection("registration");
+		System.out.println(collection.find());
 		Document doc=new Document();
 		doc.put("name", fname+" "+lname);
 		doc.put("username", uname);
@@ -57,6 +60,12 @@ public class Register extends HttpServlet {
 		doc.put("mobile",mobile);
 		doc.put("password",password);
 		collection.insertOne(doc);
+		PrintWriter writer = response.getWriter();
+		String htmlResponse = "<html>";
+		htmlResponse += "<h2>Welcome: " + collection.find() + "</h2>";
+		
+		htmlResponse += "</html>";
+		writer.println(htmlResponse);
 	}
 
 }
