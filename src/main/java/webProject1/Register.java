@@ -60,16 +60,16 @@ public class Register extends HttpServlet {
 	//	BasicDBObject query = new BasicDBObject();
 	//	BasicDBObject field = new BasicDBObject();
 		
-		FindIterable cursor = collection.find();
+		FindIterable<Document> cursor = collection.find();
 		while (cursor.iterator().hasNext()) {
-//		   // Document obj =  cursor.iterator().next();
-//		    if((obj.get("username"))==uname){
-//				PrintWriter writer = response.getWriter();
-//				String htmlResponse = "<html>";
-//				htmlResponse += "<h2>matched</h2>";
-//				htmlResponse += "</html>";
-//				writer.println(htmlResponse);
-			//}
+		    Document obj =  cursor.iterator().next();
+		    if((obj.get("username"))==uname){
+				PrintWriter writer = response.getWriter();
+				String htmlResponse = "<html>";
+				htmlResponse += "<h2>matched</h2>";
+				htmlResponse += "</html>";
+				writer.println(htmlResponse);
+			}
 		}
 		//DBObject dbo = collection.find();
 		/*if(dbo.get("username")==uname){
