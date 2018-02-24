@@ -25,8 +25,10 @@ public class UserValidService {
 			if(username.equalsIgnoreCase(uname)){
 				if(pass.equals(password))
 					return "dg";
-				else
+				else{
+					System.out.println(password);				
 					return password;
+				}
 			}
 		}
 		return uname;
