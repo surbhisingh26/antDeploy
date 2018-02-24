@@ -38,8 +38,8 @@ public class UserValid extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String uname = request.getParameter("username");
-		String password = request.getParameter("password");
+		String uname = request.getParameter("uname");
+		String password = request.getParameter("pass");
 		UserValidService uv = new UserValidService();
 		String result = uv.checkValid(uname,password);
 		
