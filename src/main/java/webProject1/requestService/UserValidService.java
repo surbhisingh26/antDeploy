@@ -23,8 +23,11 @@ public class UserValidService {
 			String username = (String)obj.get("username");
 			String pass = (String)obj.get("password");
 			if(username.equalsIgnoreCase(uname)){
-				if(pass.equals(password))
-					return "dg";
+				if(pass.equals(password)){
+					String name = (String)obj.get("name");
+				
+					return name;
+				}
 				else
 					return password;
 			}

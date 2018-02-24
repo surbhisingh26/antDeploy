@@ -58,7 +58,11 @@ public class UserValid extends HttpServlet {
 			writer.println(htmlResponse);
 		}
 		else {
-			response.sendRedirect("home.jsp");
+			
+			request.setAttribute("name", result);
+	        request.getRequestDispatcher("home.jsp").forward(request, response);
+	        response.sendRedirect("home.jsp");
+
 			 //request.getRequestDispatcher("home.jsp").forward(req,res);
 			 /*htmlResponse = "<html><body><script>";
 			htmlResponse += "";

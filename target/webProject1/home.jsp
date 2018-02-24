@@ -44,10 +44,6 @@ body {
 				<a class="navbar-brand" href="#">Logo</a>
 			</div>
 			<div >
-			<ul class="nav navbar-nav navbar-center">
-					<li>Welcome</li></ul>
-			Welcome <%=request.getAttribute("fname "+"lname")%>
-			</div>
 			<div class="collapse navbar-collapse" id="myNavbar">
 				<ul class="nav navbar-nav navbar-right">
 					<li class="active"><a href="#home">Home</a></li>
@@ -55,11 +51,11 @@ body {
 					<li><a href="#tour">Tour</a></li>
 					<li><a href="#contact">Contact</a></li>
 					<li class="dropdown"><a class="dropdown-toggle"
-						data-toggle="dropdown" href="#">More<span class="caret"></span></a>
+						data-toggle="dropdown" href="#"><%=request.getAttribute("name")%><span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li><a href="#">Merchandise</a></li>
-							<li><a href="#">Extras</a></li>
-							<li><a href="#">Media</a></li>
+							<li><a href="#">View Profile</a></li>
+							<li><a href="#">Settings</a></li>
+							<li><a href="#">Logout</a></li>
 						</ul></li>
 					<li><a href="#"><i class="glyphicon glyphicon-search"></i>&nbsp;&nbsp;&nbsp;&nbsp;</a>
 					</li>
