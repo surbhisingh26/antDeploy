@@ -59,9 +59,10 @@ public class UserValid extends HttpServlet {
 		}
 		else {
 			response.sendRedirect("home.jsp");
-			 /*htmlResponse = "<html><body>";
-			htmlResponse += "<a href=home.jsp></a>";
-			htmlResponse += "</body></html>";
+			 //request.getRequestDispatcher("home.jsp").forward(req,res);
+			 /*htmlResponse = "<html><body><script>";
+			htmlResponse += "";
+			htmlResponse += "</script></body></html>";
 			writer.println(htmlResponse);*/
 		}
 	}
