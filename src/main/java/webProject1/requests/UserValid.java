@@ -39,7 +39,7 @@ public class UserValid extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String uname = request.getParameter("username");
-		String password = request.getParameter("pass");
+		String password = request.getParameter("password");
 		UserValidService uv = new UserValidService();
 		String result = uv.checkValid(uname,password);
 		PrintWriter writer = response.getWriter();
@@ -57,7 +57,7 @@ public class UserValid extends HttpServlet {
 		}
 		else {
 			String htmlResponse = "<html>";
-			htmlResponse += "<h2>Wrong password entered</h2>";
+			htmlResponse += "<h2>Correct</h2>";
 			htmlResponse += "</html>";
 			writer.println(htmlResponse);
 		}
