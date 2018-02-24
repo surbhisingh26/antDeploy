@@ -53,7 +53,7 @@ body {
 						data-toggle="dropdown" href="#">More<span class="caret"></span></a>
 						<ul class="dropdown-menu">
 							<li><a href="#">Merchandise</a></li>
-							<li><a href="#">Etras</a></li>
+							<li><a href="#">Extras</a></li>
 							<li><a href="#">Media</a></li>
 						</ul></li>
 					<li><a href="#"><i class="glyphicon glyphicon-search"></i>&nbsp;&nbsp;&nbsp;&nbsp;</a>
