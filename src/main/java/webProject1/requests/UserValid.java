@@ -58,7 +58,7 @@ public class UserValid extends HttpServlet {
 			writer.println(htmlResponse);
 		}
 		else {
-			response.sendRedirect("webProject1/home.jsp");
+			response.sendRedirect("home.jsp");
 			 /*htmlResponse = "<html><body>";
 			htmlResponse += "<a href=home.jsp></a>";
 			htmlResponse += "</body></html>";
