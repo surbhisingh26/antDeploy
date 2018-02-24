@@ -43,7 +43,7 @@ public class UserValid extends HttpServlet {
 		UserValidService uv = new UserValidService();
 		String result = uv.checkValid(uname,password);
 		PrintWriter writer = response.getWriter();
-		if(result==uname){
+		if(result.equals(uname)){
 			String htmlResponse = "<html>";
 			htmlResponse += "<h2>No such username exists <a href='registration.jsp'>Register here</a> </h2>";
 			htmlResponse += "</html>";
