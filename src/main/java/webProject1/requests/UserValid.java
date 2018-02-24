@@ -44,10 +44,7 @@ public class UserValid extends HttpServlet {
 		String result = uv.checkValid(uname,password);
 		
 		PrintWriter writer = response.getWriter();
-		String htmlResponse = "<html>";
-		htmlResponse += "<h2>"+uname+" "+password+" "+result+"</h2>";
-		htmlResponse += "</html>";
-		writer.println(htmlResponse);
+		String htmlResponse;
 		if(result.equals(uname)){
 			htmlResponse = "<html>";
 			htmlResponse += "<h2>No such username exists <a href='registration.jsp'>Register here</a> </h2>";
@@ -61,9 +58,9 @@ public class UserValid extends HttpServlet {
 			writer.println(htmlResponse);
 		}
 		else {
-			 htmlResponse = "<html>";
-			htmlResponse += "<h2>Correct</h2>";
-			htmlResponse += "</html>";
+			 htmlResponse = "<html><body>";
+			htmlResponse += "<a href=home.jsp></a>";
+			htmlResponse += "</body></html>";
 			writer.println(htmlResponse);
 		}
 	}
