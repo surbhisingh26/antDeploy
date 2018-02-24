@@ -58,10 +58,11 @@ public class UserValid extends HttpServlet {
 			writer.println(htmlResponse);
 		}
 		else {
-			 htmlResponse = "<html><body>";
+			response.sendRedirect("/home.jsp");
+			 /*htmlResponse = "<html><body>";
 			htmlResponse += "<a href=home.jsp></a>";
 			htmlResponse += "</body></html>";
-			writer.println(htmlResponse);
+			writer.println(htmlResponse);*/
 		}
 	}
 
