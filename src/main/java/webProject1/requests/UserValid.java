@@ -41,20 +41,20 @@ public class UserValid extends HttpServlet {
 		String uname = request.getParameter("username");
 		String password = request.getParameter("password");
 		UserValidService uv = new UserValidService();
-		boolean result = uv.checkValid(uname,password);
+		String result = uv.checkValid(uname,password);
 		PrintWriter writer = response.getWriter();
-		if(result==false){
+		if(result==uname){
 			String htmlResponse = "<html>";
 			htmlResponse += "<h2>No such username exists <a href='registration.jsp'>Register here</a> </h2>";
 			htmlResponse += "</html>";
 			writer.println(htmlResponse);
 		}
-		/*else if(result.equals(password)){
+		else if(result==password){
 			String htmlResponse = "<html>";
 			htmlResponse += "<h2>Wrong password entered</h2>";
 			htmlResponse += "</html>";
 			writer.println(htmlResponse);
-		}*/
+		}
 		else {
 			String htmlResponse = "<html>";
 			htmlResponse += "<h2>Correct</h2>";

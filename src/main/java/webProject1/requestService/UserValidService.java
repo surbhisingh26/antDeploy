@@ -11,7 +11,7 @@ import com.mongodb.client.MongoDatabase;
 import webProject1.requests.DBConnection;
 public class UserValidService {
 	DBConnection db = new DBConnection();
-	public boolean checkValid(String uname,String password){
+	public String checkValid(String uname,String password){
 		MongoDatabase mongo;
 		mongo=db.getDB();
 		//---------- Creating Collection ------------
@@ -24,11 +24,11 @@ public class UserValidService {
 			String pass = (String)obj.get("password");
 			if(username.equalsIgnoreCase(uname)){
 				if(pass.equals(password))
-					return true;
+					return "dg";
 				else
-					return false;
+					return password;
 			}
 		}
-		return false;
+		return uname;
 	}
 }
