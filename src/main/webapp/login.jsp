@@ -41,7 +41,7 @@ body {
 	<div class="col-xs-3"></div>
 	<div class="col-xs-6">
 		<div class="jumbotron" style="background-color: #eafbf2;">
-			<form action=home.jsp>
+			<form action=home.jsp method ="post">
 				<div class="form-group">
 					<label for="text">Username</label> <input type="text"
 						class="form-control " placeholder="Username" name="uname" required>

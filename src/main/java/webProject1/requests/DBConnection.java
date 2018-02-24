@@ -1,4 +1,4 @@
-package webProject1;
+package webProject1.requests;
 
 
 import com.mongodb.MongoClient;  

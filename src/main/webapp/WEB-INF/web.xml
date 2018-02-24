@@ -8,19 +8,25 @@
 		<servlet-name>DBConnection</servlet-name>
 		<display-name>DBConnection</display-name>
 		<description></description>
-		<servlet-class>DBConnection</servlet-class>
+		<servlet-class>webProject1.requests.DBConnection</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>GetDataa</servlet-name>
 		<display-name>GetData</display-name>
 		<description></description>
-		<servlet-class>webProject1.GetData</servlet-class>
+		<servlet-class>webProject1.requests.GetData</servlet-class>
 	</servlet>
 	<servlet>
-		<servlet-name>Register</servlet-name>
+		<servlet-name>Registerr</servlet-name>
 		<display-name>Register</display-name>
 		<description></description>
-		<servlet-class>webProject1.Register</servlet-class>
+		<servlet-class>webProject1.requests.Register</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>UserValid</servlet-name>
+		<display-name>UserValid</display-name>
+		<description></description>
+		<servlet-class>webProject1.requests.UserValid</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -32,8 +38,12 @@
 		<url-pattern>/GetData</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>Register</servlet-name>
+		<servlet-name>Registerr</servlet-name>
 		<url-pattern>/Register</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>UserValid</servlet-name>
+		<url-pattern>/UserValid</url-pattern>
 	</servlet-mapping>
 
 </web-app>

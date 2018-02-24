@@ -1,4 +1,4 @@
-package webProject1;
+package webProject1.requests;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -11,7 +11,8 @@ import org.bson.Document;
 import com.mongodb.DBCollection;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import webProject1.DBConnection;
+
+import webProject1.requests.DBConnection;
 
 
 
