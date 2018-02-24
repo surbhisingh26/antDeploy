@@ -43,12 +43,10 @@ body {
 			<div class="navbar-header">
 				<a class="navbar-brand" href="#">Logo</a>
 			</div>
-			<div class= "nav navbar-center">
-			 <%
-			String uname = request.getParameter("uname");
-			String password = request.getParameter("pass");
-			%>
-			Welcome +"uname"
+			<div >
+			<ul class="nav navbar-nav navbar-center">
+					<li>Welcome</li></ul>
+			Welcome <%=request.getAttribute("fname "+"lname")%>
 			</div>
 			<div class="collapse navbar-collapse" id="myNavbar">
 				<ul class="nav navbar-nav navbar-right">
