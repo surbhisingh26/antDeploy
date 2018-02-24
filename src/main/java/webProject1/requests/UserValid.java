@@ -45,7 +45,7 @@ public class UserValid extends HttpServlet {
 		
 		PrintWriter writer = response.getWriter();
 		String htmlResponse = "<html>";
-		htmlResponse += "<h2>"+uname+" "+password+"</h2>";
+		htmlResponse += "<h2>"+uname+" "+password+" "+result+"</h2>";
 		htmlResponse += "</html>";
 		writer.println(htmlResponse);
 		if(result.equals(uname)){
