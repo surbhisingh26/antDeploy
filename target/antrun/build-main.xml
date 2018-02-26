@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<project name="maven-antrun-" default="main"  >
-<target name="main">
-  <copy file="C:\Users\Java\workspace1\webProject1\target/webProject1.war" todir="/soft/apache-tomcat-8.5.23/webapps"/>
-</target>
-</project>

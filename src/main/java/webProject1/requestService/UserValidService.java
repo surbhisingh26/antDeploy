@@ -1,10 +1,6 @@
 package webProject1.requestService;
-
-import java.net.PasswordAuthentication;
 import java.util.Iterator;
-
 import org.bson.Document;
-
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
@@ -15,9 +11,9 @@ public class UserValidService {
 		MongoDatabase mongo;
 		mongo=db.getDB();
 		//---------- Creating Collection ------------
-		MongoCollection collection = mongo.getCollection("registration");
+		MongoCollection<Document> collection = mongo.getCollection("registration");
 		FindIterable<Document> cursor = collection.find();
-		Iterator i = cursor.iterator();
+		Iterator<Document> i = cursor.iterator();
 		while (i.hasNext()) {
 			Document obj =  (Document) i.next();
 			String username = (String)obj.get("username");
@@ -25,7 +21,7 @@ public class UserValidService {
 			if(username.equalsIgnoreCase(uname)){
 				if(pass.equals(password)){
 					String name = (String)obj.get("name");
-				
+
 					return name;
 				}
 				else

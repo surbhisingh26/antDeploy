@@ -43,22 +43,36 @@ body {
 			<div class="navbar-header">
 				<a class="navbar-brand" href="#">Logo</a>
 			</div>
-			<div >
+
 			<div class="collapse navbar-collapse" id="myNavbar">
 				<ul class="nav navbar-nav navbar-right">
 					<li class="active"><a href="#home">Home</a></li>
 					<li><a href="#band">Band</a></li>
 					<li><a href="#tour">Tour</a></li>
 					<li><a href="#contact">Contact</a></li>
-					<li class="dropdown"><a class="dropdown-toggle"
-						data-toggle="dropdown" href="#"><%=request.getAttribute("name")%><span class="caret"></span></a>
+					<%
+							String name = (String) request.getAttribute("name");
+						%>
+					<%
+							if (name == null) {
+						%>
+					<li><a href="login.jsp">Login</a></li>
+					<%
+							} else {
+						%><li class="dropdown"><a class="dropdown-toggle"
+						data-toggle="dropdown" href="#"> <%=name%> <span class="caret"></span></a>
+						<%
+								}
+						session.setAttribute("fullname", name);
+						
+							%>
 						<ul class="dropdown-menu">
-							<li><a href="#">View Profile</a></li>
+							<li><a href="profile.jsp" >View Profile</a></li>
 							<li><a href="#">Settings</a></li>
-							<li><a href="#">Logout</a></li>
+							<li><a href="home.jsp">Logout</a></li>
 						</ul></li>
-					<li><a href="#"><i class="glyphicon glyphicon-search"></i>&nbsp;&nbsp;&nbsp;&nbsp;</a>
-					</li>
+					<li style="margin-right: 15px"><a href="#"><i
+							class="glyphicon glyphicon-search"></i></a></li>
 				</ul>
 			</div>
 		</nav>
@@ -108,15 +122,11 @@ body {
 				</a>
 
 			</div>
-			<br>
-			<br>
-			<br>
-			<br>
+			<br> <br> <br> <br>
 		</div>
 	</div>
 	<div id="band" class="container-fluid" style="background-color: white;">
-		<br>
-		<br>
+		<br> <br>
 		<h4 class="text-center">THE BAND</h4>
 		<p class="text-center">
 			<small>We love music!</small><br> We have created a fictional
@@ -132,57 +142,41 @@ body {
 			nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
 			consequat.
 		</p>
-		<br>
-		<br>
+		<br> <br>
 		<div class="row">
 			<div class="container-fluid" style="background-color: white;">
 				<div class="col-xs-4 ">
 					<p class="text-center">
-						<b>Name</b><br>
-						<br>
-						<img src="images/bandmember.jpg" class="img-circle person"
-							alt="member" width="255" height="255">
+						<b>Name</b><br> <br> <img src="images/bandmember.jpg"
+							class="img-circle person" alt="member" width="255" height="255">
 					</p>
 				</div>
 				<div class="col-xs-4">
 					<p class="text-center">
-						<b>Name</b><br>
-						<br>
-						<img src="images/bandmember.jpg" class="img-circle person"
-							alt="member" width="255" height="255">
+						<b>Name</b><br> <br> <img src="images/bandmember.jpg"
+							class="img-circle person" alt="member" width="255" height="255">
 					</p>
 				</div>
 				<div class="col-xs-4">
 					<p class="text-center">
-						<b>Name</b><br>
-						<br>
-						<img src="images/bandmember.jpg" class="img-circle person"
-							alt="member" width="255" height="255">
+						<b>Name</b><br> <br> <img src="images/bandmember.jpg"
+							class="img-circle person" alt="member" width="255" height="255">
 					</p>
 				</div>
 			</div>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
+			<br> <br> <br> <br> <br> <br> <br>
 		</div>
 	</div>
 	<div id="tour" class="container-fluid" style="background-color: black;">
 		<div class="container" style="background-color: black;">
-			<br>
-			<br>
-			<br>
+			<br> <br> <br>
 			<h4 class="text-center">T O U R &nbsp;&nbsp;&nbsp; D A T E S</h4>
 			<br>
 			<p class="text-center">
 				Lorem ipsum we'll play you some music.<br> Remember to book
 				your tickets!
 			</p>
-			<br> <br>
-			<br>
+			<br> <br> <br>
 
 			<ul class="list-group">
 				<li class="list-group-item">September <span
@@ -203,8 +197,7 @@ body {
 							<button type="button" style="background-color: #A9A9A9;"
 								class="btn" data-toggle="modal" data-target="#myModal">Buy
 								Tickets</button>
-							<br>
-							<br>
+							<br> <br>
 						</p>
 					</div>
 					<br>
@@ -219,13 +212,12 @@ body {
 							<button type="button" style="background-color: #A9A9A9;"
 								class="btn" data-toggle="modal" data-target="#myModal">Buy
 								Tickets</button>
-							<br>
-							<br>
+							<br> <br>
 						</p>
 					</div>
 					<br>
 				</div>
-				<div class="col-xs-4">
+				<div class="col-xs-4" style="margin-bottom: 80px;">
 					<p class="text-center">
 						<img src="images/sanfran.jpg" alt="sanfran" style="width: 100%;">
 					</p>
@@ -235,19 +227,12 @@ body {
 							<button type="button" style="background-color: #A9A9A9;"
 								class="btn" data-toggle="modal" data-target="#myModal">Buy
 								Tickets</button>
-							<br>
-							<br>
+							<br> <br>
 						</p>
 					</div>
 					<br>
 				</div>
-				<br>
-				<br>
-				<br>
-				<br>
-				<br>
-				<br>
-				<br>
+
 			</div>
 			<!-- Modal -->
 			<div class="modal fade" id="myModal" role="dialog">
@@ -258,9 +243,7 @@ body {
 						<div class="modal-header" style="background-color: black;">
 							<button type="button" class="close" data-dismiss="modal">&times;</button>
 							<h1 class="modal-title text-center" style="font-size: 16">Tickets</h1>
-							<br>
-							<br>
-							<br>
+							<br> <br> <br>
 						</div>
 						<div class="modal-body" style="background-color: white;">
 							<br>
@@ -296,9 +279,7 @@ body {
 	<div id="contact" class="container-fluid"
 		style="background-color: white;">
 		<div class="container">
-			<br>
-			<br>
-			<br>
+			<br> <br> <br>
 			<h4 class="text-center">
 				<strong>C o n t a c t</strong>
 			</h4>
@@ -332,8 +313,7 @@ body {
 							placeholder="Email" name="email">
 					</div>
 				</form>
-				<br>
-				<br>
+				<br> <br>
 				<div>
 					<form class="form-horizontal">
 						<div class="form-group">
@@ -348,8 +328,7 @@ body {
 					</form>
 				</div>
 			</div>
-			<br>
-			<br>
+			<br> <br>
 			<h4 class="text-center">
 				<strong>From The Blog</strong>
 			</h4>
@@ -377,8 +356,7 @@ body {
 					<p>I mean, sometimes I enjoy the show, but other times I enjoy
 						other things.</p>
 				</div>
-				<br>
-				<br>
+				<br> <br>
 			</div>
 		</div>
 	</div>

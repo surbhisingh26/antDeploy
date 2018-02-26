@@ -43,7 +43,7 @@
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>UserValid</servlet-name>
-		<url-pattern>/UserValid</url-pattern>
+		<url-pattern>/loginHome</url-pattern>
 	</servlet-mapping>
 
 </web-app>

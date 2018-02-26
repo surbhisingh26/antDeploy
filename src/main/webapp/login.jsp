@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
 <title>Bootstrap Example</title>
@@ -37,33 +36,37 @@ body {
 </head>
 <body>
 
-	<div class="container-fluid" style="background-color: #c1c1c1;"><br><br><br><br><br><br>
-	<div class="col-xs-3"></div>
-	<div class="col-xs-6">
-		<div class="jumbotron" style="background-color: #eafbf2;">
-			<form action=UserValid method ="post">
-				<div class="form-group">
-					<label for="text">Username</label> <input type="text"
-						class="form-control " placeholder="Username" name="uname" required>
-				</div>
-				<div class="form-group">
-					<label for="pass">Password</label> <input type="password"
-						class="form-control" name="pass" placeholder="Password" required>
-				</div>
-				
-				<button type="submit" class="btn btn-info">Sign in</button>
-			</form>
-			<div>
-				<form action=registration.jsp>
-					
-					<button type="submit" class="btn btn-warning pull-right" >Sign up</button>
-					<label class="pull-right">New User? </label>
+	<div class="container-fluid" style="background-color: #c1c1c1;">
+		<div class="col-xs-3"></div>
+		<div class="col-xs-6">
+			<div class="jumbotron"
+				style="background-color: #eafbf2; margin-bottom: 183px; margin-top: 183px">
+				<form action="loginHome" method="post">
+					<div class="form-group">
+						<label for="text">Username</label> <input type="text"
+							class="form-control " placeholder="Username" name="uname"
+							required>
+					</div>
+					<div class="form-group">
+						<label for="pass">Password</label> <input type="password"
+							class="form-control" name="pass" placeholder="Password" required>
+					</div>
+
+					<button type="submit" class="btn btn-info">Sign in</button>
 				</form>
+				<div>
+					<form action=registration.jsp>
+
+						<button type="submit" class="btn btn-warning pull-right">Sign
+							up</button>
+						<label class="pull-right" style="margin-right: 10px">New
+							User? </label>
+					</form>
+				</div>
 			</div>
-		</div>
-		<br><br><br><br><br><br><br>
+
 		</div>
 		<div class="col-xs-3"></div>
-		
+
 	</div>
 </body>
