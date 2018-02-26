@@ -36,10 +36,11 @@ function check() {
 		}
 		
 		function fnames(){
-			fname = document.getElementById("fname").value;
-			if(fname.length==1){
+			firstname = document.getElementById("fname").value;
+			if(firstname.length==1){
 				
-				document.getElementById("fname").value=fname.toUpperCase();
+				//firstname =firstname.toUpperCase();
+				document.getElementById("fname").value=firstname.toUpperCase();
 			}
 			
 			
