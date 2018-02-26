@@ -24,13 +24,14 @@
 		if (name == null) {
 	%>
 	<h1>
-		<a href=login.jsp>Login</a> to view your profile
+		<a href="login.jsp">Login</a> to view your profile
 	</h1>
 	<%
 		} else {
 	%>
 	<p>This is you profile</p>
 	<%=name%>
+	<a href ="home.jsp">Home</a>
 	<%
 		}
 	%>
