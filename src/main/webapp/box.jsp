@@ -14,19 +14,45 @@
 <body>
 
 	<div class="container">
-		<div class="well well-lg" id="1">3</div>
-		<div class="jumbotron" id="2">1</div>
-		<div class="panel panel-default" id="3">2</div>
+		<h2>Sorting the data in the container</h2>
+		<div class="well well-lg" id="box1">3</div>
+		<div class="jumbotron" id="box2">1</div>
+		<div class="panel panel-default" id="box3"
+			style="margin-bottom: 80px;">2</div>
 		<script>
 			var i = 1;
 			var a = [];
 			for (i = 1; i < 4; i++)
-				a[i] = document.getElementById(i);
+				a[i] = document.getElementById("box"+i);
 			for (i = 1; i < 4; i++) {
 				if (a[i].innerHTML > a[i + 1].innerHTML) {
 					var temp = a[i].innerHTML;
 					a[i].innerHTML = a[i + 1].innerHTML;
 					a[i + 1].innerHTML = temp;
+				}
+			}
+		</script>
+	</div>
+	<div class="container">
+		<h2>Sorting the container according to data</h2>
+		<div class="well well-lg" id="box11">3</div>
+		<div class="jumbotron" id="box12">1</div>
+		<div class="panel panel-default" id="box13">2</div>
+<script>
+			var i = 1;
+			var a = [];
+			for (i = 1; i < 4; i++)
+				a[i] = document.getElementById("box1"+i);
+			//document.write("Hello");
+			for (i = 1; i < 4; i++) {
+				if (a[i].innerHTML > a[i + 1].innerHTML) {
+					
+					var temp =a[i].className;
+					var t=a[i].innerHTML;
+					a[i].className = a[i+1].className;
+					a[i].innerHTML=a[i+1].innerHTML;
+					a[i+1].className = temp;
+					a[i+1].innerHTML=t;
 				}
 			}
 		</script>
