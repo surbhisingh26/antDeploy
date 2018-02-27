@@ -23,7 +23,7 @@
 			var i = 1;
 			var a = [];
 			for (i = 1; i < 4; i++)
-				a[i] = document.getElementById("box"+i);
+				a[i] = document.getElementById("box" + i);
 			for (i = 1; i < 4; i++) {
 				if (a[i].innerHTML > a[i + 1].innerHTML) {
 					var temp = a[i].innerHTML;
@@ -34,26 +34,45 @@
 		</script>
 	</div>
 	<div class="container">
-		<h2>Sorting the container according to data</h2>
+		<h2>Sorting the container according to data using arrays</h2>
 		<div class="well well-lg" id="box11">3</div>
 		<div class="jumbotron" id="box12">1</div>
 		<div class="panel panel-default" id="box13">2</div>
-<script>
+		<script>
 			var i = 1;
 			var a = [];
 			for (i = 1; i < 4; i++)
-				a[i] = document.getElementById("box1"+i);
+				a[i] = document.getElementById("box1" + i);
 			//document.write("Hello");
 			for (i = 1; i < 4; i++) {
 				if (a[i].innerHTML > a[i + 1].innerHTML) {
-					
-					var temp =a[i].className;
-					var t=a[i].innerHTML;
-					a[i].className = a[i+1].className;
-					a[i].innerHTML=a[i+1].innerHTML;
-					a[i+1].className = temp;
-					a[i+1].innerHTML=t;
+
+					var temp = a[i].className;
+					var t = a[i].innerHTML;
+					a[i].className = a[i + 1].className;
+					a[i].innerHTML = a[i + 1].innerHTML;
+					a[i + 1].className = temp;
+					a[i + 1].innerHTML = t;
 				}
+			}
+		</script>
+	</div>
+	
+	<div class="container" id="div1">
+		<h2>Sorting the container according to data using nodes</h2>
+		<div class="well well-lg" id="box21">3</div>
+		<div class="jumbotron" id="box22">1</div>
+		<div class="panel panel-default" id="box23">2</div>
+		<script>
+		var i = 1;
+			var a = [];
+			for (i = 1; i < 4; i++) {
+				
+				a[i] = document.getElementById("box2" + i);
+			}
+			var element = document.getElementById("div1");
+			if(a[i].innerHTML>a[i+1].innerHTML){
+				element.insertBefore(a[i+1].innerHTML,a[i].innerHTML);
 			}
 		</script>
 	</div>
