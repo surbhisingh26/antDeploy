@@ -1,7 +1,10 @@
+webProject1\requests\Profile.class
 webProject1\requests\DBConnection.class
 webProject1\requestService\UserValidService.class
 webProject1\requestService\RegisterService.class
 webProject1\requests\Register.class
 webProject1\requests\UserValid.class
+webProject1\requests\Logout.class
+webProject1\requests\MyFilter.class
 webProject1\requests\Passenger.class
 webProject1\requests\GetData.class

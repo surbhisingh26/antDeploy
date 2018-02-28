@@ -57,24 +57,34 @@
 			}
 		</script>
 	</div>
-	
+
 	<div class="container" id="div1">
 		<h2>Sorting the container according to data using nodes</h2>
 		<div class="well well-lg" id="box21">3</div>
 		<div class="jumbotron" id="box22">1</div>
 		<div class="panel panel-default" id="box23">2</div>
 		<script>
-		var i = 1;
+			var i = 1, j;
 			var a = [];
 			for (i = 1; i < 4; i++) {
-				
+
 				a[i] = document.getElementById("box2" + i);
 			}
 			var element = document.getElementById("div1");
-			if(a[i].innerHTML>a[i+1].innerHTML){
-				element.insertBefore(a[i+1].innerHTML,a[i].innerHTML);
+			for (i = 1; i < 4; i++) {
+				for (j = i + 1; j < 4; j++) {
+					if (a[i].innerHTML > a[j].innerHTML) {
+						element.insertBefore(a[j], a[i]);
+					}
+				}
 			}
 		</script>
 	</div>
+	<span alt = "Surabhi">Hello</span>
+	<script>
+	var text = document.getElementsByTagName("span")[0].innerHTML;
+	var alt = document.getElementsByTagName("span")[0].getAttribute("alt");
+	alert(text + " " +alt+ " "+"All boxes are arranged");
+	</script>
 </body>
 </html>

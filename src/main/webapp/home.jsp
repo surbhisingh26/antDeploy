@@ -50,26 +50,29 @@ body {
 					<li><a href="#band">Band</a></li>
 					<li><a href="#tour">Tour</a></li>
 					<li><a href="#contact">Contact</a></li>
+					
 					<%
-							String name = (String) request.getAttribute("name");
+					
+					
 						%>
 					<%
-							if (name == null) {
+							if (session == null) {
 						%>
 					<li><a href="login.jsp">Login</a></li>
 					<%
 							} else {
+								String name=(String)session.getAttribute("name"); 
 						%><li class="dropdown"><a class="dropdown-toggle"
 						data-toggle="dropdown" href="#"> <%=name%> <span class="caret"></span></a>
 						<%
 								}
-						session.setAttribute("fullname", name);
+						
 						
 							%>
 						<ul class="dropdown-menu">
-							<li><a href="profile.jsp" >View Profile</a></li>
+							<li><a href="Profile">View Profile</a></li>
 							<li><a href="#">Settings</a></li>
-							<li><a href="home.jsp">Logout</a></li>
+							<li><a href="Logout">Logout</a></li>
 						</ul></li>
 					<li style="margin-right: 15px"><a href="#"><i
 							class="glyphicon glyphicon-search"></i></a></li>
