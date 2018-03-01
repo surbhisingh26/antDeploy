@@ -57,7 +57,7 @@ public class UserValid extends HttpServlet {
 	        session.setAttribute("name",result);  
 			request.setAttribute("name", result);
 			out.println("<h1>Hello</h1>");
-			request.getRequestDispatcher("home.jsp").include(request, response);
+			request.getRequestDispatcher("home.jsp").forward(request, response);
 			out.println("<h1>Hello</h1>");
 			//request.getRequestDispatcher("profile.jsp").forward(request, response);
 		}

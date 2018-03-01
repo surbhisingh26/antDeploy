@@ -3,10 +3,10 @@
  "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
-<welcome-file-list>  
-   <welcome-file>home.jsp</welcome-file>  
-     
-  </welcome-file-list>
+<welcome-file-list>
+	<welcome-file>home.jsp</welcome-file>
+
+</welcome-file-list>
 	<display-name>Archetype Created Web Application</display-name>
 	<servlet>
 		<servlet-name>DBConnection</servlet-name>
@@ -44,12 +44,7 @@
 		<description></description>
 		<servlet-class>webProject1.requests.Logout</servlet-class>
 	</servlet>
-	<servlet>
-		<servlet-name>MyFilter</servlet-name>
-		<display-name>MyFilter</display-name>
-		<description></description>
-		<servlet-class>webProject1.requests.MyFilter</servlet-class>
-	</servlet>
+	
 
 	<servlet-mapping>
 		<servlet-name>DBConnection</servlet-name>
@@ -75,9 +70,6 @@
 		<servlet-name>Logout</servlet-name>
 		<url-pattern>/Login</url-pattern>
 	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>MyFilter</servlet-name>
-		<url-pattern>/MyFilter</url-pattern>
-	</servlet-mapping>
+	
 
 </web-app>
