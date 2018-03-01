@@ -38,29 +38,29 @@ public class UserValid extends HttpServlet {
 		UserValidService uv = new UserValidService();
 		String result = uv.checkValid(uname,password);
 
-		PrintWriter writer = response.getWriter();
-		String htmlResponse;
+		PrintWriter out = response.getWriter();
+		
 		if(result.equals(uname)){
-			htmlResponse = "<html>";
-			htmlResponse += "<h2>No such username exists <a href='registration.jsp'>Register here</a> </h2>";
-			htmlResponse += "</html>";
-			writer.println(htmlResponse);
+			
+			out.print("<h2>No such username exists <a href='registration.jsp'>Register here</a> </h2>");
+			
+			
 			request.getRequestDispatcher("login.jsp").include(request, response); 
 		}
 		else if(result.equals(password)){
-			htmlResponse = "<html>";
-			htmlResponse += "<h2>Wrong password entered</h2>";
-			htmlResponse += "</html>";
-			writer.println(htmlResponse);
+			
+			out.print("<h2>Wrong password entered</h2>");
 			request.getRequestDispatcher("login.jsp").include(request, response); 
 		}
 		else {
 			HttpSession session=request.getSession();  
 	        session.setAttribute("name",result);  
 			request.setAttribute("name", result);
-			request.getRequestDispatcher("home.jsp").forward(request, response);
+			request.getRequestDispatcher("home.jsp").include(request, response);
+			out.println("<h1>Hello</h1>");
 			//request.getRequestDispatcher("profile.jsp").forward(request, response);
 		}
+		out.close();
 	}
 
 }

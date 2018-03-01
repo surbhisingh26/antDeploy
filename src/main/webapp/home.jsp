@@ -52,10 +52,6 @@ body {
 					<li><a href="#contact">Contact</a></li>
 					
 					<%
-					
-					
-						%>
-					<%
 							if (session == null) {
 						%>
 					<li><a href="login.jsp">Login</a></li>
@@ -66,8 +62,6 @@ body {
 						data-toggle="dropdown" href="#"> <%=name%> <span class="caret"></span></a>
 						<%
 								}
-						
-						
 							%>
 						<ul class="dropdown-menu">
 							<li><a href="Profile">View Profile</a></li>
