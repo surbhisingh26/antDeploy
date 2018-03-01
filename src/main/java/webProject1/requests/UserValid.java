@@ -42,7 +42,7 @@ public class UserValid extends HttpServlet {
 		
 		if(result.equals(uname)){
 			
-			out.print("<h2>No such username exists <a href='registration.jsp'>Register here</a> </h2>");
+			out.print("<h2>No such username exists <a href='registration.jsp'>Register here</a> or login with another username</h2>");
 			
 			
 			request.getRequestDispatcher("login.jsp").include(request, response); 
