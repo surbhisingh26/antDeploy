@@ -10,10 +10,21 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style>
+body {
+	position: relative;
+	top: -22px;
+	font: 400 15px/1.8 Lato, sans-serif;
+	color: #777;
+}
+</style>
 </head>
 <body>
-
+	<%
+		request.getRequestDispatcher("header.jsp").include(request, response);
+	%>
 	<div class="container">
+
 		<h2>Sorting the data in the container</h2>
 		<div class="well well-lg" id="box1">3</div>
 		<div class="jumbotron" id="box2">1</div>
@@ -80,11 +91,11 @@
 			}
 		</script>
 	</div>
-	<span alt = "Surabhi">Hello</span>
+	<span alt="Surabhi">Hello</span>
 	<script>
-	var text = document.getElementsByTagName("span")[0].innerHTML;
-	var alt = document.getElementsByTagName("span")[0].getAttribute("alt");
-	alert(text + " " +alt+ " "+"All boxes are arranged");
+		var text = document.getElementsByTagName("span")[0].innerHTML;
+		var alt = document.getElementsByTagName("span")[0].getAttribute("alt");
+		alert(text + " " + alt + " " + "All boxes are arranged");
 	</script>
 </body>
 </html>

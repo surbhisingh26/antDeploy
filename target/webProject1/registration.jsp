@@ -15,25 +15,31 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<script
-	src="http://localhost:8080/webProject1/jsFiles/check.js"></script>
-	
+<script src="http://localhost:8080/webProject1/jsFiles/check.js"></script>
 
+<style>
+body {
+	position: relative;
+	top: -22px;
+	font: 400 15px/1.8 Lato, sans-serif;
+	color: #777;
+}
+</style>
 </head>
 <body>
-
+	<%request.getRequestDispatcher("header.jsp").include(request, response); %>
 	<div class="container-fluid" style="background-color: #323232;">
-
 		<div class="col-xs-3"></div>
 		<div class="col-xs-6">
 			<div class="jumbotron" style="background-color: #eafbfb;">
 				<h1 style="text-align: center;">Registration</h1>
 				<form action="Register" method="post">
 					<div class="form-group inline">
-						<label for="text">Name :</label> <input type="text" id="fname" onkeyup="fnames()"
-							class="form-control" name="fname" placeholder="First Name" 
-							required> <input type="text" class="form-control" id="lname"
-							name="lname" placeholder="Last Name" onkeyup="lnames()" required>
+						<label for="text">Name :</label> <input type="text" id="fname"
+							onkeyup="fnames()" class="form-control" name="fname"
+							placeholder="First Name" required> <input type="text"
+							class="form-control" id="lname" name="lname"
+							placeholder="Last Name" onkeyup="lnames()" required>
 					</div>
 					<div class="form-group">
 						<div>
@@ -59,13 +65,13 @@
 						<div>
 							<label for="pass">Password :</label> <input type="password"
 								class="form-control" name="pass" placeholder="Password"
-								id="pass"  onkeydown="passLength()" required>
-								<p id = "len"  style="color: red;"></p>
+								id="pass" onkeydown="passLength()" required>
+							<p id="len" style="color: red;"></p>
 						</div>
 						<div>
 							<label for="pass">Confirm Password :</label> <input
 								type="password" class="form-control" name="passConfirm"
-								placeholder="Re-Type Your Password" id="passConfirm"required>
+								placeholder="Re-Type Your Password" id="passConfirm" required>
 							<p id="wrong" style="color: red;"></p>
 						</div>
 						<div>
@@ -91,15 +97,15 @@
 
 	</div>
 	<script>
-	/* function fname(){
-			//var fname=document.getElementById("fname");
-			//var key = true;
-			//if(key){
-			var x = document.getElementById("fname");
-		    x.value = x.value.toUpperCase();
-			//}
-			
-		} */
+		/* function fname(){
+				//var fname=document.getElementById("fname");
+				//var key = true;
+				//if(key){
+				var x = document.getElementById("fname");
+			    x.value = x.value.toUpperCase();
+				//}
+				
+			} */
 	</script>
 </body>
 </html>

@@ -33,7 +33,8 @@ public class Logout extends HttpServlet {
 	     HttpSession session=request.getSession();  
          session.invalidate();  
 	          
-	        out.print("you are successfully logged out!"); 
+	        out.print("<p style='margin-top:70px;margin-left:20px'>you are successfully logged out!"); 
+	        //out.print("<p>Go to <a href = home.jsp>Home</a> page</p>");
 	        request.getRequestDispatcher("login.jsp").include(request, response);
 	}
 

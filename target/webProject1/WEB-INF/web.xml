@@ -68,7 +68,7 @@
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>Logout</servlet-name>
-		<url-pattern>/Login</url-pattern>
+		<url-pattern>/login</url-pattern>
 	</servlet-mapping>
 	
 

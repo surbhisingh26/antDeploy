@@ -42,23 +42,24 @@ public class UserValid extends HttpServlet {
 		
 		if(result.equals(uname)){
 			
-			out.print("<h2>No such username exists <a href='registration.jsp'>Register here</a> or login with another username</h2>");
+			out.print("<p style='margin-top:70px;margin-left:20px'>No such username exists <a href='registration.jsp'>Register here</a> or login with another username</p>");
 			
 			
 			request.getRequestDispatcher("login.jsp").include(request, response); 
 		}
 		else if(result.equals(password)){
 			
-			out.print("<h2>Wrong password entered</h2>");
+			out.print("<p style='margin-top:70px;margin-left:20px'>Wrong password entered</p>");
 			request.getRequestDispatcher("login.jsp").include(request, response); 
 		}
 		else {
-			HttpSession session=request.getSession();  
+			HttpSession session=request.getSession(); 
+			
 	        session.setAttribute("name",result);  
-			request.setAttribute("name", result);
-			out.println("<h1>Hello</h1>");
+			//request.setAttribute("name", result);
+			
 			request.getRequestDispatcher("home.jsp").forward(request, response);
-			out.println("<h1>Hello</h1>");
+			
 			//request.getRequestDispatcher("profile.jsp").forward(request, response);
 		}
 		out.close();

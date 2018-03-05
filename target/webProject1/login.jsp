@@ -27,15 +27,16 @@
 .affix+.container-fluid {
 	padding-top: 70px;
 }
-
 body {
+	position: relative;
+	top: -22px;
 	font: 400 15px/1.8 Lato, sans-serif;
 	color: #777;
 }
 </style>
 </head>
 <body>
-
+	<%request.getRequestDispatcher("header.jsp").include(request, response); %>
 	<div class="container-fluid" style="background-color: #c1c1c1;">
 		<div class="col-xs-3"></div>
 		<div class="col-xs-6">

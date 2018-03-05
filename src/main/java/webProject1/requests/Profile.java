@@ -5,12 +5,11 @@ import java.io.PrintWriter;
 
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-@WebServlet("/Profile")
+
 /**
  * Servlet implementation class Profile
  */
@@ -33,12 +32,14 @@ public class Profile extends HttpServlet {
 		HttpSession session=request.getSession(false);  
         if(session!=null){  
         String name=(String)session.getAttribute("name");  
-          
-        out.print("Hello, "+name+" Welcome to Profile"); 
-        out.print("<a href ='home.jsp'>Home</a>");
+       
+        out.print("<p style='margin-top:50px;margin-left:20px'>Hello, "+name+" Welcome to Profile<p>"); 
+        request.getRequestDispatcher("header.jsp").include(request, response);
+        //out.print("<a href ='home.jsp'>Home</a>");
+        
         }  
         else{  
-            out.print("Please login first");  
+            out.print("<p style='margin-top:50px;margin-left:20px'>Please login first");  
             request.getRequestDispatcher("login.jsp").include(request, response);  
         }  
         out.close();  

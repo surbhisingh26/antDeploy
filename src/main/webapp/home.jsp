@@ -16,13 +16,13 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-
 <style>
 /* Note: Try to remove the following lines to see the effect of CSS positioning */
 .affix {
 	top: 0;
 	width: 100%;
 	z-index: 9999 !important;
+	
 }
 
 .affix+.container-fluid {
@@ -30,98 +30,67 @@
 }
 
 body {
+position: relative;
+	top: -22px;
 	font: 400 15px/1.8 Lato, sans-serif;
 	color: #777;
 }
 </style>
+<link rel="import" href="header.jsp" id="templates">
 </head>
 <body data-spy="scroll" data-target=".navbar" data-offset="50">
-	<div class="container-full-width">
-		<nav class="navbar navbar-fixed-top navbar-inverse"
-			style="opacity: 0.8;" data-spy="affix" data-offset-top="197">
+	<%request.getRequestDispatcher("header.jsp").include(request, response); %>
 
-			<div class="navbar-header">
-				<a class="navbar-brand" href="#">Logo</a>
-			</div>
 
-			<div class="collapse navbar-collapse" id="myNavbar">
-				<ul class="nav navbar-nav navbar-right">
-					<li class="active"><a href="#home">Home</a></li>
-					<li><a href="#band">Band</a></li>
-					<li><a href="#tour">Tour</a></li>
-					<li><a href="#contact">Contact</a></li>
-					
-					<%
-							if (session == null) {
-						%>
-					<li><a href="login.jsp">Login</a></li>
-					<%
-							} else {
-								String name=(String)session.getAttribute("name"); 
-						%><li class="dropdown"><a class="dropdown-toggle"
-						data-toggle="dropdown" href="#"> <%=name%> <span class="caret"></span></a>
-						<%
-								}
-							%>
-						<ul class="dropdown-menu">
-							<li><a href="Profile">View Profile</a></li>
-							<li><a href="#">Settings</a></li>
-							<li><a href="Logout">Logout</a></li>
-						</ul></li>
-					<li style="margin-right: 15px"><a href="#"><i
-							class="glyphicon glyphicon-search"></i></a></li>
-				</ul>
-			</div>
-		</nav>
+	<div id="home" class="container-full-width">
 
-		<div id="home">
-			<div id="myCarousel " class="carousel slide" data-ride="carousel">
-				<ol class="carousel-indicators">
-					<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-					<li data-target="#myCarousel" data-slide-to="1"></li>
-					<li data-target="#myCarousel" data-slide-to="2"></li>
-				</ol>
-				<div class="carousel-inner">
-					<div class="item active">
-						<img src="images/la.jpg" alt="Los Angeles" style="width: 100%;">
-						<div class="carousel-caption">
-							<h3>Los Angeles</h3>
-							<p>LA is always so much fun!</p>
-						</div>
-					</div>
-
-					<div class="item">
-						<img src="images/chicago.jpg" alt="Chicago" style="width: 100%;">
-						<div class="carousel-caption">
-							<h3>Chicago</h3>
-							<p>Thank you, Chicago!</p>
-						</div>
-					</div>
-
-					<div class="item">
-						<img src="images/ny.jpg" alt="New york" style="width: 100%;">
-
-						<div class="carousel-caption">
-							<h3>New York</h3>
-							<p>We love the Big Apple!</p>
-						</div>
+		<div id="myCarousel " class="carousel slide" data-ride="carousel">
+			<ol class="carousel-indicators">
+				<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+				<li data-target="#myCarousel" data-slide-to="1"></li>
+				<li data-target="#myCarousel" data-slide-to="2"></li>
+			</ol>
+			<div class="carousel-inner">
+				<div class="item active">
+					<img src="images/la.jpg" alt="Los Angeles" style="width: 100%;">
+					<div class="carousel-caption">
+						<h3>Los Angeles</h3>
+						<p>LA is always so much fun!</p>
 					</div>
 				</div>
 
-				<a class="left carousel-control" href="#myCarousel"
-					data-slide="prev"> <span
-					class="glyphicon glyphicon-chevron-left"></span> <span
-					class="sr-only">Previous</span>
-				</a> <a class="right carousel-control" href="#myCarousel"
-					data-slide="next"> <span
-					class="glyphicon glyphicon-chevron-right"></span> <span
-					class="sr-only">Next</span>
-				</a>
+				<div class="item">
+					<img src="images/chicago.jpg" alt="Chicago" style="width: 100%;">
+					<div class="carousel-caption">
+						<h3>Chicago</h3>
+						<p>Thank you, Chicago!</p>
+					</div>
+				</div>
 
+				<div class="item">
+					<img src="images/ny.jpg" alt="New york" style="width: 100%;">
+
+					<div class="carousel-caption">
+						<h3>New York</h3>
+						<p>We love the Big Apple!</p>
+					</div>
+				</div>
 			</div>
-			<br> <br> <br> <br>
+
+			<a class="left carousel-control" href="#myCarousel" data-slide="prev">
+				<span class="glyphicon glyphicon-chevron-left"></span> <span
+				class="sr-only">Previous</span>
+			</a> <a class="right carousel-control" href="#myCarousel"
+				data-slide="next"> <span
+				class="glyphicon glyphicon-chevron-right"></span> <span
+				class="sr-only">Next</span>
+			</a>
+
 		</div>
+		<br> <br> <br> <br>
 	</div>
+
+
 	<div id="band" class="container-fluid" style="background-color: white;">
 		<br> <br>
 		<h4 class="text-center">THE BAND</h4>
