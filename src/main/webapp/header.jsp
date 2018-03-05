@@ -50,10 +50,10 @@ body {
 
 			<div class="collapse navbar-collapse" id="myNavbar">
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="/webProject1/#home">Home</a></li>
-					<li><a href="/webProject1/#band">Band</a></li>
-					<li><a href="/webProject1/#tour">Tour</a></li>
-					<li><a href="/webProject1/#contact">Contact</a></li>
+					<li class = "active"><a data-toggle="tab" href="/webProject1/#home">Home</a></li>
+					<li><a data-toggle="tab" href="/webProject1/#band">Band</a></li>
+					<li><a data-toggle="tab" href="/webProject1/#tour">Tour</a></li>
+					<li><a data-toggle="tab" href="/webProject1/#contact">Contact</a></li>
 					
 					<%
 					String name=(String)session.getAttribute("name");
