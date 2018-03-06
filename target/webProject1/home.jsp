@@ -20,7 +20,15 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/js/bootstrap-datepicker.min.js"></script>
 <script type="text/javascript"
 	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/locales/bootstrap-datepicker.de.min.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$('.date_picker input').datepicker({
+			format : "dd/mm/yyyy",
+			todayBtn : "linked",
 
+		});
+	});
+</script>
 <style>
 /* Note: Try to remove the following lines to see the effect of CSS positioning */
 .affix {
@@ -232,8 +240,9 @@ body {
 									<label for="text">Travel Date</label>
 									<div class="date_picker input-group date">
 										<input type="text" id="abc" class="form-control"
-											placeholder="DD/MM/YYYY"> <span class="input-group-addon">
-											<span class="glyphicon glyphicon-calendar"></span>
+											placeholder="DD/MM/YYYY"> <span
+											class="input-group-addon"> <span
+											class="glyphicon glyphicon-calendar"></span>
 										</span>
 									</div>
 								</div>
@@ -341,14 +350,6 @@ body {
 			</div>
 		</div>
 	</div>
-<script type="text/javascript">
-        $(function(){
-        $('.date_picker input').datepicker({
-           format: "dd/mm/yyyy",
-           todayBtn: "linked",
-          
-        });
-    });
-    </script>
+
 </body>
 </html>
