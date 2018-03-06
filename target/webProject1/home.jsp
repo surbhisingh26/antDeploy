@@ -4,6 +4,7 @@
 <title>Bootstrap Example</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link href="https://fonts.googleapis.com/css?family=Lato"
@@ -15,6 +16,10 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/js/bootstrap-datepicker.min.js"></script>
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/locales/bootstrap-datepicker.de.min.js"></script>
 
 <style>
 /* Note: Try to remove the following lines to see the effect of CSS positioning */
@@ -22,7 +27,6 @@
 	top: 0;
 	width: 100%;
 	z-index: 9999 !important;
-	
 }
 
 .affix+.container-fluid {
@@ -30,7 +34,7 @@
 }
 
 body {
-position: relative;
+	position: relative;
 	top: -22px;
 	font: 400 15px/1.8 Lato, sans-serif;
 	color: #777;
@@ -39,7 +43,9 @@ position: relative;
 <link rel="import" href="header.jsp" id="templates">
 </head>
 <body data-spy="scroll" data-target=".navbar" data-offset="50">
-	<%request.getRequestDispatcher("header.jsp").include(request, response); %>
+	<%
+		request.getRequestDispatcher("header.jsp").include(request, response);
+	%>
 
 
 	<div id="home" class="container-full-width">
@@ -222,6 +228,15 @@ position: relative;
 									<label for="text"> Tickets, $23 per person</label> <input
 										type="text" class="form-control" value="0" name="tickets">
 								</div>
+								<div class="form-group">
+									<label for="text">Travel Date</label>
+									<div class="date_picker input-group date">
+										<input type="text" id="abc" class="form-control"
+											placeholder="DD/MM/YYYY"> <span class="input-group-addon">
+											<span class="glyphicon glyphicon-calendar"></span>
+										</span>
+									</div>
+								</div>
 								<div class="form-group input-append spinner"
 									data-trigger="spinner">
 									<label for="email">Send To</label> <input type="email"
@@ -326,5 +341,14 @@ position: relative;
 			</div>
 		</div>
 	</div>
+<script type="text/javascript">
+        $(function(){
+        $('.date_picker input').datepicker({
+           format: "dd/mm/yyyy",
+           todayBtn: "linked",
+          
+        });
+    });
+    </script>
 </body>
 </html>

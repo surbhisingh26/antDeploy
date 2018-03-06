@@ -40,7 +40,7 @@ body {
 </head>
 <body data-spy="scroll" data-target=".navbar" data-offset="50">
 
-	<div class="container-full-width" >
+	<div class="container-full-width">
 		<nav class="navbar navbar-fixed-top navbar-inverse"
 			style="opacity: 0.8;" data-spy="affix" data-offset-top="197">
 
@@ -50,10 +50,10 @@ body {
 
 			<div class="collapse navbar-collapse" id="myNavbar">
 				<ul class="nav navbar-nav navbar-right">
-					<li class = "active"><a data-toggle="tab" href="/webProject1/#home">Home</a></li>
-					<li><a data-toggle="tab" href="/webProject1/#band">Band</a></li>
-					<li><a data-toggle="tab" href="/webProject1/#tour">Tour</a></li>
-					<li><a data-toggle="tab" href="/webProject1/#contact">Contact</a></li>
+					<li class="active"><a href="/webProject1/#home">Home</a></li>
+					<li><a href="/webProject1/#band">Band</a></li>
+					<li><a href="/webProject1/#tour">Tour</a></li>
+					<li><a href="/webProject1/#contact">Contact</a></li>
 					
 					<%
 					String name=(String)session.getAttribute("name");
@@ -64,14 +64,14 @@ body {
 							} else {
 								
 						%><li class="dropdown"><a class="dropdown-toggle"
-						data-toggle="dropdown" > <%=name%> <span class="caret"></span></a>
+						data-toggle="dropdown" href="#"> <%=name%> <span class="caret"></span></a>
 						<%
 								}
 							%>
 						<ul class="dropdown-menu">
 							<li><a href="Profile">View Profile</a></li>
 							<li><a href="#">Settings</a></li>
-							<li><a href="login">Logout</a></li>
+							<li><a href="logout">Logout</a></li>
 						</ul></li>
 					<li style="margin-right: 15px"><a href="#"><i
 							class="glyphicon glyphicon-search"></i></a></li>

@@ -32,6 +32,7 @@ public class UserValid extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//String name;
 		response.setContentType("text/html");
 		String uname = request.getParameter("uname");
 		String password = request.getParameter("pass");
@@ -54,13 +55,9 @@ public class UserValid extends HttpServlet {
 		}
 		else {
 			HttpSession session=request.getSession(); 
-			
-	        session.setAttribute("name",result);  
-			//request.setAttribute("name", result);
-			
-			request.getRequestDispatcher("home.jsp").forward(request, response);
-			
-			//request.getRequestDispatcher("profile.jsp").forward(request, response);
+	        session.setAttribute("name",result);  	
+	        //name=(String)session.getAttribute("name");
+			request.getRequestDispatcher("home.jsp").forward(request, response);			
 		}
 		out.close();
 	}

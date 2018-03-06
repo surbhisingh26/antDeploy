@@ -1,17 +1,27 @@
-alert("Hello");
-function home(){
-	alert("Hello");
-	document.getElementById("home1").innerHTML=document.getElementById("home.home").innerHTML;
-}
-function home1(){
-	alert("Hello1");
-	document.getElementById("home1").innerHTML=document.getElementById("home:home").innerHTML;
-}
-function home2(){
-	alert("Hello2");
-	document.getElementById("home1").innerHTML=document.getElementById("home.jsp:home").innerHTML;
-}
-function home3(){
-	alert("Hello3");
-	document.getElementById("home1").innerHTML=document.getElementById("home").innerHTML;
-}
+
+					function login(){
+						alert("hello");
+					var element =document.getElementById("ref");
+					var add =document.createElement("span");
+					var log = document.getElementById("login");
+					var ul = document.createElement("ul");
+					var name=session.getAttribute("name");
+							if (name == null) {
+					log.innerHTML="Login";
+					element.setAttribute("href","login.jsp");
+					
+					
+							} else {
+				
+					document.getElementById("login").seAttribute("class","dropdown");
+					element.setAttribute("class","dropdown-toggle");
+					document.getElementById("ref").seAttribute("data-toggle","dropdown");
+					element.appendChild(add);
+					add.setAttribute("class","caret");
+					
+						log.appendChild(ul);
+						ul.setAttribute("class","dropdown-menu");
+						ul.appendChild(document.createElement("li"));
+								}
+							
+					}
