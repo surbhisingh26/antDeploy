@@ -1,6 +1,5 @@
 package webProject1.requestService;
 
-import java.io.PrintWriter;
 import java.util.Iterator;
 
 import org.bson.Document;

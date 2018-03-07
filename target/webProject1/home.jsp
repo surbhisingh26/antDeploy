@@ -220,7 +220,7 @@ body {
 
 					<!-- Modal content-->
 					<div class="modal-content">
-						<div class="modal-header" style="background-color: black;">
+						<div class="modal-header" style="background-color: #323232;">
 							<button type="button" class="close" data-dismiss="modal">&times;</button>
 							<h1 class="modal-title text-center" style="font-size: 16">Tickets</h1>
 							<br> <br> <br>
@@ -239,7 +239,7 @@ body {
 								<div class="form-group">
 									<label for="text">Travel Date</label>
 									<div class="date_picker input-group date">
-										<input type="text" id="abc" class="form-control"
+										<input type="text" id="date" name="date" class="form-control"
 											placeholder="DD/MM/YYYY"> <span
 											class="input-group-addon"> <span
 											class="glyphicon glyphicon-calendar"></span>

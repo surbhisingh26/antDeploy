@@ -25,6 +25,7 @@ public class TableData {
 			int tickets = (Integer)obj.get("tickets");
 			String email= (String)obj.get("email");
 			String total = (String)obj.get("TotalPay");
+			String date =(String)obj.get("date");
 		}
 	
  }

@@ -42,7 +42,10 @@ public class Table extends HttpServlet {
 			int tickets = (Integer)obj.get("tickets");
 			String email= (String)obj.get("email");
 			String total = (String)obj.get("TotalPay");
-			request.setAttribute("Name", );
+			request.setAttribute("Name",name );
+			request.setAttribute("Tickets",tickets );
+			request.setAttribute("Email",email );
+			request.setAttribute("Total",total);
 		}
 	}
 

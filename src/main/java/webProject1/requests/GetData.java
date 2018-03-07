@@ -2,13 +2,12 @@ package webProject1.requests;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.bson.Document;
-import com.mongodb.DBCollection;
+
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
@@ -42,6 +41,7 @@ public class GetData extends HttpServlet {
 		String fname = request.getParameter("name");
 		int Tick =Integer.parseInt(request.getParameter("tickets"));
 		String Email =request.getParameter("email");
+		String Date =request.getParameter("date");
 		System.out.println("My name "+fname);
 		MongoDatabase mongo;
 		DBConnection db1 = new DBConnection();
@@ -52,6 +52,7 @@ public class GetData extends HttpServlet {
 		doc.put("name", fname);
 		doc.put("tickets", Tick);
 		doc.put("email", Email);
+		doc.put("date",Date );
 		doc.put("TotalPay","$"+23*Tick);
 		collection.insertOne(doc);
 		PrintWriter writer = response.getWriter();
