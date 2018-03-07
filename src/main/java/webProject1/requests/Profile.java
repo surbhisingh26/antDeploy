@@ -29,14 +29,16 @@ public class Profile extends HttpServlet {
 		response.setContentType("text/html"); 
 		PrintWriter out=response.getWriter();  
         
-		HttpSession session=request.getSession(false);  
-        if(session!=null){  
-        String name=(String)session.getAttribute("name");  
+		HttpSession session=request.getSession(false);
+		
+		String name=(String)session.getAttribute("name");  
+		
+        if(name!=null){  
+        
        
         out.print("<p style='margin-top:50px;margin-left:20px'>Hello, "+name+" Welcome to Profile<p>"); 
         request.getRequestDispatcher("header.jsp").include(request, response);
-        //out.print("<a href ='home.jsp'>Home</a>");
-        
+        //out.print("<a href ='home.jsp'>Home</a>");        
         }  
         else{  
             out.print("<p style='margin-top:50px;margin-left:20px'>Please login first");  

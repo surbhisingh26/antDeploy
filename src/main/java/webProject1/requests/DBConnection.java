@@ -11,7 +11,7 @@ public class DBConnection {
 	public MongoDatabase getDB(){  
 		try{  
 			
-			String name="Surbhi";
+		
 			//---------- Connecting DataBase -------------------------//  
 			MongoClient mongoClient = new MongoClient( "localhost" , 27017 );  
 			//---------- Creating DataBase ---------------------------//  

@@ -26,8 +26,7 @@ public class RegisterService {
 		    if(username.equalsIgnoreCase(uname)){
 				return false;
 			}
-		}
-		
+		}		
 	Document doc=new Document();
 	doc.put("name", fname+" "+ lname);
 	doc.put("username", uname);

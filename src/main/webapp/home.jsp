@@ -239,7 +239,7 @@ body {
 								<div class="form-group">
 									<label for="text">Travel Date</label>
 									<div class="date_picker input-group date">
-										<input type="text" id="abc" class="form-control"
+										<input type="text" id="date" name="date" class="form-control"
 											placeholder="DD/MM/YYYY"> <span
 											class="input-group-addon"> <span
 											class="glyphicon glyphicon-calendar"></span>

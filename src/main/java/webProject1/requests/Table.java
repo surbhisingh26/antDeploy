@@ -1,8 +1,12 @@
 package webProject1.requests;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Date;
 import java.util.Iterator;
+import webProject1.requests.DBConnection;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -27,26 +31,42 @@ public class Table extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
-
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+    	doPost(request,response);
+    }
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		DBConnection db = new DBConnection();
 		MongoDatabase mongo;
 		mongo=db.getDB();
+		/*PrintWriter out = response.getWriter();
+		PrintWriter writer = response.getWriter();*/
+		request.getRequestDispatcher("header.jsp").include(request, response);
+		ServletContext context=getServletContext();
+		request.getRequestDispatcher("tableHead.jsp").include(request, response);
 		MongoCollection<Document> collection = mongo.getCollection("passenger");
 		FindIterable<Document> cursor = collection.find();
 		Iterator<Document> i = cursor.iterator();
+		
 		while (i.hasNext()) {
 			Document obj =  (Document) i.next();
 			String name = (String)obj.get("name");
+			
 			int tickets = (Integer)obj.get("tickets");
 			String email= (String)obj.get("email");
 			String total = (String)obj.get("TotalPay");
-			request.setAttribute("Name",name );
-			request.setAttribute("Tickets",tickets );
-			request.setAttribute("Email",email );
-			request.setAttribute("Total",total);
+			String date = (String)obj.get("date");
+			context.setAttribute("Name",name );
+			context.setAttribute("Tickets",tickets );
+			context.setAttribute("Email",email );
+			context.setAttribute("Total",total);
+			context.setAttribute("Date",date);
+			request.getRequestDispatcher("tableRow.jsp").include(request, response);
+			
+			
 		}
-	}
+			
+		}
 
 }
+

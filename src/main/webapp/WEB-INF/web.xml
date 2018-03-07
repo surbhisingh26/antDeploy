@@ -78,7 +78,7 @@
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>Table</servlet-name>
-		<url-pattern>/Table</url-pattern>
+		<url-pattern>/table</url-pattern>
 	</servlet-mapping>
 	
 

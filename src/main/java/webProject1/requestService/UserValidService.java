@@ -21,7 +21,7 @@ public class UserValidService {
 			if(username.equalsIgnoreCase(uname)){
 				if(pass.equals(password)){
 					String name = (String)obj.get("name");
-
+					
 					return name;
 				}
 				else

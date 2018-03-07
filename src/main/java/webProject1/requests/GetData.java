@@ -41,7 +41,7 @@ public class GetData extends HttpServlet {
 		String fname = request.getParameter("name");
 		int Tick =Integer.parseInt(request.getParameter("tickets"));
 		String Email =request.getParameter("email");
-		String Date =request.getParameter("date");
+		String Date =(String)request.getParameter("date");
 		System.out.println("My name "+fname);
 		MongoDatabase mongo;
 		DBConnection db1 = new DBConnection();
