@@ -61,7 +61,7 @@ body {
 					var temp = a[i].className;
 					var t = a[i].innerHTML;
 					a[i].className = a[i + 1].className;
-					a[i].innerHTML = a[i + 1].innerHTML;
+					//a[i].innerHTML = a[i + 1].innerHTML;
 					a[i + 1].className = temp;
 					a[i + 1].innerHTML = t;
 				}

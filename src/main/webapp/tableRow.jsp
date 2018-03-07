@@ -32,7 +32,7 @@ body {
 			int tick = (Integer) context.getAttribute("Tickets");
 		%>
 		<%
-			String date = (String) context.getAttribute("Date");
+			String datee = (String) context.getAttribute("Date");
 		%>
 		<%
 			String email = (String) context.getAttribute("Email");
@@ -40,11 +40,11 @@ body {
 		<%
 			String total = (String) context.getAttribute("Total");
 		%>
-		<p id="name"><%=name%></p>
-		<p id="tick"><%=tick%></p>
-		<p id="date"><%=date%></p>
-		<p id="email"><%=email%></p>
-		<p id="total"><%=total%></p>
+		<p id="name" class=<%=name%>><%=name%></p>
+		<p id="tick" class=<%=tick%>><%=tick%></p>
+		<p id="datee"class=<%=datee%>><%=datee%></p>
+		<p id="email"class=<%=email%>><%=email%></p>
+		<p id="total"class=<%=total%>><%=total%></p>
 
 		<script>
 			myFunction();
@@ -54,18 +54,20 @@ body {
 			function myFunction() {
 
 				var table = document.getElementById("myTable");
-				alert(document.getElementById("name").innerText);
+				alert(document.getElementById("name").className);
+				alert(document.getElementById("tick").className);
+				alert(document.getElementById("datee").className);
 				var row = table.insertRow();
 				var cell1 = row.insertCell(0);
 				var cell2 = row.insertCell(1);
 				var cell3 = row.insertCell(2);
 				var cell4 = row.insertCell(3);
 				var cell5 = row.insertCell(4);
-				cell1.innerHTML = document.getElementById("name").textContent;
-				cell2.innerHTML = document.getElementById("tick").innerHTML;
-				cell3.innerHTML = document.getElementById("date").innerHTML;
-				cell4.innerHTML = document.getElementById("email").innerHTML;
-				cell5.innerHTML = document.getElementById("total").innerHTML;
+				cell1.innerHTML = document.getElementById("name").className;
+				cell2.innerHTML = document.getElementById("tick").className;
+				cell3.innerHTML = document.getElementById("date").className;
+				cell4.innerHTML = document.getElementById("email").className;
+				cell5.innerHTML = document.getElementById("total").className;
 
 			}
 		</script>
