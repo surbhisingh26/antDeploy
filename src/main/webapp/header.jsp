@@ -69,9 +69,10 @@ body {
 								}
 							%>
 						<ul class="dropdown-menu">
-							<li><a href="Profile">View Profile</a></li>
-							<li><a href="#">Settings</a></li>
-							<li><a href="logout">Logout</a></li>
+							<li><a class="dropdown-item" href="Profile">View Profile</a></li>
+							<li><a class="dropdown-item" href="#">Settings</a></li>
+							<li><a class="dropdown-item" href="logout">Logout</a></li>
+							<li><a class="dropdown-item" href="table">History</a></li>
 						</ul></li>
 					<li style="margin-right: 15px"><a href="#"><i
 							class="glyphicon glyphicon-search"></i></a></li>

@@ -6,6 +6,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.bson.Document;
 
 import com.mongodb.client.MongoCollection;
@@ -48,7 +50,10 @@ public class GetData extends HttpServlet {
 		mongo=db1.getDB();
 		//---------- Creating Collection ------------
 		MongoCollection collection = mongo.getCollection("passenger");
+		HttpSession session=request.getSession(); 
+		String user =(String)session.getAttribute("user");
 		Document doc=new Document();
+		doc.put("LoginUser",user);
 		doc.put("name", fname);
 		doc.put("tickets", Tick);
 		doc.put("email", Email);

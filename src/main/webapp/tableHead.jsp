@@ -19,7 +19,7 @@ body {
 </head>
 <body>
 	<div class="container" onload="myFunction()">
-	
+	<h3  style="margin-top:40px;">Your Reservation History</h3>
 		<table class="table table-bordered" id="myTable" style="margin-top:40px;">
 			<tr>
 				<th>Name</th>

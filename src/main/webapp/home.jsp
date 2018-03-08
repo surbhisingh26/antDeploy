@@ -15,7 +15,9 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="http://localhost:8080/webProject1/jsFiles/checkLogin.js"></script>
 <script type="text/javascript"
 	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/js/bootstrap-datepicker.min.js"></script>
 <script type="text/javascript"
@@ -52,7 +54,7 @@ body {
 </head>
 <body data-spy="scroll" data-target=".navbar" data-offset="50">
 	<%
-		request.getRequestDispatcher("header.jsp").include(request, response);
+	request.getRequestDispatcher("header.jsp").include(request, response);
 	%>
 
 
@@ -175,7 +177,7 @@ body {
 						<p class="text-center">
 							<strong>Paris</strong><br> Friday 27 November 2015<br>
 							<button type="button" style="background-color: #A9A9A9;"
-								class="btn" data-toggle="modal" data-target="#myModal">Buy
+								class="btn" data-toggle="modal" data-target="#myModal" onclick="return checkLogin()">Buy
 								Tickets</button>
 							<br> <br>
 						</p>
@@ -190,7 +192,7 @@ body {
 						<p class="text-center">
 							<strong>New York</strong><br> Saturday 28 November 2015<br>
 							<button type="button" style="background-color: #A9A9A9;"
-								class="btn" data-toggle="modal" data-target="#myModal">Buy
+								class="btn" data-toggle="modal" data-target="#myModal" onclick="return checkLogin()">Buy
 								Tickets</button>
 							<br> <br>
 						</p>
@@ -205,7 +207,7 @@ body {
 						<p class="text-center">
 							<strong>San Francisco</strong><br> Sunday 29 November 2015<br>
 							<button type="button" style="background-color: #A9A9A9;"
-								class="btn" data-toggle="modal" data-target="#myModal">Buy
+								class="btn" data-toggle="modal" data-target="#myModal" onclick="return checkLogin()">Buy
 								Tickets</button>
 							<br> <br>
 						</p>

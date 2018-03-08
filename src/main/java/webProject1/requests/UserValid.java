@@ -54,7 +54,9 @@ public class UserValid extends HttpServlet {
 		}
 		else {
 			HttpSession session=request.getSession(); 
-	        session.setAttribute("name",result);  	
+	        session.setAttribute("name",result);
+	        String username=uv.getUname();
+	        session.setAttribute("user", username);
 	        //name=(String)session.getAttribute("name");
 			request.getRequestDispatcher("home.jsp").forward(request, response);			
 		}
