@@ -49,8 +49,13 @@ public class Table extends HttpServlet {
 		MongoCollection<Document> collection = mongo.getCollection("passenger");
 		FindIterable<Document> cursor = collection.find();
 		Iterator<Document> i = cursor.iterator();
-		
-		
+		if(userName==null){
+			out.print("<p style='margin-top:80px;margin-left:40px'>Please login first");  
+			request.getRequestDispatcher("login.jsp").include(request, response); 
+			
+		}
+		else{
+			request.getRequestDispatcher("tableHead.jsp").include(request, response);
 		while (i.hasNext()) {
 			Document obj =  (Document) i.next();
 			String user = (String)obj.get("LoginUser");
@@ -59,7 +64,7 @@ public class Table extends HttpServlet {
 				request.getRequestDispatcher("login.jsp").include(request, response); 
 				break;
 			}
-			request.getRequestDispatcher("tableHead.jsp").include(request, response);
+			
 			if(user.equals(userName)){
 				String name = (String)obj.get("name");			
 				int tickets = (Integer)obj.get("tickets");
@@ -73,6 +78,7 @@ public class Table extends HttpServlet {
 				context.setAttribute("Date",date);
 				request.getRequestDispatcher("tableRow.jsp").include(request, response);	
 			}
+		}
 		}
 
 	}

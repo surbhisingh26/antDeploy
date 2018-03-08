@@ -10,7 +10,13 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Lato"
+	rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Montserrat"
+	rel="stylesheet" type="text/css">
+
 <style>
+
 body {
 	font: 400 15px/1.8 Lato, sans-serif;
 	color: #777;
@@ -39,7 +45,7 @@ body {
 				cell3.innerHTML = '<%=(String) context.getAttribute("Date")%>';
 				cell4.innerHTML = '<%=(String) context.getAttribute("Email")%>';
 				cell5.innerHTML = '<%=(String) context.getAttribute("Total")%>';
-				cell6.innerHTML = '<a href="#" style="margin-left:10px;">Edit</a><a href="#">Delete</a>'
+				cell6.innerHTML = '<a href="#" style="margin-left:10px;">Edit </a><a href="#"> Delete</a>'
 			}
 			myFunction();
 		</script>
