@@ -22,6 +22,5 @@
 						log.appendChild(ul);
 						ul.setAttribute("class","dropdown-menu");
 						ul.appendChild(document.createElement("li"));
-								}
-							
-					}
+								}							
+					}				

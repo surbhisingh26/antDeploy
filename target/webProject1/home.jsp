@@ -223,18 +223,18 @@ body {
 						<div class="modal-header" style="background-color: #323232;">
 							<button type="button" class="close" data-dismiss="modal">&times;</button>
 							<h1 class="modal-title text-center" style="font-size: 16">Tickets</h1>
-							<br> <br> <br>
+							<br>
 						</div>
 						<div class="modal-body" style="background-color: white;">
 							<br>
 							<form action="GetData" method="post">
 								<div class="form-group">
-									<label for="text">Your Name</label> <input type="text"
+									<label for="text">Name</label> <input type="text"
 										class="form-control" placeholder="Enter Name" name="name">
 								</div>
 								<div class="form-group ">
 									<label for="text"> Tickets, $23 per person</label> <input
-										type="text" class="form-control" value="0" name="tickets">
+										type="text" class="form-control" value="1" name="tickets">
 								</div>
 								<div class="form-group">
 									<label for="text">Travel Date</label>

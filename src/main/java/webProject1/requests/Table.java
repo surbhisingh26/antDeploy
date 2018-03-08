@@ -1,8 +1,6 @@
 package webProject1.requests;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.Date;
 import java.util.Iterator;
 import webProject1.requests.DBConnection;
 
@@ -39,8 +37,6 @@ public class Table extends HttpServlet {
 		DBConnection db = new DBConnection();
 		MongoDatabase mongo;
 		mongo=db.getDB();
-		/*PrintWriter out = response.getWriter();
-		PrintWriter writer = response.getWriter();*/
 		request.getRequestDispatcher("header.jsp").include(request, response);
 		ServletContext context=getServletContext();
 		request.getRequestDispatcher("tableHead.jsp").include(request, response);
@@ -50,8 +46,7 @@ public class Table extends HttpServlet {
 		
 		while (i.hasNext()) {
 			Document obj =  (Document) i.next();
-			String name = (String)obj.get("name");
-			
+			String name = (String)obj.get("name");			
 			int tickets = (Integer)obj.get("tickets");
 			String email= (String)obj.get("email");
 			String total = (String)obj.get("TotalPay");
@@ -61,9 +56,7 @@ public class Table extends HttpServlet {
 			context.setAttribute("Email",email );
 			context.setAttribute("Total",total);
 			context.setAttribute("Date",date);
-			request.getRequestDispatcher("tableRow.jsp").include(request, response);
-			
-			
+			request.getRequestDispatcher("tableRow.jsp").include(request, response);		
 		}
 			
 		}
