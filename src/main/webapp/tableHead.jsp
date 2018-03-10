@@ -29,6 +29,7 @@ body {
 				<th>Name</th>
 				<th>Number of Tickets</th>
 				<th>Travel date</th>
+				<th>Time</th>
 				<th>Email</th>
 				<th>Total</th>
 			</tr>			

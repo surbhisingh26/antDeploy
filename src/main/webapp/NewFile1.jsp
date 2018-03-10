@@ -4,7 +4,7 @@
 <title>Bootstrap Example</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link href="https://fonts.googleapis.com/css?family=Lato"
@@ -20,11 +20,7 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/js/bootstrap-datepicker.min.js"></script>
 <script type="text/javascript"
 	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/locales/bootstrap-datepicker.de.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
-      <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.43/css/bootstrap-datetimepicker.min.css"> 
-      <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.43/css/bootstrap-datetimepicker-standalone.css"> 
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.43/js/bootstrap-datetimepicker.min.js"></script>
-	<script type="text/javascript">
+<script type="text/javascript">
 	$(function() {
 		$('.date_picker input').datepicker({
 			format : "dd/mm/yyyy",
@@ -33,13 +29,6 @@
 		});
 	});
 </script>
-<script type="text/javascript">
-                $(function () {
-                    $('.datetime_picker input').datetimepicker({
-                    	format : "hh:mm"
-                    });
-                });
-            </script>
 <style>
 /* Note: Try to remove the following lines to see the effect of CSS positioning */
 .affix {
@@ -63,7 +52,7 @@ body {
 </head>
 <body data-spy="scroll" data-target=".navbar" data-offset="50">
 	<%
-	request.getRequestDispatcher("header.jsp").include(request, response);
+		request.getRequestDispatcher("header.jsp").include(request, response);
 	%>
 
 
@@ -184,9 +173,9 @@ body {
 					</p>
 					<div style="background-color: white;">
 						<p class="text-center">
-							<strong>Paris</strong><br><br>
-							<button type="button" name="Paris" style="background-color: #A9A9A9;"
-								class="btn" data-toggle="modal" data-target="#myModal" onclick="return checkLogin()">Buy
+							<strong>Paris</strong><br> Friday 27 November 2015<br>
+							<button type="button" style="background-color: #A9A9A9;"
+								class="btn" data-toggle="modal" data-target="#myModal">Buy
 								Tickets</button>
 							<br> <br>
 						</p>
@@ -199,9 +188,9 @@ body {
 					</p>
 					<div style="background-color: white;">
 						<p class="text-center">
-							<strong>New York</strong><br><br>
+							<strong>New York</strong><br> Saturday 28 November 2015<br>
 							<button type="button" style="background-color: #A9A9A9;"
-								class="btn" data-toggle="modal" data-target="#myModal" onclick="return checkLogin()">Buy
+								class="btn" data-toggle="modal" data-target="#myModal">Buy
 								Tickets</button>
 							<br> <br>
 						</p>
@@ -214,14 +203,14 @@ body {
 					</p>
 					<div style="background-color: white;">
 						<p class="text-center">
-							<strong>San Francisco</strong><br><br>
+							<strong>San Francisco</strong><br> Sunday 29 November 2015<br>
 							<button type="button" style="background-color: #A9A9A9;"
-								class="btn" data-toggle="modal" data-target="#myModal" onclick="return checkLogin()">Buy
+								class="btn" data-toggle="modal" data-target="#myModal">Buy
 								Tickets</button>
 							<br> <br>
 						</p>
 					</div>
-					<br>
+
 				</div>
 
 			</div>
@@ -234,7 +223,7 @@ body {
 						<div class="modal-header" style="background-color: #323232;">
 							<button type="button" class="close" data-dismiss="modal">&times;</button>
 							<h1 class="modal-title text-center" style="font-size: 16">Tickets</h1>
-							<br>
+							<br> <br> <br>
 						</div>
 						<div class="modal-body" style="background-color: white;">
 							<br>
@@ -244,35 +233,30 @@ body {
 										class="form-control" placeholder="Enter Name" name="name">
 								</div>
 								<div class="form-group ">
-									<label for="text"> Tickets, $23 per person</label> <input
-										type="text" class="form-control" value="1" name="tickets">
+									<label for="text"> Tickets, $23 per person</label>
+								</div>
+								<div class="input-group number-spinner">
+									<span class="input-group-btn data-dwn">
+										<button class="btn btn-default " data-dir="dwn" onclick=" return down()">
+											<span class="glyphicon glyphicon-minus"></span>
+										</button>
+									</span> <input id = "spin" type="text" class="form-control text-center" value="1"
+										min="1" max="40" id="tickets" class="tickets"> <span
+										class="input-group-btn data-up">
+										<button class="btn btn-default" data-dir="up" onclick="return up()">
+											<span class="glyphicon glyphicon-plus"></span>
+										</button>
+									</span>
 								</div>
 								<div class="form-group">
-								<input type ="hidden" value=<script>document.getAttribute("name").innerHtml</script>>
-								</div>
-								
 									<label for="text">Travel Date</label>
-									<div class="form-group ">
-									<div class="col-sm-6">
 									<div class="date_picker input-group date">
 										<input type="text" id="date" name="date" class="form-control"
 											placeholder="DD/MM/YYYY"> <span
 											class="input-group-addon"> <span
 											class="glyphicon glyphicon-calendar"></span>
 										</span>
-									</div>								
 									</div>
-									<div class="col-sm-6">
-									<div class="form-group ">
-									<div class="datetime_picker input-group date" >
-										<input type="text"  id="time" name="time" class="form-control"
-											placeholder="hh:mm"> <span
-											class="input-group-addon"> <span
-											class="glyphicon glyphicon-time"></span>
-										</span>
-									</div>
-								</div>
-								</div>
 								</div>
 								<div class="form-group input-append spinner"
 									data-trigger="spinner">
@@ -378,6 +362,20 @@ body {
 			</div>
 		</div>
 	</div>
-
+<script>
+var val =document.getElementById("spin");
+var n;
+function down(){
+	
+	if(parseInt(val.value).trim()>=1)
+		n -= 1;
+	return(n);
+}
+function up(){
+	if(val.value<=40)
+	val.value += 1;
+	return(val.value);
+}
+</script>
 </body>
 </html>

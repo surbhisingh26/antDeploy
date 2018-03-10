@@ -44,6 +44,7 @@ public class GetData extends HttpServlet {
 		int Tick =Integer.parseInt(request.getParameter("tickets"));
 		String Email =request.getParameter("email");
 		String Date =(String)request.getParameter("date");
+		String Time =(String)request.getParameter("time");		
 		System.out.println("My name "+fname);
 		MongoDatabase mongo;
 		DBConnection db1 = new DBConnection();
@@ -58,6 +59,7 @@ public class GetData extends HttpServlet {
 		doc.put("tickets", Tick);
 		doc.put("email", Email);
 		doc.put("date",Date );
+		doc.put("time",Time );
 		doc.put("TotalPay","$"+23*Tick);
 		collection.insertOne(doc);
 		PrintWriter writer = response.getWriter();

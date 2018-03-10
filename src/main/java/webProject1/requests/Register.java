@@ -35,11 +35,12 @@ public class Register extends HttpServlet {
 		String uname = request.getParameter("username");
 		String country = request.getParameter("country");
 		String city = request.getParameter("city");
+		String dob = request.getParameter("dob");
 		String mobile =request.getParameter("mobile");
 		String password = request.getParameter("pass");
 		String gender = request.getParameter("gender");
 		RegisterService rs = new RegisterService();
-		Boolean result = rs.register(fname, lname, uname,country,city,mobile,password,gender);
+		Boolean result = rs.register(fname, lname, uname,country,city,mobile,password,gender,dob);
 		PrintWriter writer = response.getWriter();
 		if(result == false){
 			String htmlResponse = "<html>";

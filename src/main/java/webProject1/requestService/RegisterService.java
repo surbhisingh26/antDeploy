@@ -13,7 +13,7 @@ import webProject1.requests.DBConnection;
 public class RegisterService {
 	//Register reg = new Register();
 	DBConnection db1 = new DBConnection();
-	public boolean register(String fname,String lname,String uname,String country,String city,String mobile,String password,String gender){
+	public boolean register(String fname,String lname,String uname,String country,String city,String mobile,String password,String gender,String dob){
 	MongoDatabase mongo;
 	mongo=db1.getDB();
 	//---------- Creating Collection ------------
@@ -28,9 +28,11 @@ public class RegisterService {
 			}
 		}		
 	Document doc=new Document();
+	doc.put("uType","User");
 	doc.put("name", fname+" "+ lname);
 	doc.put("username", uname);
 	doc.put("gender",gender);
+	doc.put("dob",dob);
 	doc.put("country",country);
 	doc.put("city",city);
 	doc.put("mobile",mobile);
