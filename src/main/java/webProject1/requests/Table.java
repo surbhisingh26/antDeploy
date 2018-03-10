@@ -23,7 +23,8 @@ import com.mongodb.client.MongoDatabase;
  */
 public class Table extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	String user,uType,name,email,total,date,time;
+	int tickets;
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -42,7 +43,7 @@ public class Table extends HttpServlet {
 		mongo=db.getDB();
 		HttpSession session = request.getSession();
 		String userName = (String)session.getAttribute("user");
-		
+
 		request.getRequestDispatcher("header.jsp").include(request, response);
 		ServletContext context=getServletContext();
 		
@@ -52,33 +53,65 @@ public class Table extends HttpServlet {
 		if(userName==null){
 			out.print("<p style='margin-top:80px;margin-left:40px'>Please login first");  
 			request.getRequestDispatcher("login.jsp").include(request, response); 
-			
+
 		}
 		else{
+			MongoCollection<Document> collection1 = mongo.getCollection("registration");
+			FindIterable<Document> cursor1 = collection1.find();
+			Iterator<Document> j = cursor1.iterator();
+			while(j.hasNext()){
+				Document obj1 =  (Document) j.next();
+				user = (String)obj1.get("username");
+				
+				if(user.equals(userName)){
+					uType=(String)obj1.get("uType");
+					break;
+				}
+			}
 			request.getRequestDispatcher("tableHead.jsp").include(request, response);
-		while (i.hasNext()) {
-			Document obj =  (Document) i.next();
-			String user = (String)obj.get("LoginUser");
-			if(userName==null){
-				out.print("<p style='margin-top:80px;margin-left:40px'>Please login first");  
-				request.getRequestDispatcher("login.jsp").include(request, response); 
-				break;
-			}
 			
-			if(user.equals(userName)){
-				String name = (String)obj.get("name");			
-				int tickets = (Integer)obj.get("tickets");
-				String email= (String)obj.get("email");
-				String total = (String)obj.get("TotalPay");
-				String date = (String)obj.get("date");
-				context.setAttribute("Name",name );
-				context.setAttribute("Tickets",tickets );
-				context.setAttribute("Email",email );
-				context.setAttribute("Total",total);
-				context.setAttribute("Date",date);
-				request.getRequestDispatcher("tableRow.jsp").include(request, response);	
+			if(uType.equalsIgnoreCase("Admin")){
+				while (i.hasNext()) {
+					Document obj =  (Document) i.next();
+					name = (String)obj.get("name");			
+					tickets = (Integer)obj.get("tickets");
+					email= (String)obj.get("email");
+					total = (String)obj.get("TotalPay");
+					date = (String)obj.get("date");
+					time = (String)obj.get("time");
+					context.setAttribute("Name",name );
+					context.setAttribute("Tickets",tickets );
+					context.setAttribute("Email",email );
+					context.setAttribute("Total",total);
+					context.setAttribute("Date",date);
+					context.setAttribute("Time",time);
+					request.getRequestDispatcher("tableRow.jsp").include(request, response);
+				}
 			}
-		}
+			else {
+				while (i.hasNext()) {
+					Document obj =  (Document) i.next();
+					user = (String)obj.get("LoginUser");
+					if(user.equals(userName)){
+						
+						name = (String)obj.get("name");			
+						tickets = (Integer)obj.get("tickets");
+						email= (String)obj.get("email");
+						total = (String)obj.get("TotalPay");
+						date = (String)obj.get("date");
+						time = (String)obj.get("time");
+						context.setAttribute("Name",name );
+						context.setAttribute("Tickets",tickets );
+						context.setAttribute("Email",email );
+						context.setAttribute("Total",total);
+						context.setAttribute("Date",date);
+						context.setAttribute("Time",time);
+						request.getRequestDispatcher("tableRow.jsp").include(request, response);
+					}
+
+				}		
+
+			}
 		}
 
 	}

@@ -4,7 +4,7 @@
 <title>Bootstrap Example</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link href="https://fonts.googleapis.com/css?family=Lato"
@@ -15,13 +15,16 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script
-	src="http://localhost:8080/webProject1/jsFiles/checkLogin.js"></script>
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript"
 	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/js/bootstrap-datepicker.min.js"></script>
 <script type="text/javascript"
 	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/locales/bootstrap-datepicker.de.min.js"></script>
-
-<script type="text/javascript">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
+      <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.43/css/bootstrap-datetimepicker.min.css"> 
+      <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.43/css/bootstrap-datetimepicker-standalone.css"> 
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.43/js/bootstrap-datetimepicker.min.js"></script>
+	<script type="text/javascript">
 	$(function() {
 		$('.date_picker input').datepicker({
 			format : "dd/mm/yyyy",
@@ -30,6 +33,13 @@
 		});
 	});
 </script>
+<script type="text/javascript">
+                $(function () {
+                    $('.datetime_picker input').datetimepicker({
+                    	format : "hh:mm"
+                    });
+                });
+            </script>
 <style>
 /* Note: Try to remove the following lines to see the effect of CSS positioning */
 .affix {
@@ -174,8 +184,8 @@ body {
 					</p>
 					<div style="background-color: white;">
 						<p class="text-center">
-							<strong>Paris</strong><br> Friday 27 November 2015<br>
-							<button type="button" style="background-color: #A9A9A9;"
+							<strong>Paris</strong><br><br>
+							<button type="button" name="Paris" style="background-color: #A9A9A9;"
 								class="btn" data-toggle="modal" data-target="#myModal" onclick="return checkLogin()">Buy
 								Tickets</button>
 							<br> <br>
@@ -189,7 +199,7 @@ body {
 					</p>
 					<div style="background-color: white;">
 						<p class="text-center">
-							<strong>New York</strong><br> Saturday 28 November 2015<br>
+							<strong>New York</strong><br><br>
 							<button type="button" style="background-color: #A9A9A9;"
 								class="btn" data-toggle="modal" data-target="#myModal" onclick="return checkLogin()">Buy
 								Tickets</button>
@@ -204,7 +214,7 @@ body {
 					</p>
 					<div style="background-color: white;">
 						<p class="text-center">
-							<strong>San Francisco</strong><br> Sunday 29 November 2015<br>
+							<strong>San Francisco</strong><br><br>
 							<button type="button" style="background-color: #A9A9A9;"
 								class="btn" data-toggle="modal" data-target="#myModal" onclick="return checkLogin()">Buy
 								Tickets</button>
@@ -238,14 +248,31 @@ body {
 										type="text" class="form-control" value="1" name="tickets">
 								</div>
 								<div class="form-group">
+								<input type ="hidden" value=<script>document.getAttribute("name").innerHtml</script>>
+								</div>
+								
 									<label for="text">Travel Date</label>
+									<div class="form-group ">
+									<div class="col-sm-6">
 									<div class="date_picker input-group date">
 										<input type="text" id="date" name="date" class="form-control"
 											placeholder="DD/MM/YYYY"> <span
 											class="input-group-addon"> <span
 											class="glyphicon glyphicon-calendar"></span>
 										</span>
+									</div>								
 									</div>
+									<div class="col-sm-6">
+									<div class="form-group ">
+									<div class="datetime_picker input-group date" >
+										<input type="text"  id="time" name="time" class="form-control"
+											placeholder="hh:mm"> <span
+											class="input-group-addon"> <span
+											class="glyphicon glyphicon-time"></span>
+										</span>
+									</div>
+								</div>
+								</div>
 								</div>
 								<div class="form-group input-append spinner"
 									data-trigger="spinner">

@@ -40,12 +40,14 @@ body {
 				var cell4 = row.insertCell(3);
 				var cell5 = row.insertCell(4);
 				var cell6 = row.insertCell(5);
+				var cell7 = row.insertCell(6);
 				cell1.innerHTML = '<%=(String) context.getAttribute("Name")%>';
 				cell2.innerHTML = '<%=(Integer) context.getAttribute("Tickets")%>';
 				cell3.innerHTML = '<%=(String) context.getAttribute("Date")%>';
-				cell4.innerHTML = '<%=(String) context.getAttribute("Email")%>';
-				cell5.innerHTML = '<%=(String) context.getAttribute("Total")%>';
-				cell6.innerHTML = '<a href="#" style="margin-left:10px;">Edit </a><a href="#"> Delete</a>'
+				cell4.innerHTML = '<%=(String) context.getAttribute("Time")%>';
+				cell5.innerHTML = '<%=(String) context.getAttribute("Email")%>';
+				cell6.innerHTML = '<%=(String) context.getAttribute("Total")%>';
+				cell7.innerHTML = '<a href="#" style="margin-left:10px;">Edit </a><a href="#"> Delete</a>'
 			}
 			myFunction();
 		</script>
