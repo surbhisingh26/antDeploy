@@ -108,7 +108,7 @@ public class Table extends HttpServlet {
 						context.setAttribute("Time",time);
 						request.getRequestDispatcher("tableRow.jsp").include(request, response);
 					}
-
+					
 				}		
 
 			}
