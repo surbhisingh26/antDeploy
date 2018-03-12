@@ -66,7 +66,7 @@ body {
 	request.getRequestDispatcher("header.jsp").include(request, response);
 	%>
 
-
+	{{dispatch}}
 	<div id="home" class="container-full-width">
 
 		<div id="myCarousel " class="carousel slide" data-ride="carousel">

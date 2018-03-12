@@ -18,37 +18,37 @@
 		<servlet-name>GetDataa</servlet-name>
 		<display-name>GetData</display-name>
 		<description></description>
-		<servlet-class>webProject1.requests.GetData</servlet-class>
+		<servlet-class>com.surbhi.webProject1.requests.GetData</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>Registerr</servlet-name>
 		<display-name>Register</display-name>
 		<description></description>
-		<servlet-class>webProject1.requests.Register</servlet-class>
+		<servlet-class>com.surbhi.webProject1.requests.Register</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>UserValid</servlet-name>
 		<display-name>UserValid</display-name>
 		<description></description>
-		<servlet-class>webProject1.requests.UserValid</servlet-class>
+		<servlet-class>com.surbhi.webProject1.requests.UserValid</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>Profile</servlet-name>
 		<display-name>Profile</display-name>
 		<description></description>
-		<servlet-class>webProject1.requests.Profile</servlet-class>
+		<servlet-class>com.surbhi.webProject1.requests.Profile</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>Logout</servlet-name>
 		<display-name>Logout</display-name>
 		<description></description>
-		<servlet-class>webProject1.requests.Logout</servlet-class>
+		<servlet-class>com.surbhi.webProject1.requests.Logout</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>Table</servlet-name>
 		<display-name>Table</display-name>
 		<description></description>
-		<servlet-class>webProject1.requests.Table</servlet-class>
+		<servlet-class>com.surbhi.webProject1.requests.Table</servlet-class>
 	</servlet>
 	
 
