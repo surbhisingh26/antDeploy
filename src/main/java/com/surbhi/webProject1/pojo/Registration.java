@@ -1,8 +1,8 @@
 package com.surbhi.webProject1.pojo;
 
 import java.util.Date;
-
 public class Registration {
+	
 	private String name;
 	private String username;
 	private String gender;
@@ -20,7 +20,7 @@ public class Registration {
 				+ ", country=" + country + ", city=" + city + ", mobile=" + mobile + ", password=" + password + "]";
 	}
 	public void setName(String fname,String lname) {
-		this.name = fname+lname;
+		this.name = fname+" "+lname;
 	}
 	public String getUsername() {
 		return username;

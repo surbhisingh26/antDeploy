@@ -1,4 +1,4 @@
-package com.surbhi.webProject1.requests;
+/*package com.surbhi.webProject1.requests;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -18,16 +18,16 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.surbhi.webProject1.requests.DBConnection;
 
-/**
+*//**
  * Servlet implementation class Table
- */
+ *//*
 public class Table extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	String user,uType,name,email,total,date,time;
 	int tickets;
-	/**
+	*//**
 	 * @see HttpServlet#HttpServlet()
-	 */
+	 *//*
 	public Table() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -118,3 +118,4 @@ public class Table extends HttpServlet {
 
 }
 
+*/
