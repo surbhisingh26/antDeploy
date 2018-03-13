@@ -52,11 +52,15 @@ public class RegisterService {
 		e.printStackTrace();
 	}*/
 	//---------- Creating Collection ------------
-	DBCursor<Registration> cursor=coll.find().is("username", uname);
-	if(cursor.hasNext()){
-		System.out.println(cursor.next());
-		return false;
-	}
+	DBCursor<Registration> cursor=coll.findOne();
+	Iterator<Registration> i = cursor.iterator();
+	if (i.hasNext()) {
+	    //Registration re = i.next();
+	    //String username = (String)re.find("username");
+	    //if(username.equalsIgnoreCase(uname)){
+			return false;
+	    }
+	//}
 	 /*FindIterable<Registration> cursor = collection.find();
 	Block<Registration> printBlock = new Block<Registration>(); {
 	Iterator<Registration> i = cursor.iterator();
