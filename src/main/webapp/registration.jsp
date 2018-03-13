@@ -14,9 +14,21 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="http://localhost:8080/webProject1/jsFiles/check.js"></script>
+	src="http://localhost:8080/webProject1/jsFiles/check.js"></script>
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/js/bootstrap-datepicker.min.js"></script>
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/locales/bootstrap-datepicker.de.min.js"></script>
+	
+<script type="text/javascript">
+	$(function() {
+		$('.date_picker input').datepicker({
+			format : "dd/mm/yyyy",
+			todayBtn : "linked",
 
+		});
+	});
+</script>
 <style>
 body {
 	position: relative;
@@ -27,7 +39,9 @@ body {
 </style>
 </head>
 <body>
-	<%request.getRequestDispatcher("header.jsp").include(request, response); %>
+	<%
+		request.getRequestDispatcher("header.jsp").include(request, response);
+	%>
 	<div class="container-fluid" style="background-color: #323232;">
 		<div class="col-xs-3"></div>
 		<div class="col-xs-6">
@@ -40,22 +54,33 @@ body {
 							placeholder="First Name" required> <input type="text"
 							class="form-control" id="lname" name="lname"
 							placeholder="Last Name" onkeyup="lnames()" required>
+					
+					<div class="form-group">
+						<label for="text">Username :</label> <input type="text"
+							class="form-control" name="username"
+							placeholder="Username or email" required>
+					</div>
+					<br> <label>Gender :</label>
+					<div class="radio">
+						<label><input type="radio" name="gender" value="female"
+							required>Female </label>
+					</div>
+					<div class="radio">
+						<label><input type="radio" name="gender" value="male"
+							required>Male </label>
+					</div>
 					</div>
 					<div class="form-group">
-						<div>
-							<label for="text">Username :</label> <input type="text"
-								class="form-control" name="username"
-								placeholder="Username or email" required>
+						<label for="text">D.O.B.</label>
+						<div class="date_picker input-group date">
+							<input type="text" id="dob" name="dob" class="form-control"
+								placeholder="DD/MM/YYYY"> <span
+								class="input-group-addon"> <span
+								class="glyphicon glyphicon-calendar"></span>
+							</span>
 						</div>
-						<br> <label>Gender :</label>
-						<div class="radio">
-							<label><input type="radio" name="gender" value="female"
-								required>Female </label>
-						</div>
-						<div class="radio">
-							<label><input type="radio" name="gender" value="male"
-								required>Male </label>
-						</div>
+					</div>
+					<div>
 						<div>
 							<label for="text">Mobile :</label> <input type="text"
 								class="form-control" id="mobile" name="mobile"
@@ -96,16 +121,6 @@ body {
 		<div class="col-xs-3"></div>
 
 	</div>
-	<script>
-		/* function fname(){
-				//var fname=document.getElementById("fname");
-				//var key = true;
-				//if(key){
-				var x = document.getElementById("fname");
-			    x.value = x.value.toUpperCase();
-				//}
-				
-			} */
-	</script>
+	
 </body>
 </html>
