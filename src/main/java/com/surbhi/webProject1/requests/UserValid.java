@@ -1,4 +1,4 @@
-/*package com.surbhi.webProject1.requests;
+package com.surbhi.webProject1.requests;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -9,28 +9,28 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.surbhi.webProject1.requestService.UserValidService;
-*//**
- * Servlet implementation class UserValid
- *//*
+/**
+ * Servlet implementation class GetData
+ */
 public class UserValid extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	*//**
+	/**
 	 * @see HttpServlet#HttpServlet()
-	 *//*
+	 */
 	public UserValid() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	*//**
+	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 *//*
+	 */
 
 
-	*//**
+	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 *//*
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		response.setContentType("text/html");
@@ -55,13 +55,11 @@ public class UserValid extends HttpServlet {
 		else {
 			HttpSession session=request.getSession(); 
 	        session.setAttribute("name",result);
-	        String username=uv.getUname();
-	        session.setAttribute("user", username);
-	        //name=(String)session.getAttribute("name");
+	       // String username=uv.getUname();
+	        session.setAttribute("user", uname);
 			request.getRequestDispatcher("home.jsp").forward(request, response);			
 		}
 		out.close();
 	}
 
 }
-*/

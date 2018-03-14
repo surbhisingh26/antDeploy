@@ -1,12 +1,19 @@
 package com.surbhi.webProject1.pojo;
 
 import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonFormat(pattern = "dd/MM/yyyy")
 public class Registration {
 	
+	private String uType;
 	private String name;
 	private String username;
 	private String gender;
-	private String dob;
+	private Date dob;
 	private String country;
 	private String city;
 	private String mobile;
@@ -34,10 +41,10 @@ public class Registration {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	public String getDob() {
+	public Date getDob() {
 		return dob;
 	}
-	public void setDob(String dob) {
+	public void setDob(Date dob) {
 		this.dob = dob;
 	}
 	public String getCountry() {
@@ -63,5 +70,11 @@ public class Registration {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	public String getuType() {
+		return uType;
+	}
+	public void setuType(String uType) {
+		this.uType = uType;
 	}
 }

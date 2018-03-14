@@ -5,10 +5,12 @@
 		<%
 			ServletContext context = getServletContext();
 		%>
+		<p>hello</p>
 		<script type="text/javascript">
 			
 			function myFunction() {
 				var table = document.getElementById("myTable");
+				alert('<%=(String) context.getAttribute("Name")%>');
 				var row = table.insertRow();
 				var cell1 = row.insertCell(0);
 				var cell2 = row.insertCell(1);

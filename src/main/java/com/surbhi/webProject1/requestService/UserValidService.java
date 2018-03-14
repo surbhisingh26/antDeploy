@@ -1,39 +1,42 @@
-/*package com.surbhi.webProject1.requestService;
-import java.util.Iterator;
-import org.bson.Document;
-import com.mongodb.client.FindIterable;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
+package com.surbhi.webProject1.requestService;
+
+import org.mongojack.DBCursor;
+import org.mongojack.JacksonDBCollection;
+
+import com.mongodb.BasicDBObject;
+import com.mongodb.DB;
+import com.mongodb.DBCollection;
+
+import com.surbhi.webProject1.pojo.Registration;
 import com.surbhi.webProject1.requests.DBConnection;
 public class UserValidService {
-	String username;
+	
 	DBConnection db = new DBConnection();
 	public String checkValid(String uname,String password){
-		MongoDatabase mongo;
+		DB mongo;
 		mongo=db.getDB();
+		DBCollection collec = mongo.getCollection("registration");
+		JacksonDBCollection<Registration, String> coll = JacksonDBCollection.wrap(collec,Registration.class, String.class);
 		
-		//---------- Creating Collection ------------
-		MongoCollection<Document> collection = mongo.getCollection("registration");
-		FindIterable<Document> cursor = collection.find();
-		Iterator<Document> i = cursor.iterator();
-		while (i.hasNext()) {
-			Document obj =  (Document) i.next();
-			username = (String)obj.get("username");
-			String pass = (String)obj.get("password");
-			//id=(String)obj.get("_id");
-			if(username.equalsIgnoreCase(uname)){
+		BasicDBObject query = new BasicDBObject();
+		query.put("username", uname);
+		DBCursor<Registration> cursor = coll.find(query);
+		
+		if (cursor.hasNext()) {
+			Registration cur = cursor.next();
+			String pass = cur.getPassword();
+			
 				if(pass.equals(password)){
-					String name = (String)obj.get("name");
+					String name = cur.getName();
 					
 					return name;
 				}
+				
 				else
 					return password;
-			}
+			
 		}
 		return uname;
+		
 	}
-	public String getUname(){
-		return username;
-	}
-}*/
+}
