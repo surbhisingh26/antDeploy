@@ -66,7 +66,7 @@ body {
 	<%
 	request.getRequestDispatcher("header.jsp").include(request, response);
 	%>
-
+	
 	
 	<div id="home" class="container-full-width">
 

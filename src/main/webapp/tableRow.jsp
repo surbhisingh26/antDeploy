@@ -5,12 +5,10 @@
 		<%
 			ServletContext context = getServletContext();
 		%>
-		<p>hello</p>
 		<script type="text/javascript">
 			
 			function myFunction() {
 				var table = document.getElementById("myTable");
-				alert('<%=(String) context.getAttribute("Name")%>');
 				var row = table.insertRow();
 				var cell1 = row.insertCell(0);
 				var cell2 = row.insertCell(1);
@@ -24,7 +22,7 @@
 				cell3.innerHTML = '<%=(String) context.getAttribute("Date")%>';
 				cell4.innerHTML = '<%=(String) context.getAttribute("Time")%>';
 				cell5.innerHTML = '<%=(String) context.getAttribute("Email")%>';
-				cell6.innerHTML = '<%=(String) context.getAttribute("Total")%>';
+				cell6.innerHTML = '<%=(Integer) context.getAttribute("Total")%>';
 				cell7.innerHTML = '<a href="#" style="margin-left:10px;">Edit </a><a href="#"> Delete</a>'
 			}
 			myFunction();

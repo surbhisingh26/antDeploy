@@ -10,7 +10,7 @@
 				<th>Time</th>
 				<th>Email</th>
 				<th>Total</th>
-				<th><th>
+				<th>Actions<th>
 			</tr>			
 			
 			

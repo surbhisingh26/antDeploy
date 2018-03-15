@@ -50,6 +50,12 @@
 		<description></description>
 		<servlet-class>com.surbhi.webProject1.requests.Table</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>HandleBars</servlet-name>
+		<display-name>HandleBars</display-name>
+		<description></description>
+		<servlet-class>com.surbhi.webProject1.template.HandleBars</servlet-class>
+	</servlet>
 	
 
 	<servlet-mapping>
@@ -79,6 +85,10 @@
 	<servlet-mapping>
 		<servlet-name>Table</servlet-name>
 		<url-pattern>/table</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>HandleBars</servlet-name>
+		<url-pattern>/HandleBars</url-pattern>
 	</servlet-mapping>
 	
 

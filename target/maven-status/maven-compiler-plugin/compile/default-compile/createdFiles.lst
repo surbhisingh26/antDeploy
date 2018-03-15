@@ -2,6 +2,7 @@ com\surbhi\webProject1\requests\Table.class
 com\surbhi\webProject1\pojo\Registration.class
 com\surbhi\webProject1\requests\Register.class
 com\surbhi\webProject1\requestService\UserValidService.class
+com\surbhi\webProject1\template\HandleBars.class
 com\surbhi\webProject1\requests\GetData.class
 com\surbhi\webProject1\pojo\Passenger.class
 com\surbhi\webProject1\requestService\RegisterService.class
