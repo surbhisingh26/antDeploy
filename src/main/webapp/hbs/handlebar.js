@@ -1,7 +1,6 @@
-
 var template = $('#handlebars-demo').html();
 
-var context = { "name" : "Ritesh Kumar", "occupation" : "developer" };
+var context = { "name" : "Ritesh Kumar", "occupation" : "developer" , hobbies:[{label:"Singing", id: 1},{label:"dancing", id:"2"}]};
 
 //Compile the template data into a function
 var templateScript = Handlebars.compile(template);

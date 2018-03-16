@@ -1,12 +1,21 @@
-<html>
-<script type="text/javascript"
-	src="http://localhost:8080/webProject1/hbs/handlebar.js"></script>
+<html><head>
+
+</head>
+<body>
 <script id="handlebars-demo" type="text/x-handlebars-template">
 	<div>
 		My name is {{name}}. I am a {{occupation}}.	
+		<br/>
+		My hobbies are
+<br />		{{#hobbies}}
+			{{label}} id is {{id}}<br />=== <br />
+		{{/hobbies}}
 	</div>
 </script>
-<body>
-hello
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript"	src="http://localhost:8080/webProject1/jsFiles/handlebars-v4.0.11.js"></script>
+<script type="text/javascript"	src="http://localhost:8080/webProject1/hbs/handlebar.js"></script>
+
 </body>
 </html>

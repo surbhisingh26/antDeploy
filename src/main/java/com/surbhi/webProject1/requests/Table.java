@@ -75,7 +75,7 @@ public class Table extends HttpServlet {
 		
 		if(userName==null){
 			out.print("<p style='margin-top:50px;margin-left:40px'>Please login first!!!");  
-			request.getRequestDispatcher("login.jsp").include(request, response); 
+			request.getRequestDispatcher("Templates/login.hbs").include(request, response); 
 		}
 		else{
 			DBCollection collection = mongo.getCollection("registration");

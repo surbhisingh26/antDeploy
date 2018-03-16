@@ -1,4 +1,4 @@
-<html lang="en">
+<%-- <html lang="en">
 <head>
 <title>Bootstrap Example</title>
 <meta charset="utf-8">
@@ -70,4 +70,4 @@ body {
 		<div class="col-xs-3"></div>
 
 	</div>
-</body>
+</body> --%>

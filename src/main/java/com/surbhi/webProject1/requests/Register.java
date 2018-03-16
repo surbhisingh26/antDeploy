@@ -48,13 +48,13 @@ public class Register extends HttpServlet {
 		PrintWriter writer = response.getWriter();
 		if(result == false){
 			String htmlResponse = "<html>";
-			htmlResponse += "<h2>This username is are already registered <a href='login.jsp'>Login here</a> or<br><a href = 'registration.jsp'>register </a>with another username </h2>";
+			htmlResponse += "<h2>This username is are already registered <a href='Templates/login.hbs'>Login here</a> or<br><a href = 'Templates/registration.hbs'>register </a>with another username </h2>";
 			htmlResponse += "</html>";
 			writer.println(htmlResponse);
 		}
 		else{
 			String htmlResponse = "<html>";
-			htmlResponse += "<h2>You are successfully registered <a href='login.jsp'>Login here</a> </h2>";
+			htmlResponse += "<h2>You are successfully registered <a href='Templates.login.hbs'>Login here</a> </h2>";
 			htmlResponse += "</html>";
 			writer.println(htmlResponse);
 		}

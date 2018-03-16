@@ -37,12 +37,12 @@ public class Profile extends HttpServlet {
         
        
         out.print("<p style='margin-top:50px;margin-left:20px'>Hello, "+name+" Welcome to Profile<p>"); 
-        request.getRequestDispatcher("header.jsp").include(request, response);
+        request.getRequestDispatcher("/webProject1/header").include(request, response);
         //out.print("<a href ='home.jsp'>Home</a>");        
         }  
         else{  
             out.print("<p style='margin-top:50px;margin-left:20px'>Please login first");  
-            request.getRequestDispatcher("login.jsp").include(request, response);  
+            request.getRequestDispatcher("webProject1/login").include(request, response);  
         }  
         out.close();  
     } 

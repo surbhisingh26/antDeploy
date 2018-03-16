@@ -4,7 +4,7 @@
 
 <web-app>
 <welcome-file-list>
-	<welcome-file>home.jsp</welcome-file>
+	<welcome-file>/home</welcome-file>
 
 </welcome-file-list>
 	<display-name>Archetype Created Web Application</display-name>
@@ -57,6 +57,25 @@
 		<servlet-class>com.surbhi.webProject1.template.HandleBars</servlet-class>
 	</servlet>
 	
+	<servlet>
+		<servlet-name>Header</servlet-name>
+		<display-name>Header</display-name>
+		<description></description>
+		<servlet-class>com.surbhi.webProject1.template.Header</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>Login</servlet-name>
+		<display-name>Login</display-name>
+		<description></description>
+		<servlet-class>com.surbhi.webProject1.template.Login</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>Home</servlet-name>
+		<display-name>Home</display-name>
+		<description></description>
+		<servlet-class>com.surbhi.webProject1.template.Home</servlet-class>
+	</servlet>
+	
 
 	<servlet-mapping>
 		<servlet-name>DBConnection</servlet-name>
@@ -68,7 +87,7 @@
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>Registerr</servlet-name>
-		<url-pattern>/Register</url-pattern>
+		<url-pattern>/register</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>UserValid</servlet-name>
@@ -76,7 +95,7 @@
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>Profile</servlet-name>
-		<url-pattern>/Profile</url-pattern>
+		<url-pattern>/profile</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>Logout</servlet-name>
@@ -89,6 +108,19 @@
 	<servlet-mapping>
 		<servlet-name>HandleBars</servlet-name>
 		<url-pattern>/HandleBars</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>Header</servlet-name>
+		<url-pattern>/header</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Login</servlet-name>
+		<url-pattern>/login</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Home</servlet-name>
+		<url-pattern>/home</url-pattern>
 	</servlet-mapping>
 	
 

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<%-- <!DOCTYPE html>
 <html lang="en">
 <head>
 <title>Bootstrap Example</title>
@@ -77,13 +77,13 @@ body {
 		</nav>
 		<div id="home1"><p></p></div>
 		</div>
-		<script >
+		<!-- <script >
 		function home3(){
 			alert("Hello3");
 			var h= document.getElementById("home1").innerHTML;
 			 <link rel="import" href="home.jsp"> 
 			h = document.getElementById("home").innerHTML;
 		}
-		</script>
+		</script> -->
 		</body>
-		</html>
+		</html> --%>
