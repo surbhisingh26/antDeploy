@@ -2,6 +2,7 @@ com\surbhi\webProject1\requestService\UserValidService.class
 com\surbhi\webProject1\pojo\Passenger.class
 com\surbhi\webProject1\template\Header.class
 com\surbhi\webProject1\template\Login.class
+com\surbhi\webProject1\template\TableHead.class
 com\surbhi\webProject1\requestService\RegisterService.class
 com\surbhi\webProject1\requests\Logout.class
 com\surbhi\webProject1\requests\DBConnection.class
@@ -10,6 +11,8 @@ com\surbhi\webProject1\pojo\Registration.class
 com\surbhi\webProject1\requests\Register.class
 com\surbhi\webProject1\template\HandleBars.class
 com\surbhi\webProject1\requests\GetData.class
+com\surbhi\webProject1\template\TableRow.class
 com\surbhi\webProject1\requests\Profile.class
 com\surbhi\webProject1\requests\UserValid.class
 com\surbhi\webProject1\template\Home.class
+com\surbhi\webProject1\template\Registration.class

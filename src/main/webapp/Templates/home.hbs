@@ -1,70 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<title>Bootstrap Example</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link href="https://fonts.googleapis.com/css?family=Lato"
-	rel="stylesheet" type="text/css">
-<link href="https://fonts.googleapis.com/css?family=Montserrat"
-	rel="stylesheet" type="text/css">
-
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script type="text/javascript"
-	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/js/bootstrap-datepicker.min.js"></script>
-<script type="text/javascript"
-	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/locales/bootstrap-datepicker.de.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
-      <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.43/css/bootstrap-datetimepicker.min.css"> 
-      <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.43/css/bootstrap-datetimepicker-standalone.css"> 
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.43/js/bootstrap-datetimepicker.min.js"></script>
-	<script type="text/javascript">
-	$(function() {
-		$('.date_picker input').datepicker({
-			format : "dd/mm/yyyy",
-			todayBtn : "linked",
-
-		});
-	});
-</script>
-<script type="text/javascript">
-                $(function () {
-                    $('.datetime_picker input').datetimepicker({
-                    	format : "hh:mm"
-                    });
-                });
-            </script>
-<style>
-/* Note: Try to remove the following lines to see the effect of CSS positioning */
-.affix {
-	top: 0;
-	width: 100%;
-	z-index: 9999 !important;
-}
-
-.affix+.container-fluid {
-	padding-top: 70px;
-}
-
-body {
-	position: relative;
-	top: -22px;
-	font: 400 15px/1.8 Lato, sans-serif;
-	color: #777;
-}
-</style>
-</head>
-<body data-spy="scroll" data-target=".navbar" data-offset="50">
-<div>
-	
-	
-	
+{{>header}}
+<div>	
 	<div id="home" class="container-full-width">
 
 		<div id="myCarousel " class="carousel slide" data-ride="carousel">
@@ -75,7 +10,7 @@ body {
 			</ol>
 			<div class="carousel-inner">
 				<div class="item active">
-					<img src="/webProject1/images/la.jpg" alt="Los Angeles" style="width: 100%;">
+					<img src="images/la.jpg" alt="Los Angeles" style="width: 100%;">
 					<div class="carousel-caption">
 						<h3>Los Angeles</h3>
 						<p>LA is always so much fun!</p>
@@ -83,7 +18,7 @@ body {
 				</div>
 
 				<div class="item">
-					<img src="/webProject1/images/chicago.jpg" alt="Chicago" style="width: 100%;">
+					<img src="images/chicago.jpg" alt="Chicago" style="width: 100%;">
 					<div class="carousel-caption">
 						<h3>Chicago</h3>
 						<p>Thank you, Chicago!</p>
@@ -91,7 +26,7 @@ body {
 				</div>
 
 				<div class="item">
-					<img src="/webProject1/images/ny.jpg" alt="New york" style="width: 100%;">
+					<img src="images/ny.jpg" alt="New york" style="width: 100%;">
 
 					<div class="carousel-caption">
 						<h3>New York</h3>
@@ -136,19 +71,19 @@ body {
 			<div class="container-fluid" style="background-color: white;">
 				<div class="col-xs-4 ">
 					<p class="text-center">
-						<b>Name</b><br> <br> <img src="/webProject1/images/bandmember.jpg"
+						<b>Name</b><br> <br> <img src="images/bandmember.jpg"
 							class="img-circle person" alt="member" width="255" height="255">
 					</p>
 				</div>
 				<div class="col-xs-4">
 					<p class="text-center">
-						<b>Name</b><br> <br> <img src="/webProject1/images/bandmember.jpg"
+						<b>Name</b><br> <br> <img src="images/bandmember.jpg"
 							class="img-circle person" alt="member" width="255" height="255">
 					</p>
 				</div>
 				<div class="col-xs-4">
 					<p class="text-center">
-						<b>Name</b><br> <br> <img src="/webProject1/images/bandmember.jpg"
+						<b>Name</b><br> <br> <img src="images/bandmember.jpg"
 							class="img-circle person" alt="member" width="255" height="255">
 					</p>
 				</div>
@@ -178,7 +113,7 @@ body {
 
 				<div class="col-xs-4">
 					<p class="text-center">
-						<img src="/webProject1/images/paris.jpg" alt="paris" style="width: 100%;">
+						<img src="images/paris.jpg" alt="paris" style="width: 100%;">
 					</p>
 					<div style="background-color: white;">
 						<p class="text-center">
@@ -193,7 +128,7 @@ body {
 				</div>
 				<div class="col-xs-4">
 					<p class="text-center">
-						<img src="/webProject1/images/newyork.jpg" alt="newyork" style="width: 100%;">
+						<img src="images/newyork.jpg" alt="newyork" style="width: 100%;">
 					</p>
 					<div style="background-color: white;">
 						<p class="text-center">
@@ -208,7 +143,7 @@ body {
 				</div>
 				<div class="col-xs-4" style="margin-bottom: 80px;">
 					<p class="text-center">
-						<img src="/webProject1/images/sanfran.jpg" alt="sanfran" style="width: 100%;">
+						<img src="images/sanfran.jpg" alt="sanfran" style="width: 100%;">
 					</p>
 					<div style="background-color: white;">
 						<p class="text-center">
@@ -245,9 +180,7 @@ body {
 									<label for="text"> Tickets, $23 per person</label> <input
 										type="text" class="form-control" value="1" name="tickets">
 								</div>
-								<div class="form-group">
-								<input type ="hidden" value=<script>document.getAttribute("name").innerHtml</script>>
-								</div>
+								
 								
 									<label for="text">Travel Date</label>
 									<div class="form-group ">
@@ -261,7 +194,7 @@ body {
 									</div>								
 									</div>
 									<div class="col-sm-6">
-									<div class="form-group ">
+									
 									<div class="datetime_picker input-group date" >
 										<input type="text"  id="time" name="time" class="form-control"
 											placeholder="hh:mm"> <span
@@ -270,7 +203,7 @@ body {
 										</span>
 									</div>
 								</div>
-								</div>
+								
 								</div>
 								<div class="form-group input-append spinner"
 									data-trigger="spinner">
@@ -377,5 +310,5 @@ body {
 		</div>
 	</div>
 </div>
-</body>
-</html>
+{{>footer}}
+{{>end}}

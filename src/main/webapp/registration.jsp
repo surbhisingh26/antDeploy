@@ -1,4 +1,4 @@
-<%-- <!DOCTYPE html>
+<!--  <!DOCTYPE html>
 <html lang="en">
 <head>
 <title>Bootstrap Example</title>
@@ -15,20 +15,18 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script
 	src="http://localhost:8080/webProject1/jsFiles/check.js"></script>
-<script type="text/javascript"
-	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/js/bootstrap-datepicker.min.js"></script>
-<script type="text/javascript"
-	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/locales/bootstrap-datepicker.de.min.js"></script>
-	
-<script type="text/javascript">
-	$(function() {
-		$('.date_picker input').datepicker({
-			format : "dd/mm/yyyy",
-			todayBtn : "linked",
+	<script type="text/javascript"
+	src="http://localhost:8080/webProject1/jsFiles/dateTime.js"></script>
+	<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
+      <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.43/css/bootstrap-datetimepicker.min.css"> 
+      <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.43/css/bootstrap-datetimepicker-standalone.css"> 
 
-		});
-	});
-</script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.43/js/bootstrap-datetimepicker.min.js"></script>
+	
+
+
 <style>
 body {
 	position: relative;
@@ -39,9 +37,7 @@ body {
 </style>
 </head>
 <body>
-	<%
-		request.getRequestDispatcher("header.jsp").include(request, response);
-	%>
+	{{>header}}
 	<div class="container-fluid" style="background-color: #323232;">
 		<div class="col-xs-3"></div>
 		<div class="col-xs-6">
@@ -72,6 +68,7 @@ body {
 					</div>
 					<div class="form-group">
 						<label for="text">D.O.B.</label>
+						
 						<div class="date_picker input-group date">
 							<input type="text" id="dob" name="dob" class="form-control"
 								placeholder="DD/MM/YYYY"> <span
@@ -123,4 +120,4 @@ body {
 	</div>
 	
 </body>
-</html> --%>
+</html> -->

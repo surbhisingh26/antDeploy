@@ -41,8 +41,21 @@ public class Login extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/header").include(request, response);
-		request.getRequestDispatcher("Templates/login.hbs").include(request, response);
+		PrintWriter out = response.getWriter();
+		
+		HttpSession session = request.getSession();
+		String name = (String)session.getAttribute("name");
+		
+		TemplateLoader loader = new FileTemplateLoader("C:/soft/apache-tomcat-8.5.23/webapps/webProject1/Templates", ".hbs");
+		Handlebars handlebars = new Handlebars(loader);
+		Template template = handlebars.compile("login");
+		Map<String, Object> hmap = new HashMap<String, Object>();
+		if(name==null)
+			hmap.put("login",true);
+		else
+			hmap.put("login",false);
+		hmap.put("name", name);
+		out.print(template.apply(hmap));
 	}
 
 }

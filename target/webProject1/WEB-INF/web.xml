@@ -57,12 +57,7 @@
 		<servlet-class>com.surbhi.webProject1.template.HandleBars</servlet-class>
 	</servlet>
 	
-	<servlet>
-		<servlet-name>Header</servlet-name>
-		<display-name>Header</display-name>
-		<description></description>
-		<servlet-class>com.surbhi.webProject1.template.Header</servlet-class>
-	</servlet>
+	
 	<servlet>
 		<servlet-name>Login</servlet-name>
 		<display-name>Login</display-name>
@@ -75,6 +70,30 @@
 		<description></description>
 		<servlet-class>com.surbhi.webProject1.template.Home</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>Registration</servlet-name>
+		<display-name>Registration</display-name>
+		<description></description>
+		<servlet-class>com.surbhi.webProject1.template.Registration</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>Header</servlet-name>
+		<display-name>Header</display-name>
+		<description></description>
+		<servlet-class>com.surbhi.webProject1.template.Header</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>TableHead</servlet-name>
+		<display-name>TableHead</display-name>
+		<description></description>
+		<servlet-class>com.surbhi.webProject1.template.TableHead</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>TableRow</servlet-name>
+		<display-name>TableRow</display-name>
+		<description></description>
+		<servlet-class>com.surbhi.webProject1.template.TableRow</servlet-class>
+	</servlet>
 	
 
 	<servlet-mapping>
@@ -83,7 +102,7 @@
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>GetDataa</servlet-name>
-		<url-pattern>/GetData</url-pattern>
+		<url-pattern>/getData</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>Registerr</servlet-name>
@@ -107,13 +126,10 @@
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>HandleBars</servlet-name>
-		<url-pattern>/HandleBars</url-pattern>
+		<url-pattern>/handleBars</url-pattern>
 	</servlet-mapping>
 	
-	<servlet-mapping>
-		<servlet-name>Header</servlet-name>
-		<url-pattern>/header</url-pattern>
-	</servlet-mapping>
+	
 	<servlet-mapping>
 		<servlet-name>Login</servlet-name>
 		<url-pattern>/login</url-pattern>
@@ -121,6 +137,22 @@
 	<servlet-mapping>
 		<servlet-name>Home</servlet-name>
 		<url-pattern>/home</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Registration</servlet-name>
+		<url-pattern>/registration</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Header</servlet-name>
+		<url-pattern>/header</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>TableHead</servlet-name>
+		<url-pattern>/tableHead</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>TableRow</servlet-name>
+		<url-pattern>/tableRow</url-pattern>
 	</servlet-mapping>
 	
 

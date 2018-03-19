@@ -54,9 +54,7 @@ public class Table extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
 		
-		Handlebars handlebars = new Handlebars();
-		Template template = handlebars.compileInline("Hello {{this}}!");
-		out.print(template.apply("Handlebars.java"));
+		
 		
 		DBConnection db = new DBConnection();
 		DB mongo;
@@ -65,7 +63,7 @@ public class Table extends HttpServlet {
 		HttpSession session = request.getSession();
 		String userName = (String)session.getAttribute("user");
 
-		request.getRequestDispatcher("header.jsp").include(request, response);
+		request.getRequestDispatcher("header").include(request, response);
 		ServletContext context=getServletContext();
 
 		DBCollection collec = mongo.getCollection("passenger");
@@ -75,7 +73,7 @@ public class Table extends HttpServlet {
 		
 		if(userName==null){
 			out.print("<p style='margin-top:50px;margin-left:40px'>Please login first!!!");  
-			request.getRequestDispatcher("Templates/login.hbs").include(request, response); 
+			request.getRequestDispatcher("login").include(request, response); 
 		}
 		else{
 			DBCollection collection = mongo.getCollection("registration");
@@ -90,7 +88,7 @@ public class Table extends HttpServlet {
 				uType = reg.getuType();
 			}
 			
-			request.getRequestDispatcher("tableHead.jsp").include(request, response);
+			request.getRequestDispatcher("tableHead").include(request, response);
 
 			if(uType.equalsIgnoreCase("Admin")){				
 				DBCursor<Passenger> cur = coll.find();
@@ -113,9 +111,9 @@ public class Table extends HttpServlet {
 					context.setAttribute("Total",total);
 					context.setAttribute("Date",strDate);
 					context.setAttribute("Time",strTime);
-					context.setAttribute("loginuser", userName);
+					//context.setAttribute("loginuser", userName);
 					
-					request.getRequestDispatcher("tableRow.jsp").include(request, response);
+					request.getRequestDispatcher("tableRow").include(request, response);
 				}
 			}
 			
@@ -143,9 +141,9 @@ public class Table extends HttpServlet {
 					context.setAttribute("Total",total);
 					context.setAttribute("Date",strDate);
 					context.setAttribute("Time",strTime);
-					context.setAttribute("uType", uType);
+				//	context.setAttribute("uType", uType);
 					
-					request.getRequestDispatcher("tableRow.jsp").include(request, response);
+					request.getRequestDispatcher("tableRow").include(request, response);
 				}
 
 

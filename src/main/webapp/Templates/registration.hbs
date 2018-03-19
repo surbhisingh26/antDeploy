@@ -1,51 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<title>Bootstrap Example</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link href="https://fonts.googleapis.com/css?family=Lato"
-	rel="stylesheet" type="text/css">
-<link href="https://fonts.googleapis.com/css?family=Montserrat"
-	rel="stylesheet" type="text/css">
+{{>header}}
 
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script
-	src="http://localhost:8080/webProject1/jsFiles/check.js"></script>
-<script type="text/javascript"
-	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/js/bootstrap-datepicker.min.js"></script>
-<script type="text/javascript"
-	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/locales/bootstrap-datepicker.de.min.js"></script>
 	
-<script type="text/javascript">
-	$(function() {
-		$('.date_picker input').datepicker({
-			format : "dd/mm/yyyy",
-			todayBtn : "linked",
-
-		});
-	});
-</script>
-<style>
-body {
-	position: relative;
-	top: -22px;
-	font: 400 15px/1.8 Lato, sans-serif;
-	color: #777;
-}
-</style>
-</head>
-<body>
-	{{> header}}
 	<div class="container-fluid" style="background-color: #323232;">
 		<div class="col-xs-3"></div>
 		<div class="col-xs-6">
 			<div class="jumbotron" style="background-color: #eafbfb;">
 				<h1 style="text-align: center;">Registration</h1>
-				<form action="Register" method="post">
+				<form action="/register" method="post">
 					<div class="form-group inline">
 						<label for="text">Name :</label> <input type="text" id="fname"
 							onkeyup="fnames()" class="form-control" name="fname"
@@ -70,6 +31,7 @@ body {
 					</div>
 					<div class="form-group">
 						<label for="text">D.O.B.</label>
+						
 						<div class="date_picker input-group date">
 							<input type="text" id="dob" name="dob" class="form-control"
 								placeholder="DD/MM/YYYY"> <span
@@ -119,6 +81,9 @@ body {
 		<div class="col-xs-3"></div>
 
 	</div>
-	
-</body>
-</html>
+	{{>footer}}
+<script
+	src="http://localhost:8080/webProject1/jsFiles/check.js"></script>
+	<script
+	src="http://localhost:8080/webProject1/jsFiles/dateTime.js"></script>
+{{>end}}

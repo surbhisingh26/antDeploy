@@ -17,7 +17,7 @@ import com.github.jknack.handlebars.io.FileTemplateLoader;
 import com.github.jknack.handlebars.io.TemplateLoader;
 
 /**
- * Servlet implementation class HandleBars
+ * Servlet implementation class Header
  */
 public class Header extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -34,23 +34,29 @@ public class Header extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	doPost(request,response);
-    }
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	PrintWriter out = response.getWriter();
-	
-	HttpSession session = request.getSession();
-	String name = (String)session.getAttribute("name");
-	
-	TemplateLoader loader = new FileTemplateLoader("C:/soft/apache-tomcat-8.5.23/webapps/webProject1/Templates", ".hbs");
-	Handlebars handlebars = new Handlebars(loader);
-	Template template = handlebars.compile("header");
-	Map<String, Object> hmap = new HashMap<String, Object>();
-	if(name==null)
-		hmap.put("login",true);
-	else
-		hmap.put("login",false);
-	hmap.put("name", name);
-	out.print(template.apply(hmap));
+		doPost(request,response);
 	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		PrintWriter out = response.getWriter();
+		
+		HttpSession session = request.getSession();
+		String name = (String)session.getAttribute("name");
+		
+		TemplateLoader loader = new FileTemplateLoader("C:/soft/apache-tomcat-8.5.23/webapps/webProject1/Templates", ".hbs");
+		Handlebars handlebars = new Handlebars(loader);
+		Template template = handlebars.compile("header");
+		Map<String, Object> hmap = new HashMap<String, Object>();
+		if(name==null)
+			hmap.put("login",true);
+		else{
+			hmap.put("login",false);
+			hmap.put("name", name);
+		}
+		out.print(template.apply(hmap));
+	}
+
 }

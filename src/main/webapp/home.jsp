@@ -16,19 +16,18 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script type="text/javascript"
-	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/js/bootstrap-datepicker.min.js"></script>
-<script type="text/javascript"
-	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/locales/bootstrap-datepicker.de.min.js"></script>
+
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
+
       <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.43/css/bootstrap-datetimepicker.min.css"> 
       <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.43/css/bootstrap-datetimepicker-standalone.css"> 
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.43/js/bootstrap-datetimepicker.min.js"></script>
 	<script type="text/javascript">
 	$(function() {
-		$('.date_picker input').datepicker({
-			format : "dd/mm/yyyy",
-			todayBtn : "linked",
+		$('.date_picker input').datetimepicker({
+			format : "DD/MM/YYYY",
+			
 
 		});
 	});
@@ -36,7 +35,7 @@
 <script type="text/javascript">
                 $(function () {
                     $('.datetime_picker input').datetimepicker({
-                    	format : "hh:mm"
+                    	format : "LT"
                     });
                 });
             </script>
@@ -264,7 +263,7 @@ body {
 									</div>								
 									</div>
 									<div class="col-sm-6">
-									<div class="form-group ">
+									
 									<div class="datetime_picker input-group date" >
 										<input type="text"  id="time" name="time" class="form-control"
 											placeholder="hh:mm"> <span
@@ -273,7 +272,7 @@ body {
 										</span>
 									</div>
 								</div>
-								</div>
+								
 								</div>
 								<div class="form-group input-append spinner"
 									data-trigger="spinner">

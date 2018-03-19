@@ -49,19 +49,19 @@ public class UserValid extends HttpServlet {
 			
 			out.print("<p style='margin-top:70px;margin-left:20px'>No such username exists <a href='registration.hbs'>Register here</a> or login with another username</p>");
 			
-			request.getRequestDispatcher("Templates/login.hbs").include(request, response); 
+			request.getRequestDispatcher("login").include(request, response); 
 		}
 		else if(result.equals(password)){
 			
 			out.print("<p style='margin-top:70px;margin-left:20px'>Wrong password entered</p>");
-			request.getRequestDispatcher("Templates/login.hbs").include(request, response); 
+			request.getRequestDispatcher("login").include(request, response); 
 		}
 		else {
 			HttpSession session=request.getSession(); 
 	        session.setAttribute("name",result);
 	       // String username=uv.getUname();
 	        session.setAttribute("user", uname);
-			request.getRequestDispatcher("/home").forward(request, response);			
+			request.getRequestDispatcher("home").forward(request, response);			
 		}
 		out.close();
 	}

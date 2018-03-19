@@ -1,4 +1,4 @@
-
+<!-- 
 <body>
 	<div class="container" onload="myFunction()">
 	<h3  style="margin-top:40px;">Your Reservation History</h3>
@@ -11,10 +11,8 @@
 				<th>Email</th>
 				<th>Total</th>
 				<th>Actions<th>
-			</tr>			
-			
-			
+			</tr>									
 		</table>
 	</div>
 	
-</body>
+</body> -->
