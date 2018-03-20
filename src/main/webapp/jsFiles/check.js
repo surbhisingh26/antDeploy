@@ -53,3 +53,7 @@ function lnames(){
 
 
 }
+/*function checkLogin(){
+	document.getAttribute("name").innerHtml
+	
+}*/

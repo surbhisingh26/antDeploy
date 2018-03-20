@@ -17,15 +17,22 @@
   
 <style>
 /* Note: Try to remove the following lines to see the effect of CSS positioning */
+.affix {
+	top: 0;
+	width: 100%;
+	z-index: 9999 !important;
+}
 
 .affix+.container-fluid {
 	padding-top: 70px;
 }
+
 body {
 	position: relative;
-	
+	top: -22px;
 	font: 400 15px/1.8 Lato, sans-serif;
 	color: #777;
 }
 </style>
 </head>
+<body data-spy="scroll" data-target=".navbar" data-offset="50">

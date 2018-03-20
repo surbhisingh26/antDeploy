@@ -4,7 +4,12 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,6 +21,8 @@ import org.mongojack.JacksonDBCollection;
 
 import com.github.jknack.handlebars.Handlebars;
 import com.github.jknack.handlebars.Template;
+import com.github.jknack.handlebars.io.FileTemplateLoader;
+import com.github.jknack.handlebars.io.TemplateLoader;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
@@ -62,10 +69,10 @@ public class Table extends HttpServlet {
 
 		HttpSession session = request.getSession();
 		String userName = (String)session.getAttribute("user");
-
-		request.getRequestDispatcher("header").include(request, response);
-		ServletContext context=getServletContext();
-
+		String name = (String)session.getAttribute("name");
+//		request.getRequestDispatcher("header").include(request, response);
+		/*ServletContext context=getServletContext();*/
+		
 		DBCollection collec = mongo.getCollection("passenger");
 		JacksonDBCollection<Passenger, String> coll = JacksonDBCollection.wrap(collec,Passenger.class, String.class);
 		Passenger passen = new Passenger();
@@ -86,16 +93,21 @@ public class Table extends HttpServlet {
 			if(cursor.hasNext()){
 				reg = cursor.next();
 				uType = reg.getuType();
+				
 			}
 			
-			request.getRequestDispatcher("tableHead").include(request, response);
+			List<Passenger> passengerList = new ArrayList<Passenger>();
+			
+			
+			//request.getRequestDispatcher("tableHead").include(request, response);
 
 			if(uType.equalsIgnoreCase("Admin")){				
 				DBCursor<Passenger> cur = coll.find();
 				
 				while (cur.hasNext()) {					
 					passen =  cur.next();
-					name = passen.getName();			
+					passengerList.add(passen);
+					/*name = passen.getName();			
 					tickets = passen.getTickets();
 					email= passen.getEmail();
 					total = passen.getTotalPay();
@@ -113,7 +125,7 @@ public class Table extends HttpServlet {
 					context.setAttribute("Time",strTime);
 					//context.setAttribute("loginuser", userName);
 					
-					request.getRequestDispatcher("tableRow").include(request, response);
+					request.getRequestDispatcher("tableRow").include(request, response);*/
 				}
 			}
 			
@@ -125,7 +137,8 @@ public class Table extends HttpServlet {
 				
 				while(cur.hasNext()){					
 					passen =  cur.next();
-					name = passen.getName();			
+					passengerList.add(passen);
+					/*name = passen.getName();			
 					tickets = passen.getTickets();
 					email= passen.getEmail();
 					total = passen.getTotalPay();
@@ -143,11 +156,24 @@ public class Table extends HttpServlet {
 					context.setAttribute("Time",strTime);
 				//	context.setAttribute("uType", uType);
 					
-					request.getRequestDispatcher("tableRow").include(request, response);
+					request.getRequestDispatcher("tableRow").include(request, response);*/
 				}
-
+				
 
 			}
+			
+			TemplateLoader loader = new FileTemplateLoader("C:/soft/apache-tomcat-8.5.23/webapps/webProject1/Templates", ".hbs");
+			Handlebars handlebars = new Handlebars(loader);
+			Template template = handlebars.compile("table");
+			Map<String, Object> hmap = new HashMap<String, Object>();
+			if(name==null)
+				hmap.put("login",true);
+			else{
+				hmap.put("login",false);
+				hmap.put("name", name);
+			}
+			hmap.put("passengerList", passengerList);
+			out.print(template.apply(hmap));
 		}
 
 	}

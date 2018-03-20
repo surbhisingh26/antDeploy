@@ -1,4 +1,6 @@
 package com.surbhi.webProject1.pojo;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -33,14 +35,18 @@ public class Passenger {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public Date getDate() {
-		return date;
+	public String getDate() {
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");  
+		String strDate = dateFormat.format(date);
+		return strDate;
 	}
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	public Date getTime() {
-		return time;
+	public String getTime() {
+		DateFormat timeFormat = new SimpleDateFormat("HH:mm");  
+		String strTime = timeFormat.format(time);
+		return strTime;
 	}
 	public void setTime(Date time) {
 		this.time = time;
