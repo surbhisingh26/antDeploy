@@ -5,7 +5,8 @@
 		<div class="col-xs-6">
 			<div class="jumbotron"
 				style="background-color: #eafbf2; margin-bottom: 183px; margin-top: 183px">
-				<form action="/webProject1/loginHome" method="post">
+				<form action="/webProject1/call" method="post">
+				<input type="hidden" name = "file" value = "signin">
 					<div class="form-group">
 						<label for="text">Username</label> <input type="text"
 							class="form-control " placeholder="Username" name="uname"
@@ -19,8 +20,8 @@
 					<button type="submit" class="btn btn-info">Sign in</button>
 				</form>
 				<div>
-					<form action=/webProject1/registration>
-
+					<form action="/webProject1/call">
+						<input type="hidden" name = "file" value = "register">
 						<button type="submit" class="btn btn-warning pull-right">Sign
 							up</button>
 						<label class="pull-right" style="margin-right: 10px">New

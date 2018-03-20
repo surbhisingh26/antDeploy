@@ -4,7 +4,7 @@
 
 <web-app>
 <welcome-file-list>
-	<welcome-file>/home</welcome-file>
+	<welcome-file>home</welcome-file>
 
 </welcome-file-list>
 	<display-name>Archetype Created Web Application</display-name>
@@ -45,10 +45,10 @@
 		<servlet-class>com.surbhi.webProject1.requests.Logout</servlet-class>
 	</servlet>
 	<servlet>
-		<servlet-name>Table</servlet-name>
+		<servlet-name>PassengerTable</servlet-name>
 		<display-name>Table</display-name>
 		<description></description>
-		<servlet-class>com.surbhi.webProject1.requests.Table</servlet-class>
+		<servlet-class>com.surbhi.webProject1.requests.PassengerTable</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>HandleBars</servlet-name>
@@ -77,25 +77,19 @@
 		<servlet-class>com.surbhi.webProject1.template.Registration</servlet-class>
 	</servlet>
 	<servlet>
-		<servlet-name>Header</servlet-name>
-		<display-name>Header</display-name>
+		<servlet-name>getTemplate</servlet-name>
+		<display-name>getTemplate</display-name>
 		<description></description>
-		<servlet-class>com.surbhi.webProject1.template.Header</servlet-class>
+		<servlet-class>com.surbhi.webProject1.template.getTemplate</servlet-class>
 	</servlet>
 	<servlet>
-		<servlet-name>TableHead</servlet-name>
-		<display-name>TableHead</display-name>
+		<servlet-name>Calls</servlet-name>
+		<display-name>Calls</display-name>
 		<description></description>
-		<servlet-class>com.surbhi.webProject1.template.TableHead</servlet-class>
-	</servlet>
-	<servlet>
-		<servlet-name>TableRow</servlet-name>
-		<display-name>TableRow</display-name>
-		<description></description>
-		<servlet-class>com.surbhi.webProject1.template.TableRow</servlet-class>
+		<servlet-class>com.surbhi.webProject1.requests.Calls</servlet-class>
 	</servlet>
 	
-
+	
 	<servlet-mapping>
 		<servlet-name>DBConnection</servlet-name>
 		<url-pattern>/DBConnection</url-pattern>
@@ -121,8 +115,8 @@
 		<url-pattern>/logout</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>Table</servlet-name>
-		<url-pattern>/table</url-pattern>
+		<servlet-name>PassengerTable</servlet-name>
+		<url-pattern>/passengers</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>HandleBars</servlet-name>
@@ -143,17 +137,15 @@
 		<url-pattern>/registration</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>Header</servlet-name>
-		<url-pattern>/header</url-pattern>
+		<servlet-name>getTemplate</servlet-name>
+		<url-pattern>/getTemplate</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>TableHead</servlet-name>
-		<url-pattern>/tableHead</url-pattern>
+		<servlet-name>Calls</servlet-name>
+		<url-pattern>/call</url-pattern>
 	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>TableRow</servlet-name>
-		<url-pattern>/tableRow</url-pattern>
-	</servlet-mapping>
+	
+	
 	
 
 </web-app>

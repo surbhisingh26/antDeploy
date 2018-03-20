@@ -1,4 +1,4 @@
-package com.surbhi.webProject1.requests;
+/*package com.surbhi.webProject1.requests;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -16,15 +16,15 @@ import com.github.jknack.handlebars.Template;
 import com.github.jknack.handlebars.io.FileTemplateLoader;
 import com.github.jknack.handlebars.io.TemplateLoader;
 
-/**
+*//**
  * Servlet implementation class Profile
- */
+ *//*
 public class Profile extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
+    *//**
      * @see HttpServlet#HttpServlet()
-     */
+     *//*
     public Profile() {
         super();
         // TODO Auto-generated constructor stub
@@ -32,7 +32,7 @@ public class Profile extends HttpServlet {
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType("text/html"); 
+		
 		PrintWriter out=response.getWriter();  
         
 		HttpSession session=request.getSession(false);
@@ -67,3 +67,4 @@ public class Profile extends HttpServlet {
 	
 
 
+*/
