@@ -1,4 +1,4 @@
-package com.surbhi.webProject1.requests;
+/*package com.surbhi.webProject1.requests;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -7,31 +7,31 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.surbhi.webProject1.requestService.RegisterService;
-/**
+*//**
  * Servlet implementation class Register
- */
+ *//*
 public class Register extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
-	/**
+	*//**
 	 * @see HttpServlet#HttpServlet()
-	 */
+	 *//*
 	public Register() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	/**
+	*//**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	 *//*
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request,response);
 	}
 
-	/**
+	*//**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	 *//*
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String fname = request.getParameter("fname");
 		String lname = request.getParameter("lname");
@@ -58,12 +58,13 @@ public class Register extends HttpServlet {
 			htmlResponse += "</html>";
 			writer.println(htmlResponse);
 		}
-		/*PrintWriter writer = response.getWriter();
+		PrintWriter writer = response.getWriter();
 		String htmlResponse = "<html>";
 		htmlResponse += "<h2>"+ username+"</h2>";
 		htmlResponse += "</html>";
-		writer.println(htmlResponse);*/
+		writer.println(htmlResponse);
 
 	}
 
 }
+*/

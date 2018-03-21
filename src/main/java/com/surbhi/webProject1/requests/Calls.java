@@ -2,7 +2,9 @@ package com.surbhi.webProject1.requests;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -15,6 +17,10 @@ import com.github.jknack.handlebars.Handlebars;
 import com.github.jknack.handlebars.Template;
 import com.github.jknack.handlebars.io.FileTemplateLoader;
 import com.github.jknack.handlebars.io.TemplateLoader;
+import com.surbhi.webProject1.pojo.Passenger;
+import com.surbhi.webProject1.requestService.BuyTicketService;
+import com.surbhi.webProject1.requestService.PassengerTableService;
+import com.surbhi.webProject1.requestService.RegisterService;
 import com.surbhi.webProject1.requestService.UserValidService;
 
 /**
@@ -22,7 +28,8 @@ import com.surbhi.webProject1.requestService.UserValidService;
  */
 public class Calls extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	String file = "home";
+	String file;
+	String msg;
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -38,26 +45,40 @@ public class Calls extends HttpServlet {
 		doPost(request,response);
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//	PrintWriter out = response.getWriter();
+		//PrintWriter out = response.getWriter();
 		file = (String) request.getParameter("file");
-
-		if(file.equals("home")){
-			getHbs(request,response,"home");
+		if(file==null){
+			getHbs(request,response,"home",null,null);
 		}
 		else if(file.equals("login")){
-			login(request,response);
+			loginPage(request,response);
 		}
 		else if(file.equals("signin")){
 			signIn(request,response);
 		}
 		else if(file.equals("register")){
-			register(request,response);
+			registerPage(request,response);
+		}
+		else if(file.equals("logout")){
+			logout(request,response);
+		}
+		else if(file.equals("profile")){
+			profile(request,response);
+		}
+		else if(file.equals("registration")){
+			registration(request,response);
+		}
+		else if(file.equals("buyTickets")){
+			buyTickets(request,response);
+		}
+		else if(file.equals("passengers")){
+			passengers(request,response);
 		}
 	}
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void getHbs(HttpServletRequest request, HttpServletResponse response,String file) throws ServletException, IOException {
+	protected void getHbs(HttpServletRequest request, HttpServletResponse response,String file,String message,List<Passenger> passengerList) throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
 
 		HttpSession session = request.getSession();
@@ -73,12 +94,17 @@ public class Calls extends HttpServlet {
 			hmap.put("login",false);
 			hmap.put("name", name);
 		}
+		if(message!=null){
+			hmap.put("message",message);
+		}
+		if(passengerList!=null)
+		hmap.put("passengerList", passengerList);
 		out.print(template.apply(hmap));
 	}
-	public void login(HttpServletRequest request, HttpServletResponse response){
+	public void loginPage(HttpServletRequest request, HttpServletResponse response){
 		try {
 
-			getHbs(request,response,"login");
+			getHbs(request,response,"login",null,null);
 		} catch (ServletException e) {
 
 			e.printStackTrace();
@@ -89,25 +115,20 @@ public class Calls extends HttpServlet {
 	}
 	public void profile(HttpServletRequest request, HttpServletResponse response){
 		try {
-			PrintWriter out=response.getWriter();  
 
 			HttpSession session=request.getSession(false);
-
 			String name=(String)session.getAttribute("name"); 
-
-
+			msg = "Hello, "+name+" Welcome to Profile";
 			if(name!=null){  
+				getHbs(request,response,"message",msg,null);
 
-				getHbs(request,response,"header");
-				out.print("<p style='margin-top:50px;margin-left:20px'>Hello, "+name+" Welcome to Profile<p>"); 
-
-				//out.print("<a href ='home.jsp'>Home</a>");        
 			}  
 			else{  
-				out.print("<p style='margin-top:50px;margin-left:20px'>Please login first");  
-				request.getRequestDispatcher("/login").include(request, response);  
+				msg = "Please login first";
+				getHbs(request,response,"message",msg,null);  
+				getHbs(request,response,"login",null,null);
 			}  
-			 
+
 		}
 		catch(Exception e){
 			e.printStackTrace();
@@ -115,42 +136,131 @@ public class Calls extends HttpServlet {
 	}
 	public void signIn(HttpServletRequest request, HttpServletResponse response){
 		try {
-			PrintWriter out = response.getWriter();
 			String uname = request.getParameter("uname");
-			
+
 			String password = request.getParameter("pass");
 			UserValidService uv = new UserValidService();
 			String result = uv.checkValid(uname,password);
-			
+
 			if(result.equals(uname)){
-				
-				out.print("<p style='margin-top:70px;margin-left:20px'>No such username exists <a href='Registration'>Register here</a> or login with another username</p>");
-				
-				doPost(request,response);
+				msg = "No such username exists!!!"
+						+ " Register or login with another username";
+				getHbs(request,response,"message",msg,null);
+				getHbs(request,response,"login",null,null);
 				//request.getRequestDispatcher("login").include(request, response); 
 			}
 			else if(result.equals(password)){
-				
-				out.print("<p style='margin-top:70px;margin-left:20px'>Wrong password entered</p>");
-				request.getRequestDispatcher("login()").include(request, response); 
+				msg = "Wrong password entered";
+				getHbs(request,response,"message",msg,null);
+				getHbs(request,response,"login",null,null);
 			}
 			else {
 				HttpSession session=request.getSession(); 
-		        session.setAttribute("name",result);
-		        session.setAttribute("user", uname);
-		        file="home";
-		        doPost(request,response);
+				session.setAttribute("name",result);
+				session.setAttribute("user", uname);
+
+				getHbs(request,response,"home",null,null);
 			}
-			
+
 		}
 		catch(Exception e){
 			e.printStackTrace();
 		}
 	}
-	public void register(HttpServletRequest request, HttpServletResponse response){
+	public void registerPage(HttpServletRequest request, HttpServletResponse response){
 		try {
-			getHbs(request,response,"registration");
+			getHbs(request,response,"registration",null,null);
+
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	public void logout(HttpServletRequest request, HttpServletResponse response){
+		try {
+			msg ="you are successfully logged out!";
+
+			HttpSession session=request.getSession();  
+			session.invalidate();  		          
+
+			getHbs(request,response,"message",msg,null);
+			getHbs(request,response,"home",null,null);
+
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	public void registration(HttpServletRequest request, HttpServletResponse response){
+		try {
+			String fname = request.getParameter("fname");
+			String lname = request.getParameter("lname");
+			String uname = request.getParameter("username");
+			String country = request.getParameter("country");
+			String city = request.getParameter("city");
+			String dob = request.getParameter("dob");
+			String mobile =request.getParameter("mobile");
+			String password = request.getParameter("pass");
+			String gender = request.getParameter("gender");
+
+			RegisterService rs = new RegisterService();
+			Boolean result = rs.register(fname, lname, uname,country,city,mobile,password,gender,dob);
 			
+			if(result == false){
+				msg = "This username is are already registered";
+				getHbs(request,response,"message",msg,null);
+				getHbs(request,response,"registration",null,null);
+			}
+			else{
+				msg = "You are successfully registered!!! Login here";
+				getHbs(request,response,"message",msg,null);
+				getHbs(request,response,"login",null,null);
+			}
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	public void buyTickets(HttpServletRequest request, HttpServletResponse response){
+		try {
+			HttpSession session=request.getSession();
+			String user =(String)session.getAttribute("user");
+			
+			String fname = request.getParameter("name");
+			int Tick =Integer.parseInt(request.getParameter("tickets"));
+			String Email =request.getParameter("email");
+			String date =(String)request.getParameter("date");
+			String Time =(String)request.getParameter("time");	
+			BuyTicketService buy = new BuyTicketService();
+			buy.booking(user,fname,Tick,Email,date,Time);
+			msg = "Your tickets are Booked and will be sent on your mail "+Email;	
+			getHbs(request,response,"message",msg,null);
+
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	public void passengers(HttpServletRequest request, HttpServletResponse response){
+		try {
+			
+			PassengerTableService pts = new PassengerTableService();
+
+			HttpSession session = request.getSession();
+			String userName = (String)session.getAttribute("user");
+			List<Passenger> passengerList = new ArrayList<Passenger>();
+			
+			if(userName==null){
+				msg = "Please login first!!!";
+				getHbs(request,response,"message",msg,null);
+				getHbs(request,response,"login",null,null);
+			 
+			}
+			else{
+				passengerList = pts.Passengers(userName);			
+				
+				getHbs(request,response,"passengerTable",null,passengerList);
+			}
 		}
 		catch(Exception e){
 			e.printStackTrace();
