@@ -2,17 +2,12 @@ package com.surbhi.webProject1.requests;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.file.DirectoryStream.Filter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,7 +26,7 @@ import com.surbhi.webProject1.requestService.UserValidService;
 /**
  * Servlet implementation class Home
  */
-public class Calls extends HttpServlet implements Filter {
+public class Calls extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	String file;
 	String msg;
@@ -271,22 +266,4 @@ public class Calls extends HttpServlet implements Filter {
 			e.printStackTrace();
 		}
 	}
-
-	public boolean accept(Object entry) throws IOException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	public void init(FilterConfig config) throws ServletException { }
-
-    public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
-        chain.doFilter(request, response);
-        if (request instanceof HttpServletRequest) {
-        	 String url = ((HttpServletRequest)request).getRequestURL().toString();
-        	 String queryString = ((HttpServletRequest)request).getQueryString();
-        	 System.out.println(url + "?" + queryString);
-        	}
-       
-    }
-
-    public void destroy() { }
 }
