@@ -233,7 +233,7 @@ public class Calls extends HttpServlet {
 			String Time =(String)request.getParameter("time");	
 			BuyTicketService buy = new BuyTicketService();
 			buy.booking(user,fname,Tick,Email,date,Time);
-			msg = "Your tickets are Booked and will be sent on your mail "+Email;	
+			msg = "Your tickets are Booked and will be sent to your mail "+Email;	
 			getHbs(request,response,"message",msg,null);
 
 		}
@@ -243,6 +243,7 @@ public class Calls extends HttpServlet {
 	}
 	public void passengers(HttpServletRequest request, HttpServletResponse response){
 		try {
+			Map<String, Object> hmap = new HashMap<String, Object>();
 			
 			PassengerTableService pts = new PassengerTableService();
 
@@ -261,6 +262,7 @@ public class Calls extends HttpServlet {
 				
 				getHbs(request,response,"passengerTable",null,passengerList);
 			}
+			hmap.put("passengerList", passengerList);
 		}
 		catch(Exception e){
 			e.printStackTrace();
