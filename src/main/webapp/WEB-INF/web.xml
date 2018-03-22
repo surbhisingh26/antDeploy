@@ -4,7 +4,7 @@
 
 <web-app>
 <welcome-file-list>
-	<welcome-file>home</welcome-file>
+	<welcome-file>call</welcome-file>
 
 </welcome-file-list>
 	<display-name>Archetype Created Web Application</display-name>
@@ -88,16 +88,15 @@
 		<description></description>
 		<servlet-class>com.surbhi.webProject1.requests.Calls</servlet-class>
 	</servlet>
-	<filter>
-    <filter-name>call</filter-name>
-    <filter-class>com.surbhi.webProject1.requests.Calls</filter-class>
-  </filter>
+	<servlet>
+		<servlet-name>ServerRestart</servlet-name>
+		<display-name>ServerRestart</display-name>
+		<description></description>
+		<servlet-class>com.surbhi.webProject1.tomcat.ServerRestart</servlet-class>
+	</servlet>
+	
   
-  <filter-mapping>
-    <filter-name>call</filter-name>
-    <url-pattern>/*</url-pattern>
-    <dispatcher>REQUEST</dispatcher>
-  </filter-mapping>
+  
 	
 	<servlet-mapping>
 		<servlet-name>DBConnection</servlet-name>
@@ -150,5 +149,9 @@
 	<servlet-mapping>
 		<servlet-name>Calls</servlet-name>
 		<url-pattern>/call</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ServerRestart</servlet-name>
+		<url-pattern>/ServerRestart</url-pattern>
 	</servlet-mapping>
 </web-app>

@@ -98,7 +98,7 @@ public class Calls extends HttpServlet {
 			hmap.put("message",message);
 		}
 		if(passengerList!=null)
-		hmap.put("passengerList", passengerList);
+			hmap.put("passengerList", passengerList);
 		out.print(template.apply(hmap));
 	}
 	public void loginPage(HttpServletRequest request, HttpServletResponse response){
@@ -205,7 +205,7 @@ public class Calls extends HttpServlet {
 
 			RegisterService rs = new RegisterService();
 			Boolean result = rs.register(fname, lname, uname,country,city,mobile,password,gender,dob);
-			
+
 			if(result == false){
 				msg = "This username is are already registered";
 				getHbs(request,response,"message",msg,null);
@@ -225,7 +225,7 @@ public class Calls extends HttpServlet {
 		try {
 			HttpSession session=request.getSession();
 			String user =(String)session.getAttribute("user");
-			
+
 			String fname = request.getParameter("name");
 			int Tick =Integer.parseInt(request.getParameter("tickets"));
 			String Email =request.getParameter("email");
@@ -244,22 +244,22 @@ public class Calls extends HttpServlet {
 	public void passengers(HttpServletRequest request, HttpServletResponse response){
 		try {
 			Map<String, Object> hmap = new HashMap<String, Object>();
-			
+
 			PassengerTableService pts = new PassengerTableService();
 
 			HttpSession session = request.getSession();
 			String userName = (String)session.getAttribute("user");
 			List<Passenger> passengerList = new ArrayList<Passenger>();
-			
+
 			if(userName==null){
 				msg = "Please login first!!!";
 				getHbs(request,response,"message",msg,null);
 				getHbs(request,response,"login",null,null);
-			 
+
 			}
 			else{
 				passengerList = pts.Passengers(userName);			
-				
+
 				getHbs(request,response,"passengerTable",null,passengerList);
 			}
 			hmap.put("passengerList", passengerList);
