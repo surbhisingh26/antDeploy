@@ -46,39 +46,41 @@ public class Calls extends HttpServlet {
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//PrintWriter out = response.getWriter();
-		file = (String) request.getParameter("file");
-		if(file==null){
-			getHbs(request,response,"home",null,null);
+	
+		String uri = request.getRequestURI();
+		if(uri.equals("/webProject1/")){
+			getHbs(request,response,"home",null);
 		}
-		else if(file.equals("login")){
-			loginPage(request,response);
+		else if(uri.equals("/webProject1/login")){
+			loginPage(request,response);			
 		}
-		else if(file.equals("signin")){
+		else if(uri.equals("/webProject1/signin")){
+
 			signIn(request,response);
 		}
-		else if(file.equals("register")){
+		else if(uri.equals("/webProject1/register")){
 			registerPage(request,response);
 		}
-		else if(file.equals("logout")){
+		else if(uri.equals("/webProject1/logout")){
 			logout(request,response);
 		}
-		else if(file.equals("profile")){
+		else if(uri.equals("/webProject1/profile")){
 			profile(request,response);
 		}
-		else if(file.equals("registration")){
+		else if(uri.equals("/webProject1/registration")){
 			registration(request,response);
 		}
-		else if(file.equals("buyTickets")){
+		else if(uri.equals("/webProject1/buyTickets")){
 			buyTickets(request,response);
 		}
-		else if(file.equals("passengers")){
+		else if(uri.equals("/webProject1/passengers")){
 			passengers(request,response);
 		}
 	}
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void getHbs(HttpServletRequest request, HttpServletResponse response,String file,String message,List<Passenger> passengerList) throws ServletException, IOException {
+	protected void getHbs(HttpServletRequest request, HttpServletResponse response,String file,Map<String, Object> hmap) throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
 
 		HttpSession session = request.getSession();
@@ -87,24 +89,21 @@ public class Calls extends HttpServlet {
 		TemplateLoader loader = new FileTemplateLoader("C:/soft/apache-tomcat-8.5.23/webapps/webProject1/Templates",".hbs");
 		Handlebars handlebars = new Handlebars(loader);
 		Template template = handlebars.compile(file);
-		Map<String, Object> hmap = new HashMap<String, Object>();
+		if(hmap==null)
+			hmap  = new HashMap<String, Object>();
 		if(name==null)
 			hmap.put("login",true);
 		else{
 			hmap.put("login",false);
 			hmap.put("name", name);
 		}
-		if(message!=null){
-			hmap.put("message",message);
-		}
-		if(passengerList!=null)
-			hmap.put("passengerList", passengerList);
+		
 		out.print(template.apply(hmap));
 	}
 	public void loginPage(HttpServletRequest request, HttpServletResponse response){
 		try {
 
-			getHbs(request,response,"login",null,null);
+			getHbs(request,response,"login",null);
 		} catch (ServletException e) {
 
 			e.printStackTrace();
@@ -120,13 +119,17 @@ public class Calls extends HttpServlet {
 			String name=(String)session.getAttribute("name"); 
 			msg = "Hello, "+name+" Welcome to Profile";
 			if(name!=null){  
-				getHbs(request,response,"message",msg,null);
+				Map<String, Object> hmap  = new HashMap<String, Object>();
+				hmap.put("message", msg);
+				getHbs(request,response,"message",hmap);
 
 			}  
 			else{  
 				msg = "Please login first";
-				getHbs(request,response,"message",msg,null);  
-				getHbs(request,response,"login",null,null);
+				Map<String, Object> hmap  = new HashMap<String, Object>();
+				hmap.put("message", msg);
+				getHbs(request,response,"message",hmap);  
+				getHbs(request,response,"login",null);
 			}  
 
 		}
@@ -141,25 +144,30 @@ public class Calls extends HttpServlet {
 			String password = request.getParameter("pass");
 			UserValidService uv = new UserValidService();
 			String result = uv.checkValid(uname,password);
-
+			Map<String, Object> hmap  = new HashMap<String, Object>();
+			
 			if(result.equals(uname)){
 				msg = "No such username exists!!!"
 						+ " Register or login with another username";
-				getHbs(request,response,"message",msg,null);
-				getHbs(request,response,"login",null,null);
-				//request.getRequestDispatcher("login").include(request, response); 
+				
+				hmap.put("message", msg);
+				getHbs(request,response,"message",hmap);
+				
+				getHbs(request,response,"login",null);
+				
 			}
 			else if(result.equals(password)){
 				msg = "Wrong password entered";
-				getHbs(request,response,"message",msg,null);
-				getHbs(request,response,"login",null,null);
+				hmap.put("message", msg);
+				getHbs(request,response,"message",hmap);
+				getHbs(request,response,"login",null);
 			}
 			else {
 				HttpSession session=request.getSession(); 
 				session.setAttribute("name",result);
 				session.setAttribute("user", uname);
 
-				getHbs(request,response,"home",null,null);
+				getHbs(request,response,"home",null);
 			}
 
 		}
@@ -169,7 +177,8 @@ public class Calls extends HttpServlet {
 	}
 	public void registerPage(HttpServletRequest request, HttpServletResponse response){
 		try {
-			getHbs(request,response,"registration",null,null);
+			
+			getHbs(request,response,"registration",null);
 
 		}
 		catch(Exception e){
@@ -179,12 +188,12 @@ public class Calls extends HttpServlet {
 	public void logout(HttpServletRequest request, HttpServletResponse response){
 		try {
 			msg ="you are successfully logged out!";
-
+			Map<String, Object> hmap  = new HashMap<String, Object>();
 			HttpSession session=request.getSession();  
 			session.invalidate();  		          
-
-			getHbs(request,response,"message",msg,null);
-			getHbs(request,response,"home",null,null);
+			hmap.put("message", msg);
+			getHbs(request,response,"message",hmap);
+			getHbs(request,response,"home",null);
 
 		}
 		catch(Exception e){
@@ -205,16 +214,19 @@ public class Calls extends HttpServlet {
 
 			RegisterService rs = new RegisterService();
 			Boolean result = rs.register(fname, lname, uname,country,city,mobile,password,gender,dob);
-
+			Map<String, Object> hmap  = new HashMap<String, Object>();
 			if(result == false){
+				
 				msg = "This username is are already registered";
-				getHbs(request,response,"message",msg,null);
-				getHbs(request,response,"registration",null,null);
+				hmap.put("message", msg);
+				getHbs(request,response,"message",hmap);
+				getHbs(request,response,"registration",null);
 			}
 			else{
 				msg = "You are successfully registered!!! Login here";
-				getHbs(request,response,"message",msg,null);
-				getHbs(request,response,"login",null,null);
+				hmap.put("message", msg);
+				getHbs(request,response,"message",hmap);
+				getHbs(request,response,"login",null);
 			}
 		}
 		catch(Exception e){
@@ -225,7 +237,7 @@ public class Calls extends HttpServlet {
 		try {
 			HttpSession session=request.getSession();
 			String user =(String)session.getAttribute("user");
-
+			Map<String, Object> hmap  = new HashMap<String, Object>();
 			String fname = request.getParameter("name");
 			int Tick =Integer.parseInt(request.getParameter("tickets"));
 			String Email =request.getParameter("email");
@@ -234,7 +246,8 @@ public class Calls extends HttpServlet {
 			BuyTicketService buy = new BuyTicketService();
 			buy.booking(user,fname,Tick,Email,date,Time);
 			msg = "Your tickets are Booked and will be sent to your mail "+Email;	
-			getHbs(request,response,"message",msg,null);
+			hmap.put("message", msg);
+			getHbs(request,response,"message",hmap);
 
 		}
 		catch(Exception e){
@@ -250,19 +263,19 @@ public class Calls extends HttpServlet {
 			HttpSession session = request.getSession();
 			String userName = (String)session.getAttribute("user");
 			List<Passenger> passengerList = new ArrayList<Passenger>();
-
+			
 			if(userName==null){
 				msg = "Please login first!!!";
-				getHbs(request,response,"message",msg,null);
-				getHbs(request,response,"login",null,null);
-
+				hmap.put("message", msg);
+				getHbs(request,response,"message",hmap);
+				getHbs(request,response,"login",null);
 			}
 			else{
 				passengerList = pts.Passengers(userName);			
-
-				getHbs(request,response,"passengerTable",null,passengerList);
+				hmap.put("passengerList", passengerList);
+				getHbs(request,response,"passengerTable",hmap);
 			}
-			hmap.put("passengerList", passengerList);
+			
 		}
 		catch(Exception e){
 			e.printStackTrace();
