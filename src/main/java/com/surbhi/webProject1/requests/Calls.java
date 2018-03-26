@@ -2,12 +2,12 @@ package com.surbhi.webProject1.requests;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.lang.reflect.InvocationTargetException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -58,6 +58,9 @@ public class Calls extends HttpServlet {
 			try {
 
 				Method method = Calls.class.getMethod(uri,HttpServletRequest.class,HttpServletResponse.class);
+				if(method==null){
+					request.getRequestDispatcher("");
+				}
 				method.invoke(c,request,response);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -264,6 +267,14 @@ public class Calls extends HttpServlet {
 				getHbs(request,response,"passengerTable",hmap);
 			}
 
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	public void settings(HttpServletRequest request, HttpServletResponse response){
+		try {
+			getHbs(request,response,"settings",null);
 		}
 		catch(Exception e){
 			e.printStackTrace();

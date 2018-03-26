@@ -7,7 +7,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>webProject1 Maven Webapp</name>
 	<url>http://maven.apache.org</url>
-
+	
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -53,6 +53,15 @@
 </dependency>
 	</dependencies>
 	<build>
+	<resources>
+                        <resource>
+                            <directory>${project.basedir}</directory>
+                            <filtering>true</filtering>
+                            <includes>
+                                <include>config.properties</include>
+                            </includes>
+                        </resource>
+     </resources>
 		<finalName>webProject1</finalName>
 		<plugins>
 			<plugin>
