@@ -1,0 +1,35 @@
+{{>head}}
+{{>header}}
+<div class="container">
+	<h3  style="margin-top:100px;">Your Reservation History</h3>
+		<table class="table table-bordered" id="myTable" style="margin-top:30px;">
+	
+	<tr>
+		<th>Name</th>
+		<th>Number of Tickets</th>
+		<th>Travel date</th>
+		<th>Time</th>
+		<th>Email</th>
+		<th>Total</th>
+		<th>Actions</th>
+	</tr>
+	
+	
+	{{#passengerList}}
+	<tr>
+		<td>{{name}}</td>
+		<td>{{tickets}}</td>
+		<td>{{date}}</td>
+		<td>{{time}}</td>
+		<td>{{email}}</td>
+		<td>{{totalPay}}</td>	
+		<td><a href="#" style="margin-left:10px,margin-right:10px;">Edit </a><a href="#"> Delete</a></td>
+	</tr>
+	{{/passengerList}}
+	
+	</table>
+</div>
+	{{>footer}}
+	
+	
+{{>end}}

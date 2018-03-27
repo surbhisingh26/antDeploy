@@ -14,7 +14,6 @@ import com.mongodb.DBCollection;
 import com.surbhi.webProject1.pojo.Registration;
 import com.surbhi.webProject1.requests.DBConnection;
 
-
 public class RegisterService {
 	
 	

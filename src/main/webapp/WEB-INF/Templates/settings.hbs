@@ -1,0 +1,20 @@
+{{>head}}
+{{>header}}
+<div class= "row" style="margin-top:100px;">
+<div class="col-md-8 col-md-offset-2">
+<label>Change Theme Settings</label>
+<hr>
+<form action = "color">
+Change Color <div id="cp2" class="input-group colorpicker-component"> 
+      <input type="hidden" value="#000000" class="form-control" id="bgcolor" name="bgcolor"/> 
+      <span class="input-group-addon"></span>
+    </div> 
+  <button type ="button"class = "btn btn-info pull-right">Apply</button>  </form>  
+    </div>
+</div>
+</div>
+{{>footer}}
+<script type="text/javascript">
+$('#cp2').colorpicker();
+</script>
+{{>end}}

@@ -30,9 +30,8 @@ public void booking(String user,String fname,int Tick,String Email,String date,S
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
-	//---------- Creating Collection ------------
+	//---------- Creating Collection -----------
 	DBCollection collection = mongo.getCollection("passenger");
-	 
 	
 	JacksonDBCollection<Passenger, String> coll = JacksonDBCollection.wrap(collection,Passenger.class, String.class);
 	

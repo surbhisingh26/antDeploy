@@ -9,7 +9,12 @@ import java.util.List;
 import java.util.Map;
 import java.lang.reflect.InvocationTargetException;
 
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,7 +33,7 @@ import com.surbhi.webProject1.requestService.UserValidService;
 /**
  * Servlet implementation class Home
  */
-public class Calls extends HttpServlet {
+public class Calls extends HttpServlet implements Filter {
 	private static final long serialVersionUID = 1L;
 
 	String file;
@@ -47,19 +52,39 @@ public class Calls extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request,response);
 	}
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) 
+	 throws IOException, ServletException {
+		PrintWriter out = response.getWriter();
+		String path=((HttpServletRequest) request).getRequestURI();
+		//out.println(path);
+	 if (!path.contains(".")) {
+		// out.print("hello");
+		    chain.doFilter(request, response); 
+		    // Just continue chain.
+		}
+	 
+	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//PrintWriter out = response.getWriter();
+		PrintWriter out = response.getWriter();
 		Calls c= new Calls();
-		String uri = request.getPathInfo().replace("/", "");
-		if(uri.equals("")){
+		//out.println("1"+request.getPathInfo());
+		String path=request.getPathInfo();
+		/*if (path.contains(".")) {
+		    chain.doFilter(request, response); // Just continue chain.
+		}*/
+		String ur = path.replace("/", "");
+		//out.println("2 "+ur);
+		color(request,response);
+		if(ur.equals("")){
 			getHbs(request,response,"home",null);
 		}
 		else{
 			try {
 
-				Method method = Calls.class.getMethod(uri,HttpServletRequest.class,HttpServletResponse.class);
+				Method method = Calls.class.getMethod(ur,HttpServletRequest.class,HttpServletResponse.class);
+				//out.print(method);
 				if(method==null){
-					request.getRequestDispatcher("");
+					out.print("3"+method);
 				}
 				method.invoke(c,request,response);
 			} catch (Exception e) {
@@ -76,7 +101,7 @@ public class Calls extends HttpServlet {
 		HttpSession session = request.getSession();
 		String name = (String)session.getAttribute("name");
 
-		TemplateLoader loader = new FileTemplateLoader("C:/soft/apache-tomcat-8.5.23/webapps/webProject1/Templates",".hbs");
+		TemplateLoader loader = new FileTemplateLoader("C:/soft/apache-tomcat-8.5.23/webapps/webProject1/WEB-INF/Templates",".hbs");
 		Handlebars handlebars = new Handlebars(loader);
 		Template template = handlebars.compile(file);
 		if(hmap==null)
@@ -275,6 +300,25 @@ public class Calls extends HttpServlet {
 	public void settings(HttpServletRequest request, HttpServletResponse response){
 		try {
 			getHbs(request,response,"settings",null);
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+
+	public void init(FilterConfig arg0) throws ServletException {
+		// TODO Auto-generated method stub
+		
+	}
+	public void color(HttpServletRequest request, HttpServletResponse response){
+		try {
+			PrintWriter out = response.getWriter();
+			String path=request.getPathInfo().replace("/", "");
+			Map<String, Object> hmap = new HashMap<String, Object>();
+			String bgcolor =(String)request.getParameter("bgcolor");
+			out.print(bgcolor);
+			hmap.put("bgcolor", bgcolor);
+			getHbs(request,response,path,hmap);
 		}
 		catch(Exception e){
 			e.printStackTrace();
