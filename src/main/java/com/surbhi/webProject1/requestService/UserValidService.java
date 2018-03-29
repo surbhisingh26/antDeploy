@@ -10,10 +10,11 @@ import com.mongodb.DBCollection;
 import com.surbhi.webProject1.pojo.Registration;
 import com.surbhi.webProject1.requests.DBConnection;
 public class UserValidService {
-	
+	String bgcolor=null;
 	DBConnection db = new DBConnection();
-	public String checkValid(String uname,String password){
+	public String[] checkValid(String uname,String password){
 		DB mongo;
+		
 		mongo=db.getDB();
 		DBCollection collec = mongo.getCollection("registration");
 		JacksonDBCollection<Registration, String> coll = JacksonDBCollection.wrap(collec,Registration.class, String.class);
@@ -21,22 +22,29 @@ public class UserValidService {
 		BasicDBObject query = new BasicDBObject();
 		query.put("username", uname);
 		DBCursor<Registration> cursor = coll.find(query);
-		
+		String[] result = new String[2];
 		if (cursor.hasNext()) {
-			Registration cur = cursor.next();
-			String pass = cur.getPassword();
-			
+			Registration registration = cursor.next();
+			String pass = registration.getPassword();
+			 
 				if(pass.equals(password)){
-					String name = cur.getName();
-					
-					return name;
+					result[0] = registration.getName();
+					result[1] = registration.getBgcolor();
+					return result;
 				}
 				
-				else
-					return password;
+				else{
+					result[0]=password;
+					return result;
+				}
 			
 		}
-		return uname;
+		result[0]=uname;
+		return result;
 		
 	}
+	public String getBgcolor() {
+		return bgcolor;
+	}
+	
 }

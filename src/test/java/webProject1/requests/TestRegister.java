@@ -5,6 +5,6 @@ import com.surbhi.webProject1.requestService.RegisterService;
 public class TestRegister {
 	public static void main(String args[]){
 		RegisterService re = new RegisterService();
-		re.register("surbhi", "singh", "surbhisingh", "country", "city", "244", "password", "gender","26/08/1994");
+		re.registerUser("surbhi", "singh", "surbhisingh", "country", "city", "244", "password", "gender","26/08/1994","#000000");
 	}
 }

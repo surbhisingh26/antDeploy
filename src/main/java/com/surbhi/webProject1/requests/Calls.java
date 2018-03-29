@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.lang.reflect.InvocationTargetException;
-
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -35,9 +33,11 @@ import com.surbhi.webProject1.requestService.UserValidService;
  */
 public class Calls extends HttpServlet implements Filter {
 	private static final long serialVersionUID = 1L;
-
+	String uname;
 	String file;
 	String msg;
+    private String excludedUrlsRegex;
+
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -45,27 +45,39 @@ public class Calls extends HttpServlet implements Filter {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	public void init(FilterConfig config) throws ServletException {
+		System.out.println("initializing...");
+		this.excludedUrlsRegex = config.getInitParameter("[.js|.css]");
+        System.out.println("excludedUrlsRegex <><><> " + excludedUrlsRegex);
 
+
+	}
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request,response);
 	}
+	
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) 
-	 throws IOException, ServletException {
-		PrintWriter out = response.getWriter();
+			throws IOException, ServletException {
+
 		String path=((HttpServletRequest) request).getRequestURI();
-		//out.println(path);
-	 if (!path.contains(".")) {
-		// out.print("hello");
-		    chain.doFilter(request, response); 
-		    // Just continue chain.
+		System.out.println("Filtering path "+ path);
+	/*	if (!path.contains(".")) {		
+			chain.doFilter(request, response); 
+			return;
+		}	*/
+		
+		if(!path.matches(".*(css|jpg|png|gif|js)")){
+		    chain.doFilter(request, response);
+		    return;
 		}
-	 
+		
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		PrintWriter out = response.getWriter();
+		//PrintWriter out = response.getWriter();
 		Calls c= new Calls();
 		//out.println("1"+request.getPathInfo());
 		String path=request.getPathInfo();
@@ -74,7 +86,7 @@ public class Calls extends HttpServlet implements Filter {
 		}*/
 		String ur = path.replace("/", "");
 		//out.println("2 "+ur);
-		color(request,response);
+
 		if(ur.equals("")){
 			getHbs(request,response,"home",null);
 		}
@@ -83,9 +95,7 @@ public class Calls extends HttpServlet implements Filter {
 
 				Method method = Calls.class.getMethod(ur,HttpServletRequest.class,HttpServletResponse.class);
 				//out.print(method);
-				if(method==null){
-					out.print("3"+method);
-				}
+
 				method.invoke(c,request,response);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -106,9 +116,15 @@ public class Calls extends HttpServlet implements Filter {
 		Template template = handlebars.compile(file);
 		if(hmap==null)
 			hmap  = new HashMap<String, Object>();
-		if(name==null)
+		if(name==null){
+			String bgcolor = "#000000";
+			hmap.put("bgcolor", bgcolor);
 			hmap.put("login",true);
+		}
+
 		else{
+			String bgcolor =(String)session.getAttribute("bgcolor");
+			hmap.put("bgcolor", bgcolor);
 			hmap.put("login",false);
 			hmap.put("name", name);
 		}
@@ -154,14 +170,15 @@ public class Calls extends HttpServlet implements Filter {
 	}
 	public void signin(HttpServletRequest request, HttpServletResponse response){
 		try {
+
 			String uname = request.getParameter("uname");
 
 			String password = request.getParameter("pass");
 			UserValidService uv = new UserValidService();
-			String result = uv.checkValid(uname,password);
+			String[] result = uv.checkValid(uname,password);
 			Map<String, Object> hmap  = new HashMap<String, Object>();
 
-			if(result.equals(uname)){
+			if(result[0].equals(uname)){
 				msg = "No such username exists!!!"
 						+ " Register or login with another username";
 
@@ -171,17 +188,22 @@ public class Calls extends HttpServlet implements Filter {
 				getHbs(request,response,"login",null);
 
 			}
-			else if(result.equals(password)){
+			else if(result[0].equals(password)){
 				msg = "Wrong password entered";
 				hmap.put("message", msg);
 				getHbs(request,response,"message",hmap);
 				getHbs(request,response,"login",null);
 			}
 			else {
+
 				HttpSession session=request.getSession(); 
-				session.setAttribute("name",result);
+				session.setAttribute("name",result[0]);
 				session.setAttribute("user", uname);
+				String bgcolor =result[1];
+				session.setAttribute("bgcolor",bgcolor);
+
 				getHbs(request,response,"home",null);
+
 			}
 
 		}
@@ -199,13 +221,13 @@ public class Calls extends HttpServlet implements Filter {
 	}
 	public void logout(HttpServletRequest request, HttpServletResponse response){
 		try {
-			msg ="you are successfully logged out!";
-			Map<String, Object> hmap  = new HashMap<String, Object>();
+
+			//Map<String, Object> hmap  = new HashMap<String, Object>();
 			HttpSession session=request.getSession();  
 			session.invalidate();  		          
-			hmap.put("message", msg);
-			getHbs(request,response,"message",hmap);
-			getHbs(request,response,"home",null);
+			response.sendRedirect("/webProject1");
+			/*getHbs(request,response,"message",hmap);
+			getHbs(request,response,"home",null);*/
 
 		}
 		catch(Exception e){
@@ -223,9 +245,9 @@ public class Calls extends HttpServlet implements Filter {
 			String mobile =request.getParameter("mobile");
 			String password = request.getParameter("pass");
 			String gender = request.getParameter("gender");
-
+			String bgcolor = "#000000";
 			RegisterService rs = new RegisterService();
-			Boolean result = rs.register(fname, lname, uname,country,city,mobile,password,gender,dob);
+			Boolean result = rs.registerUser(fname, lname, uname,country,city,mobile,password,gender,dob,bgcolor);
 			Map<String, Object> hmap  = new HashMap<String, Object>();
 			if(result == false){
 
@@ -249,18 +271,18 @@ public class Calls extends HttpServlet implements Filter {
 		try {
 			HttpSession session=request.getSession();
 			String user =(String)session.getAttribute("user");
-			
+
 			Map<String, Object> hmap  = new HashMap<String, Object>();
-			
+
 			String fname = request.getParameter("name");
 			int Tick =Integer.parseInt(request.getParameter("tickets"));
 			String Email =request.getParameter("email");
 			String date =(String)request.getParameter("date");
 			String Time =(String)request.getParameter("time");
-			
+
 			BuyTicketService buy = new BuyTicketService();
 			buy.booking(user,fname,Tick,Email,date,Time);
-			
+
 			msg = "Your tickets are Booked and will be sent to your mail "+Email;	
 			hmap.put("message", msg);
 			getHbs(request,response,"message",hmap);
@@ -306,19 +328,21 @@ public class Calls extends HttpServlet implements Filter {
 		}
 	}
 
-	public void init(FilterConfig arg0) throws ServletException {
-		// TODO Auto-generated method stub
-		
-	}
+	
 	public void color(HttpServletRequest request, HttpServletResponse response){
 		try {
-			PrintWriter out = response.getWriter();
-			String path=request.getPathInfo().replace("/", "");
+
+			RegisterService registerService = new RegisterService();
+			HttpSession session = request.getSession();
+			uname = (String) session.getAttribute("user");
+			//PrintWriter out = response.getWriter();
 			Map<String, Object> hmap = new HashMap<String, Object>();
 			String bgcolor =(String)request.getParameter("bgcolor");
-			out.print(bgcolor);
-			hmap.put("bgcolor", bgcolor);
-			getHbs(request,response,path,hmap);
+
+			session.setAttribute("bgcolor",bgcolor);
+
+			getHbs(request,response,"settings",hmap);
+			registerService.updateColor(bgcolor,uname);
 		}
 		catch(Exception e){
 			e.printStackTrace();

@@ -34,7 +34,7 @@ public void booking(String user,String fname,int Tick,String Email,String date,S
 	DBCollection collection = mongo.getCollection("passenger");
 	
 	JacksonDBCollection<Passenger, String> coll = JacksonDBCollection.wrap(collection,Passenger.class, String.class);
-	
+
 	pas.setLoginuser(user);
 	pas.setName(fname);
 	pas.setTickets(Tick);

@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonFormat(pattern = "dd/MM/yyyy")
 public class Registration {
-	
+
 	private String uType;
 	private String name;
 	private String username;
@@ -18,14 +18,11 @@ public class Registration {
 	private String city;
 	private String mobile;
 	private String password;
+	private String bgcolor;
 	public String getName() {
 		return name;
 	}
-	@Override
-	public String toString() {
-		return "PojoRegistration [name=" + name + ", username=" + username + ", gender=" + gender + ", dob=" + dob
-				+ ", country=" + country + ", city=" + city + ", mobile=" + mobile + ", password=" + password + "]";
-	}
+	
 	public void setName(String fname,String lname) {
 		this.name = fname+" "+lname;
 	}
@@ -77,4 +74,17 @@ public class Registration {
 	public void setuType(String uType) {
 		this.uType = uType;
 	}
+	public String getBgcolor() {
+		return bgcolor;
+	}
+	public void setBgcolor(String bgcolor) {
+		this.bgcolor = bgcolor;
+	}
+	@Override
+	public String toString() {
+		return "Registration [uType=" + uType + ",username=" + username + ", name=" + name + ",  gender=" + gender
+				+ ", dob=" + dob + ", country=" + country + ", city=" + city + ", mobile=" + mobile + ", password="
+				+ password + ", bgcolor=" + bgcolor + "]";
+	}
+	
 }
