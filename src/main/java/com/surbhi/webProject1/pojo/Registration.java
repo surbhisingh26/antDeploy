@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonFormat(pattern = "dd/MM/yyyy")
 public class Registration {
-
+	
 	private String uType;
 	private String name;
 	private String username;

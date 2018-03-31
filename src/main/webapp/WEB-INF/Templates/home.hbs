@@ -173,16 +173,19 @@
 						<div class="modal-body" style="background-color: white;">
 							<br>
 							<form action="buyTickets" method="post">
-							
+							<input type="hidden" id= "id" name="id" value = {{id}}>
 								<div class="form-group">
 									<label for="text">Name</label> <input type="text"
 										class="form-control" placeholder="Enter Name" name="name">
 								</div>
 								<div class="form-group ">
 									<label for="text"> Tickets, $23 per person</label> <input
-										type="text" class="form-control" value="1" name="tickets">
+										type="number" class="form-control" value="1" min="1" name="tickets">
 								</div>
-								
+								<div class="form-group ">
+									<label for="text"> Place</label> <input
+										type="text" class="form-control" name="place" placeholder="Where do you want to go">
+								</div>
 								
 									<label for="text">Travel Date</label>
 									<div class="form-group ">

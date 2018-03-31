@@ -1,6 +1,9 @@
 package com.surbhi.webProject1.requestService;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.mongojack.DBCursor;
@@ -29,9 +32,9 @@ public class PassengerTableService {
 		if(cursor.hasNext()){
 			reg = cursor.next();
 			uType = reg.getuType();
-			
+		
 		}
-	 
+	
 		//---------- Creating Collection ------------
 		DBCollection collec = mongo.getCollection("passenger");
 		JacksonDBCollection<Passenger, String> coll = JacksonDBCollection.wrap(collec,Passenger.class, String.class);
@@ -54,9 +57,15 @@ public class PassengerTableService {
 			
 			while(cur.hasNext()){					
 				passen =  cur.next();
+				Date date = passen.getDate();
+				Date time = passen.getTime();
+				DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");  
+				String strDate = dateFormat.format(date);
+				DateFormat timeFormat = new SimpleDateFormat("HH:mm");  
+				String strTime = timeFormat.format(time);
 				passengerList.add(passen);
-			}
-			
+				//passengerList.set(5, strDate);
+			}		
 
 		}
 		return passengerList;

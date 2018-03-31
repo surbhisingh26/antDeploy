@@ -7,12 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,12 +26,12 @@ import com.surbhi.webProject1.requestService.UserValidService;
 /**
  * Servlet implementation class Home
  */
-public class Calls extends HttpServlet implements Filter {
+public class Calls extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	String uname;
 	String file;
 	String msg;
-    private String excludedUrlsRegex;
+    //private String excludedUrlsRegex;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -46,13 +41,7 @@ public class Calls extends HttpServlet implements Filter {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void init(FilterConfig config) throws ServletException {
-		System.out.println("initializing...");
-		this.excludedUrlsRegex = config.getInitParameter("[.js|.css]");
-        System.out.println("excludedUrlsRegex <><><> " + excludedUrlsRegex);
-
-
-	}
+	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -60,44 +49,29 @@ public class Calls extends HttpServlet implements Filter {
 		doPost(request,response);
 	}
 	
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) 
-			throws IOException, ServletException {
-
-		String path=((HttpServletRequest) request).getRequestURI();
-		System.out.println("Filtering path "+ path);
-	/*	if (!path.contains(".")) {		
-			chain.doFilter(request, response); 
-			return;
-		}	*/
-		
-		if(!path.matches(".*(css|jpg|png|gif|js)")){
-		    chain.doFilter(request, response);
-		    return;
-		}
-		
-	}
+	
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//PrintWriter out = response.getWriter();
+	//	PrintWriter out = response.getWriter();
 		Calls c= new Calls();
-		//out.println("1"+request.getPathInfo());
-		String path=request.getPathInfo();
-		/*if (path.contains(".")) {
-		    chain.doFilter(request, response); // Just continue chain.
-		}*/
-		String ur = path.replace("/", "");
-		//out.println("2 "+ur);
-
-		if(ur.equals("")){
+		String path = request.getPathInfo();
+		System.out.println("path "+ path);
+		
+		if(path==null||path.equals("/")){
 			getHbs(request,response,"home",null);
 		}
+		
+		
 		else{
 			try {
-
-				Method method = Calls.class.getMethod(ur,HttpServletRequest.class,HttpServletResponse.class);
-				//out.print(method);
-
+				String ur = path.replace("/", "");
+				Method method = Calls.class.getDeclaredMethod(ur,HttpServletRequest.class,HttpServletResponse.class);
+//				System.out.println("method is "+method);
+//				System.out.println("method name is "+method.getName());
+				
 				method.invoke(c,request,response);
 			} catch (Exception e) {
+				
 				e.printStackTrace();
 			} 
 		}
@@ -222,13 +196,11 @@ public class Calls extends HttpServlet implements Filter {
 	public void logout(HttpServletRequest request, HttpServletResponse response){
 		try {
 
-			//Map<String, Object> hmap  = new HashMap<String, Object>();
 			HttpSession session=request.getSession();  
-			session.invalidate();  		          
+			session.invalidate();  	
+			
 			response.sendRedirect("/webProject1");
-			/*getHbs(request,response,"message",hmap);
-			getHbs(request,response,"home",null);*/
-
+			
 		}
 		catch(Exception e){
 			e.printStackTrace();
@@ -277,11 +249,12 @@ public class Calls extends HttpServlet implements Filter {
 			String fname = request.getParameter("name");
 			int Tick =Integer.parseInt(request.getParameter("tickets"));
 			String Email =request.getParameter("email");
-			String date =(String)request.getParameter("date");
+			String Date =(String)request.getParameter("date");
 			String Time =(String)request.getParameter("time");
+			String Place =(String)request.getParameter("place");
 
 			BuyTicketService buy = new BuyTicketService();
-			buy.booking(user,fname,Tick,Email,date,Time);
+			buy.bookPassenger(user,fname,Tick,Email,Date,Time,Place);
 
 			msg = "Your tickets are Booked and will be sent to your mail "+Email;	
 			hmap.put("message", msg);
@@ -309,7 +282,8 @@ public class Calls extends HttpServlet implements Filter {
 				getHbs(request,response,"login",null);
 			}
 			else{
-				passengerList = pts.Passengers(userName);			
+				passengerList = pts.Passengers(userName);	
+				
 				hmap.put("passengerList", passengerList);
 				getHbs(request,response,"passengerTable",hmap);
 			}
@@ -343,6 +317,14 @@ public class Calls extends HttpServlet implements Filter {
 
 			getHbs(request,response,"settings",hmap);
 			registerService.updateColor(bgcolor,uname);
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	public void editpassenger(HttpServletRequest request, HttpServletResponse response){
+		try {
+			getHbs(request,response,"editPassenger",null);
 		}
 		catch(Exception e){
 			e.printStackTrace();

@@ -10,7 +10,7 @@ import com.mongodb.client.MongoDatabase;
 public class DBConnection { 
 	public DB getDB(){  
 		try{  
-		
+	
 			//---------- Connecting DataBase -------------------------//  
 			MongoClient mongoClient = new MongoClient( "localhost" , 27017 );  
 			//---------- Creating DataBase ---------------------------//  

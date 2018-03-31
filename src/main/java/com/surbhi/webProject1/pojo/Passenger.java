@@ -1,6 +1,4 @@
 package com.surbhi.webProject1.pojo;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -10,18 +8,33 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonFormat(pattern = "dd/MM/yyyy")
 public class Passenger {
+	private String id;
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 	private String Loginuser;
 	private String name;
 	private int tickets;
 	private String email;
+	private String place;
 	private Date date;
 	private Date time;
 	private int totalPay;
+	
 	public String getName() {
 		return name;
-	}
+		}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public String getPlace() {
+		return place;
+	}
+	public void setPlace(String place) {
+		this.place = place;
 	}
 	public int getTickets() {
 		return tickets;
@@ -35,18 +48,18 @@ public class Passenger {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getDate() {
-		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");  
-		String strDate = dateFormat.format(date);
-		return strDate;
+	public Date getDate() {
+//		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");  
+//		String strDate = dateFormat.format(date);
+		return date;
 	}
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	public String getTime() {
-		DateFormat timeFormat = new SimpleDateFormat("HH:mm");  
-		String strTime = timeFormat.format(time);
-		return strTime;
+	public Date getTime() {
+		/*DateFormat timeFormat = new SimpleDateFormat("HH:mm");  
+		String strTime = timeFormat.format(time);*/
+		return time;
 	}
 	public void setTime(Date time) {
 		this.time = time;
@@ -57,15 +70,17 @@ public class Passenger {
 	public void setTotalPay(int totalPay) {
 		this.totalPay = totalPay;
 	}
-	@Override
-	public String toString() {
-		return "Passenger [LoginUser=" + Loginuser + ", name=" + name + ", tickets=" + tickets + ", email=" + email
-				+ ", date=" + date + ", time=" + time + ", TotalPay=" + totalPay + "]";
-	}
+	
 	public String getLoginuser() {
 		return Loginuser;
 	}
 	public void setLoginuser(String loginuser) {
 		Loginuser = loginuser;
+	}
+	@Override
+	public String toString() {
+		return "Passenger [id=" + id + ", Loginuser=" + Loginuser + ", name=" + name + ", tickets=" + tickets
+				+ ", email=" + email + ", place=" + place + ", date=" + date + ", time=" + time + ", totalPay="
+				+ totalPay + "]";
 	}
 }

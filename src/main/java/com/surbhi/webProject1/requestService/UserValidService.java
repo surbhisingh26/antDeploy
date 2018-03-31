@@ -1,5 +1,4 @@
 package com.surbhi.webProject1.requestService;
-
 import org.mongojack.DBCursor;
 import org.mongojack.JacksonDBCollection;
 
@@ -31,8 +30,7 @@ public class UserValidService {
 					result[0] = registration.getName();
 					result[1] = registration.getBgcolor();
 					return result;
-				}
-				
+				}				
 				else{
 					result[0]=password;
 					return result;

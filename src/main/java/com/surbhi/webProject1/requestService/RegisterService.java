@@ -1,19 +1,18 @@
 package com.surbhi.webProject1.requestService;
 
 
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.bson.Document;
+
 import org.mongojack.DBCursor;
-import org.mongojack.DBQuery.Query;
+
 import org.mongojack.JacksonDBCollection;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
-import com.mongodb.DBObject;
+
 import com.surbhi.webProject1.pojo.Registration;
 import com.surbhi.webProject1.requests.DBConnection;
 
@@ -24,7 +23,7 @@ public class RegisterService {
 	public boolean registerUser(String fname,String lname,String uname,String country,String city,String mobile,String password,String gender,String dob,String bgcolor){
 	DB mongo;
 	mongo=db1.getDB();
-		
+	
 	DBCollection collec = mongo.getCollection("registration");
 	JacksonDBCollection<Registration, String> coll = JacksonDBCollection.wrap(collec,Registration.class, String.class);
 	Registration registration = new Registration();
