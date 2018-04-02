@@ -64,6 +64,7 @@ public class PassengerTableService {
 				DateFormat timeFormat = new SimpleDateFormat("HH:mm");  
 				String strTime = timeFormat.format(time);
 				passengerList.add(passen);
+				//passengerList.("date", strDate);
 				//passengerList.set(5, strDate);
 			}		
 

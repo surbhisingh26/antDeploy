@@ -1,6 +1,9 @@
 {{>head}}
 {{>header}}
-<div class = "container">
+<div class = "container" onpageload="alert("hello")">
+<form action="buyTickets" method="post">
+							<input type="text" id= "id" name="id" value={{#passenger}}{{id}}{{/passenger}}>
+							</form>
 <div class="modal fade" id="myModal" role="dialog">
 				<div class="modal-dialog">
 
@@ -14,7 +17,7 @@
 						<div class="modal-body" style="background-color: white;">
 							<br>
 							<form action="buyTickets" method="post">
-							<input type="hidden" id= "id" name="id" value={{id}}>
+							<input type="text" id= "id" name="id" value={{#passengerDetails}}{{id}}{{/passengerDetails}}>
 								<div class="form-group">
 									<label for="text">Name</label> <input type="text"
 										class="form-control" placeholder="Enter Name" name="name">
@@ -70,6 +73,7 @@
 				</div>
 			</div>
 			</div>
-			
-		{>footer}}
-		{{>end}}
+			{{>footer}}
+	
+	
+{{>end}}

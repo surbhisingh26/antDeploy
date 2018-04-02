@@ -199,7 +199,7 @@ public class Calls extends HttpServlet{
 			HttpSession session=request.getSession();  
 			session.invalidate();  	
 			
-			response.sendRedirect("/webProject1");
+			response.sendRedirect("/");
 			
 		}
 		catch(Exception e){
@@ -252,9 +252,14 @@ public class Calls extends HttpServlet{
 			String Date =(String)request.getParameter("date");
 			String Time =(String)request.getParameter("time");
 			String Place =(String)request.getParameter("place");
-
+			String pid = (String)request.getParameter("pid");
 			BuyTicketService buy = new BuyTicketService();
-			buy.bookPassenger(user,fname,Tick,Email,Date,Time,Place);
+			System.out.println(fname);
+			System.out.println(Email);
+			System.out.println(Date);
+			System.out.println(Tick);
+			System.out.println(pid);
+			buy.bookPassenger(pid,user,fname,Tick,Email,Date,Time,Place);
 
 			msg = "Your tickets are Booked and will be sent to your mail "+Email;	
 			hmap.put("message", msg);
@@ -283,7 +288,7 @@ public class Calls extends HttpServlet{
 			}
 			else{
 				passengerList = pts.Passengers(userName);	
-				
+				System.out.println("\n Passenger List is \n" + passengerList);
 				hmap.put("passengerList", passengerList);
 				getHbs(request,response,"passengerTable",hmap);
 			}
@@ -324,7 +329,14 @@ public class Calls extends HttpServlet{
 	}
 	public void editpassenger(HttpServletRequest request, HttpServletResponse response){
 		try {
-			getHbs(request,response,"editPassenger",null);
+			Map<String, Object> hmap = new HashMap<String, Object>();
+			BuyTicketService buyTicketService = new BuyTicketService();
+			String id = request.getParameter("id");
+			List<Passenger> passengerDetails = new ArrayList<Passenger>();
+			passengerDetails = buyTicketService.editPassenger(id);
+			System.out.println("Passenger Details is "+passengerDetails);
+		hmap.put("passengerDetails", passengerDetails);
+			getHbs(request,response,"passengerTable",hmap);
 		}
 		catch(Exception e){
 			e.printStackTrace();

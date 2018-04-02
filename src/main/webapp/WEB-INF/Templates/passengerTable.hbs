@@ -19,21 +19,100 @@
 	{{#passengerList}}
 	
 	<tr>
+	
 		<td>{{name}}</td>
 		<td>{{tickets}}</td>
-		<td>{{date}}</td>
-		<td>{{time}}</td>
+		<td class ="date">{{date}}</td>
+		<td class="time">{{time}}</td>
 		<td>{{place}}</td>
 		<td>{{email}}</td>
 		<td>{{totalPay}}</td>	
-		<td><a href="editpassenger" data-target="#myModal" style="margin-left:10px,margin-right:10px;">Edit </a><a href="deletepassenger"> Delete</a></td>
-		<input type = "hidden" id="id" name="id" value={{id}}>
+		<td><a href="#" data-target="#editPassenger{{id}}" data-toggle="modal" style="margin-left:10px,margin-right:10px;">Edit </a><a href="deletepassenger"> Delete</a></td>
+		
 	</tr>
 	{{/passengerList}}
 	
 	</table>
 </div>
+<div class = "container">
+{{#passengerList}}
+<div class="modal fade" id="editPassenger{{id}}" role="dialog">
+				<div class="modal-dialog">
+
+					<!-- Modal content-->
+					<div class="modal-content">
+						<div class="modal-header" style="background-color: #323232;">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h1 class="modal-title text-center" style="font-size: 16">Tickets</h1>
+							<br>
+						</div>
+						<div class="modal-body" style="background-color: white;">
+							<br>
+							<form action="buyTickets" method="post">
+							<input type="hidden" id= "pid" name="pid" value="{{id}}">
+								<div class="form-group">
+									<label for="text">Name</label> <input type="text"
+										class="form-control" placeholder="Enter Name" name="name" value = "{{name}}">
+								</div>
+								<div class="form-group">
+									<label for="text"> Tickets, $23 per person</label> <input
+										type="number" class="form-control"  min="1" name="tickets" value = "{{tickets}}">
+								</div>
+								<div class="form-group">
+									<label for="text"> Place</label> <input
+										type="text" class="form-control" name="place" placeholder="Where do you want to go" value = "{{place}}">
+								</div>
+								
+									<label for="text">Travel Date</label>
+									<div class="form-group">
+									<div class="col-sm-6">
+									<div class="date_picker input-group date">
+										<input type="text" id="date" name="date" class="form-control"
+											placeholder="DD/MM/YYYY" value = "{{date}}"> <span
+											class="input-group-addon"> <span
+											class="glyphicon glyphicon-calendar"></span>
+										</span>
+									</div>								
+									</div>
+									<div class="col-sm-6">
+									
+									<div class="datetime_picker input-group date" >
+										<input type="text"  id="time" name="time" class="form-control"
+											placeholder="hh:mm" value = "{{time}}"> <span
+											class="input-group-addon"> <span
+											class="glyphicon glyphicon-time"></span>
+										</span>
+									</div>
+								</div>
+								
+								</div>
+								<div class="form-group input-append spinner"
+									data-trigger="spinner">
+									<label for="email">Send To</label> <input type="email"
+										class="form-control " id="email" placeholder="Enter Email"
+										name="email" value = "{{email}}">
+								</div>
+								<button type="submit" class="btn btn-block">Update</button>
+							</form>
+						</div>
+						<div class="modal-footer">
+							<p class="text-left">
+								<button type="button" class="btn "
+									style="background-color: black;" data-dismiss="modal">Cancel</button>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			{{/passengerList}}
+			</div>
+			
 	{{>footer}}
-	
-	
+	<script>
+	$(document).ready(function(){
+	var date = $('.date').attr('value');
+	alert(date);
+	moment(date,'ddd MMM DD HH:mm:ss IST yyyy').format('l')
+	});
+	</script>
 {{>end}}

@@ -87,7 +87,7 @@ public class RegisterService {
 			registration.setMobile(mobile);
 			registration.setPassword(password);
 			registration.setDob(date);
-		
+	
 		}
 		coll.updateById(registration.getUsername(), registration);
 	}
