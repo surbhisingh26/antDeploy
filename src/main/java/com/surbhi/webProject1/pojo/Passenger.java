@@ -1,20 +1,13 @@
 package com.surbhi.webProject1.pojo;
 import java.util.Date;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@JsonFormat(pattern = "dd/MM/yyyy")
-public class Passenger {
-	private String id;
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
+
+public class Passenger extends BaseObject{
+	
 	private String Loginuser;
 	private String name;
 	private int tickets;
@@ -48,6 +41,7 @@ public class Passenger {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
 	public Date getDate() {
 //		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");  
 //		String strDate = dateFormat.format(date);
@@ -76,11 +70,5 @@ public class Passenger {
 	}
 	public void setLoginuser(String loginuser) {
 		Loginuser = loginuser;
-	}
-	@Override
-	public String toString() {
-		return "Passenger [id=" + id + ", Loginuser=" + Loginuser + ", name=" + name + ", tickets=" + tickets
-				+ ", email=" + email + ", place=" + place + ", date=" + date + ", time=" + time + ", totalPay="
-				+ totalPay + "]";
 	}
 }

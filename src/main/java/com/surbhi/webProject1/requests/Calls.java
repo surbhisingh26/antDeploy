@@ -1,17 +1,22 @@
 package com.surbhi.webProject1.requests;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.lang.reflect.Method;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 import com.github.jknack.handlebars.Handlebars;
 import com.github.jknack.handlebars.Template;
@@ -20,18 +25,20 @@ import com.github.jknack.handlebars.io.TemplateLoader;
 import com.surbhi.webProject1.pojo.Passenger;
 import com.surbhi.webProject1.requestService.BuyTicketService;
 import com.surbhi.webProject1.requestService.PassengerTableService;
-import com.surbhi.webProject1.requestService.RegisterService;
+import com.surbhi.webProject1.requestService.UserService;
 import com.surbhi.webProject1.requestService.UserValidService;
 
 /**
  * Servlet implementation class Home
  */
+@WebServlet("/upload")
+ @MultipartConfig
 public class Calls extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	String uname;
 	String file;
 	String msg;
-    //private String excludedUrlsRegex;
+	//private String excludedUrlsRegex;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -40,38 +47,38 @@ public class Calls extends HttpServlet{
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	
+
+
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request,response);
 	}
-	
-	
-	
+
+
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	//	PrintWriter out = response.getWriter();
+		//	PrintWriter out = response.getWriter();
 		Calls c= new Calls();
 		String path = request.getPathInfo();
 		System.out.println("path "+ path);
-		
+
 		if(path==null||path.equals("/")){
 			getHbs(request,response,"home",null);
 		}
-		
-		
+
+
 		else{
 			try {
 				String ur = path.replace("/", "");
 				Method method = Calls.class.getDeclaredMethod(ur,HttpServletRequest.class,HttpServletResponse.class);
-//				System.out.println("method is "+method);
-//				System.out.println("method name is "+method.getName());
-				
+				//				System.out.println("method is "+method);
+				//				System.out.println("method name is "+method.getName());
+
 				method.invoke(c,request,response);
 			} catch (Exception e) {
-				
+
 				e.printStackTrace();
 			} 
 		}
@@ -198,9 +205,9 @@ public class Calls extends HttpServlet{
 
 			HttpSession session=request.getSession();  
 			session.invalidate();  	
-			
-			response.sendRedirect("/");
-			
+			//System.out.println(request.getContextPath());
+			request.getRequestDispatcher("").forward(request, response);;
+			return;
 		}
 		catch(Exception e){
 			e.printStackTrace();
@@ -218,7 +225,7 @@ public class Calls extends HttpServlet{
 			String password = request.getParameter("pass");
 			String gender = request.getParameter("gender");
 			String bgcolor = "#000000";
-			RegisterService rs = new RegisterService();
+			UserService rs = new UserService();
 			Boolean result = rs.registerUser(fname, lname, uname,country,city,mobile,password,gender,dob,bgcolor);
 			Map<String, Object> hmap  = new HashMap<String, Object>();
 			if(result == false){
@@ -253,12 +260,8 @@ public class Calls extends HttpServlet{
 			String Time =(String)request.getParameter("time");
 			String Place =(String)request.getParameter("place");
 			String pid = (String)request.getParameter("pid");
+			System.out.println("pid is   "+pid);
 			BuyTicketService buy = new BuyTicketService();
-			System.out.println(fname);
-			System.out.println(Email);
-			System.out.println(Date);
-			System.out.println(Tick);
-			System.out.println(pid);
 			buy.bookPassenger(pid,user,fname,Tick,Email,Date,Time,Place);
 
 			msg = "Your tickets are Booked and will be sent to your mail "+Email;	
@@ -291,6 +294,7 @@ public class Calls extends HttpServlet{
 				System.out.println("\n Passenger List is \n" + passengerList);
 				hmap.put("passengerList", passengerList);
 				getHbs(request,response,"passengerTable",hmap);
+
 			}
 
 		}
@@ -307,11 +311,11 @@ public class Calls extends HttpServlet{
 		}
 	}
 
-	
+
 	public void color(HttpServletRequest request, HttpServletResponse response){
 		try {
 
-			RegisterService registerService = new RegisterService();
+			UserService registerService = new UserService();
 			HttpSession session = request.getSession();
 			uname = (String) session.getAttribute("user");
 			//PrintWriter out = response.getWriter();
@@ -327,16 +331,26 @@ public class Calls extends HttpServlet{
 			e.printStackTrace();
 		}
 	}
-	public void editpassenger(HttpServletRequest request, HttpServletResponse response){
+	public void delete(HttpServletRequest request, HttpServletResponse response){
 		try {
-			Map<String, Object> hmap = new HashMap<String, Object>();
-			BuyTicketService buyTicketService = new BuyTicketService();
-			String id = request.getParameter("id");
-			List<Passenger> passengerDetails = new ArrayList<Passenger>();
-			passengerDetails = buyTicketService.editPassenger(id);
-			System.out.println("Passenger Details is "+passengerDetails);
-		hmap.put("passengerDetails", passengerDetails);
-			getHbs(request,response,"passengerTable",hmap);
+			BuyTicketService bts = new BuyTicketService();
+			String pid = request.getParameter("pid");
+			bts.deletePassenger(pid);
+			request.getRequestDispatcher("passengers").forward(request, response);;
+			return;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	public void profilepic(HttpServletRequest request, HttpServletResponse response){
+		try {
+			// String description = request.getParameter("description"); // Retrieves <input type="text" name="description">
+			    Part filePart = request.getPart("file"); // Retrieves <input type="file" name="file">
+			    String fileName = Paths.get(filePart.getName()).getFileName().toString(); // MSIE fix.
+			    InputStream fileContent = filePart.getInputStream();
+			    UserService userService = new UserService();
+			    userService.updatePic(fileName,fileContent);
 		}
 		catch(Exception e){
 			e.printStackTrace();

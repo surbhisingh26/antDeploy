@@ -6,7 +6,7 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 
-import com.surbhi.webProject1.pojo.Registration;
+import com.surbhi.webProject1.pojo.User;
 import com.surbhi.webProject1.requests.DBConnection;
 public class UserValidService {
 	String bgcolor=null;
@@ -16,14 +16,14 @@ public class UserValidService {
 		
 		mongo=db.getDB();
 		DBCollection collec = mongo.getCollection("registration");
-		JacksonDBCollection<Registration, String> coll = JacksonDBCollection.wrap(collec,Registration.class, String.class);
+		JacksonDBCollection<User, String> coll = JacksonDBCollection.wrap(collec,User.class, String.class);
 		
 		BasicDBObject query = new BasicDBObject();
 		query.put("username", uname);
-		DBCursor<Registration> cursor = coll.find(query);
+		DBCursor<User> cursor = coll.find(query);
 		String[] result = new String[2];
 		if (cursor.hasNext()) {
-			Registration registration = cursor.next();
+			User registration = cursor.next();
 			String pass = registration.getPassword();
 			 
 				if(pass.equals(password)){

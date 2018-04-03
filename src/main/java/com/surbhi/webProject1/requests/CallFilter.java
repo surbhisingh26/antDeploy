@@ -28,6 +28,7 @@ public class CallFilter implements Filter{
 			request.getRequestDispatcher("/paths" + path).forward(request, response);
 			
 		}
+		
 		chain.doFilter(request, response);
 		
 	}

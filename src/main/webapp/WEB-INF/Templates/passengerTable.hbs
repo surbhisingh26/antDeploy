@@ -22,12 +22,20 @@
 	
 		<td>{{name}}</td>
 		<td>{{tickets}}</td>
-		<td class ="date">{{date}}</td>
-		<td class="time">{{time}}</td>
+		<td class ="dateformat">{{date}}</td>
+		<td class="timeformat">{{time}}</td>
 		<td>{{place}}</td>
 		<td>{{email}}</td>
 		<td>{{totalPay}}</td>	
-		<td><a href="#" data-target="#editPassenger{{id}}" data-toggle="modal" style="margin-left:10px,margin-right:10px;">Edit </a><a href="deletepassenger"> Delete</a></td>
+		<td>
+			<a href="#" data-target="#editPassenger{{id}}" data-toggle="modal" style="margin-left:10px,margin-right:10px"> 	   <span class="glyphicon glyphicon-pencil" style = "color:black;margin-right:30px;margin-left:10px;"> 
+				 </span> 
+			</a>
+			<a href="#" data-target="#delete{{id}}" data-toggle="modal" style="margin-left:10px,margin-right:10px;"> 
+				<span class="glyphicon glyphicon-remove" style = "color:red;">
+				</span>
+			</a>
+		</td>
 		
 	</tr>
 	{{/passengerList}}
@@ -67,8 +75,8 @@
 									<div class="form-group">
 									<div class="col-sm-6">
 									<div class="date_picker input-group date">
-										<input type="text" id="date" name="date" class="form-control"
-											placeholder="DD/MM/YYYY" value = "{{date}}"> <span
+										<input type="text" id="date" name="date" class="form-control datepicker"
+											placeholder="DD/MM/YYYY" > <span
 											class="input-group-addon"> <span
 											class="glyphicon glyphicon-calendar"></span>
 										</span>
@@ -77,7 +85,7 @@
 									<div class="col-sm-6">
 									
 									<div class="datetime_picker input-group date" >
-										<input type="text"  id="time" name="time" class="form-control"
+										<input type="text"  id="time" name="time" class="form-control timepicker"
 											placeholder="hh:mm" value = "{{time}}"> <span
 											class="input-group-addon"> <span
 											class="glyphicon glyphicon-time"></span>
@@ -106,13 +114,65 @@
 			</div>
 			{{/passengerList}}
 			</div>
+			{{#passengerList}}
+			<div class = "container">
+			<div class="modal fade" id="delete{{id}}" role="dialog">
+				<div class="modal-dialog">
+
+				
+					<div class="modal-content">
+					<div class="modal-header" style="background-color: #323232;">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h1 class="modal-title text-center" style="font-size: 16">Are You sure to delete this booking history?</h1>
+							<br>
+						</div>
+						
+						<div class="modal-footer">
+							<form action="delete" method="post">
+							<input type = "hidden" value = "{{id}}" name = "pid">
+								<button type="submit" class="btn btn-block "
+									style="background-color: black;" >Yes</button>
+
+							</form>
+
+								<button type="button" class="btn btn-block "
+									style="background-color: black;" data-dismiss="modal">No</button>
+
+						</div>
+					</div>
+					</div>
+					</div>
+			
+			</div>
+			{{/passengerList}}
 			
 	{{>footer}}
 	<script>
 	$(document).ready(function(){
-	var date = $('.date').attr('value');
-	alert(date);
-	moment(date,'ddd MMM DD HH:mm:ss IST yyyy').format('l')
+	
+	
+	$('.dateformat').each(function(){
+	var me = $(this);	
+	$(me).text(moment($(me).text(),'ddd MMM DD HH:mm:ss IST yyyy').format('DD/MM/YYYY'));
+	});
+	
+	
+	
+	$('.timeformat').each(function(){
+	var time = $(this);	
+	$(time).text(moment($(time).text(),'ddd MMM DD HH:mm:ss IST yyyy').format('LT'));
+	});
+	
+	var formattedDate = "";
+
+	{{#passengerList}}
+	if('{{date}}' != "" && moment("{{date}}",'ddd MMM DD HH:mm:ss IST yyyy').isValid()){
+	formattedDate = moment('{{date}}','ddd MMM DD HH:mm:ss IST yyyy').format('DD/MM/YYYY');
+	}
+	
+	$("#editPassenger{{id}} ").find('.datepicker').val(formattedDate);
+	{{/passengerList}}
+	
 	});
 	</script>
 {{>end}}

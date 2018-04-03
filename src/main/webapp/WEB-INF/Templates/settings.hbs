@@ -1,40 +1,39 @@
-{{>head}}
-{{>header}}
-<div class= "row" style="margin-top:100px;">
-<div class="col-md-8 col-md-offset-2">
-<label>Change Theme Settings</label>
-<hr>
-<form action = "color">
-Change Navbar Color <div id="cp2" class="input-group colorpicker-component"> 
-      <input type="hidden" value = "#000000" class="form-control" id="bgcolor" name="bgcolor"/> 
-      <span class="input-group-addon"></span>
-    </div> 
-  <button type ="submit" class = "btn btn-info pull-right">Apply</button>  </form>  
-    </div>
-</div>
-</div>
-<div class="row">    
-        <div class="col-xs-12 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">  
-            <!-- image-preview-filename input [CUT FROM HERE]-->
-            <div class="input-group image-preview">
-                <input type="text" class="form-control image-preview-filename" disabled="disabled"> <!-- don't give a name === doesn't send on POST/GET -->
-                <span class="input-group-btn">
-                    <!-- image-preview-clear button -->
-                    <button type="button" class="btn btn-default image-preview-clear" style="display:none;">
-                        <span class="glyphicon glyphicon-remove"></span> Clear
-                    </button>
-                    <!-- image-preview-input -->
-                    <div class="btn btn-default image-preview-input">
-                        <span class="glyphicon glyphicon-folder-open"></span>
-                        <span class="image-preview-input-title">Browse</span>
-                        <input type="file" accept="image/png, image/jpeg, image/gif" name="input-file-preview"/> <!-- rename it -->
-                    </div>
-                </span>
-            </div><!-- /input-group image-preview [TO HERE]--> 
-        </div>
-    </div>
-{{>footer}}
-<script type="text/javascript">
-$('#cp2').colorpicker();
-</script>
-{{>end}}
+	{{>head}}
+	{{>header}}
+	<div class= "row" style="margin-top:100px;">
+	<div class="col-md-8 col-md-offset-2">
+	<label>Change Theme Settings</label>
+	<hr>
+	<form action = "color">
+	Change Navbar Color <div id="cp2" class="input-group colorpicker-component"> 
+		  <input type="hidden" value = "#000000" class="form-control" id="bgcolor" name="bgcolor"/> 
+		  <span class="input-group-addon"></span>
+		</div> 
+	  <button type ="submit" class = "btn btn-info pull-right">Apply</button>  </form>  
+		</div>
+	</div>
+	<hr>
+	<div class = "row">
+	<div class="col-md-8 col-md-offset-2">
+	<label>Change Profile Picture</label>
+	<hr>
+	<form class="form-horizontal" action= "" enctype="multipart/form-data">
+		<div class="form-group"> 
+		      
+				<input type="file" name = "file"/>
+		</div>
+		<button type = "submit" class = "btn btn-info pull-right">Upload</button>
+	</form>
+	</div>
+	</div>
+	{{>footer}}
+	<script src="js/file-upload.js"></script>
+	<script type="text/javascript">
+	$('#cp2').colorpicker();
+	</script>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('.file-upload').file_upload();
+		});
+	{{>end}}
