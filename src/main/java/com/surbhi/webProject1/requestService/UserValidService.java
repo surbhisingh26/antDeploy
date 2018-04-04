@@ -21,7 +21,7 @@ public class UserValidService {
 		BasicDBObject query = new BasicDBObject();
 		query.put("username", uname);
 		DBCursor<User> cursor = coll.find(query);
-		String[] result = new String[2];
+		String[] result = new String[4];
 		if (cursor.hasNext()) {
 			User registration = cursor.next();
 			String pass = registration.getPassword();
@@ -29,6 +29,9 @@ public class UserValidService {
 				if(pass.equals(password)){
 					result[0] = registration.getName();
 					result[1] = registration.getBgcolor();
+					result[2] = registration.getId();
+					result[3] = registration.getImagepath();
+
 					return result;
 				}				
 				else{

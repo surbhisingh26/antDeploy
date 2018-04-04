@@ -1,23 +1,19 @@
 package com.surbhi.webProject1.requests;
-
+import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintWriter;
 import java.lang.reflect.Method;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
-
 import com.github.jknack.handlebars.Handlebars;
 import com.github.jknack.handlebars.Template;
 import com.github.jknack.handlebars.io.FileTemplateLoader;
@@ -31,8 +27,9 @@ import com.surbhi.webProject1.requestService.UserValidService;
 /**
  * Servlet implementation class Home
  */
-@WebServlet("/upload")
- @MultipartConfig
+
+@MultipartConfig(fileSizeThreshold=1024*1024*2,
+maxFileSize=1024*1024*5)
 public class Calls extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	String uname;
@@ -105,9 +102,12 @@ public class Calls extends HttpServlet{
 
 		else{
 			String bgcolor =(String)session.getAttribute("bgcolor");
+			String image =(String)session.getAttribute("image");
 			hmap.put("bgcolor", bgcolor);
 			hmap.put("login",false);
 			hmap.put("name", name);
+			hmap.put("image", image);
+
 		}
 
 		out.print(template.apply(hmap));
@@ -180,6 +180,10 @@ public class Calls extends HttpServlet{
 				HttpSession session=request.getSession(); 
 				session.setAttribute("name",result[0]);
 				session.setAttribute("user", uname);
+				session.setAttribute("uid", result[2]);
+				session.setAttribute("image", result[3]);
+
+				System.out.println("uid....... "+result[2]);
 				String bgcolor =result[1];
 				session.setAttribute("bgcolor",bgcolor);
 
@@ -206,7 +210,8 @@ public class Calls extends HttpServlet{
 			HttpSession session=request.getSession();  
 			session.invalidate();  	
 			//System.out.println(request.getContextPath());
-			request.getRequestDispatcher("").forward(request, response);;
+			//request.getRequestDispatcher("").forward(request, response);;
+			response.sendRedirect(request.getServletContext().getContextPath());
 			return;
 		}
 		catch(Exception e){
@@ -225,8 +230,17 @@ public class Calls extends HttpServlet{
 			String password = request.getParameter("pass");
 			String gender = request.getParameter("gender");
 			String bgcolor = "#000000";
+			String rootPath = System.getProperty("catalina.home");
+			String savePath = rootPath + File.separator + "images";
+			File fileSaveDir=new File(savePath);
+			//File file = new File(rootPath + File.separator + "images");
+			//File fileSaveDir=new File(file);
+			if(!fileSaveDir.exists()){
+				fileSaveDir.mkdir();
+			}
+			String imagePath= fileSaveDir + File.separator + "default.jpg";
 			UserService rs = new UserService();
-			Boolean result = rs.registerUser(fname, lname, uname,country,city,mobile,password,gender,dob,bgcolor);
+			Boolean result = rs.registerUser(fname, lname, uname,country,city,mobile,password,gender,dob,bgcolor,imagePath);
 			Map<String, Object> hmap  = new HashMap<String, Object>();
 			if(result == false){
 
@@ -345,15 +359,37 @@ public class Calls extends HttpServlet{
 	}
 	public void profilepic(HttpServletRequest request, HttpServletResponse response){
 		try {
-			// String description = request.getParameter("description"); // Retrieves <input type="text" name="description">
-			    Part filePart = request.getPart("file"); // Retrieves <input type="file" name="file">
-			    String fileName = Paths.get(filePart.getName()).getFileName().toString(); // MSIE fix.
-			    InputStream fileContent = filePart.getInputStream();
-			    UserService userService = new UserService();
-			    userService.updatePic(fileName,fileContent);
+
+			HttpSession session = request.getSession();
+			String uid = (String) session.getAttribute("uid");
+
+
+			String rootPath = System.getProperty("catalina.home");
+			String savePath = rootPath + File.separator + "webapps/images";
+			File fileSaveDir=new File(savePath);
+
+			if(!fileSaveDir.exists()){
+				fileSaveDir.mkdir();
+			}
+
+			Part file = request.getPart("file");
+			String path = request.getParameter("filename");
+			String fileName = path.replace("C:\\fakepath\\", "");
+			file.write(fileSaveDir + File.separator + fileName);
+			String filePath= File.separator +"images" + File.separator + fileName;
+			UserService userService = new UserService();
+			userService.updatePic(filePath,uid);
+			Map<String, Object> hmap = new HashMap<String, Object>();
+			hmap.put("image",filePath);
+			System.out.println("filepath  ...  "+filePath);
+			session.setAttribute("image",filePath);
+			getHbs(request,response,"settings",hmap);
+
+
 		}
 		catch(Exception e){
 			e.printStackTrace();
 		}
 	}
+
 }

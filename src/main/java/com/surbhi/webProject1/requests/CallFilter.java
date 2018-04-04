@@ -24,7 +24,7 @@ public class CallFilter implements Filter{
 		HttpServletRequest req = (HttpServletRequest) request;
 		String path = req.getRequestURI().substring(req.getContextPath().length());
 		System.out.println("filtering path: " + path);
-		if(!path.contains(".js")&&!path.contains(".css")&&!path.contains(".jpg")&&!path.contains(".cng")&&!path.contains(".html")&&!path.contains(".hbs")) {
+		if(!path.contains(".")) {
 			request.getRequestDispatcher("/paths" + path).forward(request, response);
 			
 		}

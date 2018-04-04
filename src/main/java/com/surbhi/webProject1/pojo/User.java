@@ -2,12 +2,11 @@ package com.surbhi.webProject1.pojo;
 
 import java.util.Date;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@JsonFormat(pattern = "dd/MM/yyyy")
-public class User {
+
+public class User extends BaseObject{
 
 	private String uType;
 	private String name;
@@ -19,6 +18,7 @@ public class User {
 	private String mobile;
 	private String password;
 	private String bgcolor;
+	private String imagepath;
 	public String getName() {
 		return name;
 	}
@@ -80,11 +80,12 @@ public class User {
 	public void setBgcolor(String bgcolor) {
 		this.bgcolor = bgcolor;
 	}
-	@Override
-	public String toString() {
-		return "Registration [uType=" + uType + ",username=" + username + ", name=" + name + ",  gender=" + gender
-				+ ", dob=" + dob + ", country=" + country + ", city=" + city + ", mobile=" + mobile + ", password="
-				+ password + ", bgcolor=" + bgcolor + "]";
+	public String getImagepath() {
+		return imagepath;
+	}
+
+	public void setImagepath(String imagepath) {
+		this.imagepath = imagepath;
 	}
 	
 }
