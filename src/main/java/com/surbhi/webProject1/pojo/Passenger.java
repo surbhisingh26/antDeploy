@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 public class Passenger extends BaseObject{
 	
-	private String Loginuser;
+	private String LoginuserId;
 	private String name;
 	private int tickets;
 	private String email;
@@ -65,10 +65,10 @@ public class Passenger extends BaseObject{
 		this.totalPay = totalPay;
 	}
 	
-	public String getLoginuser() {
-		return Loginuser;
+	public String getLoginuserId() {
+		return LoginuserId;
 	}
-	public void setLoginuser(String loginuser) {
-		Loginuser = loginuser;
+	public void setLoginuserId(String loginuserId) {
+		LoginuserId = loginuserId;
 	}
 }

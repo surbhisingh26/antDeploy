@@ -18,44 +18,41 @@ import com.surbhi.webProject1.requests.DBConnection;
 public class PassengerTableService  {
 	DBConnection db = new DBConnection();
 	DB mongo=db.getDB();
- public List<Passenger> Passengers(String userName){
+ public List<Passenger> Passengers(String uid){
 	 String uType=null;;
 	 DBCollection collection = mongo.getCollection("registration");
-		JacksonDBCollection<User, String> coll2 = JacksonDBCollection.wrap(collection,User.class, String.class);
-		User reg = new User();
-		BasicDBObject query = new BasicDBObject();
-		query.put("username", userName);
-		DBCursor<User> cursor = coll2.find(query);
+		JacksonDBCollection<User, String> userCollection = JacksonDBCollection.wrap(collection,User.class, String.class);	
 		
-		if(cursor.hasNext()){
-			reg = cursor.next();
-			uType = reg.getuType();
-		
+		User user = userCollection.findOneById(uid);
+		System.out.println("user is "+user);
+		if(user!=null){
+			
+			uType = user.getuType();		
 		}
 	
 		//---------- Creating Collection ------------
 		DBCollection collec = mongo.getCollection("passenger");
-		JacksonDBCollection<Passenger, String> coll = JacksonDBCollection.wrap(collec,Passenger.class, String.class);
-		Passenger passen = new Passenger();
+		JacksonDBCollection<Passenger, String> passengerCollection = JacksonDBCollection.wrap(collec,Passenger.class, String.class);
+		Passenger passenger = new Passenger();
 		List<Passenger> passengerList = new ArrayList<Passenger>();
 		if(uType.equalsIgnoreCase("Admin")){	
-			DBCursor<Passenger> cur = coll.find();
+			DBCursor<Passenger> cur = passengerCollection.find();
 			
 			while (cur.hasNext()) {					
-				passen =  cur.next();
-				passengerList.add(passen);
+				passenger =  cur.next();
+				passengerList.add(passenger);
 			}
 		}
 		
 		else {
 			BasicDBObject query1 = new BasicDBObject();
 			
-			query1.put("loginuser", userName);			
-			DBCursor<Passenger> cur = coll.find(query1);
+			query1.put("loginuserId", uid);	
+			DBCursor<Passenger> cursor = passengerCollection.find(query1);
 			
-			while(cur.hasNext()){					
-				passen =  cur.next();
-				passengerList.add(passen);
+			while(cursor.hasNext()){					
+				passenger =  cursor.next();
+				passengerList.add(passenger);
 				
 			}		
 

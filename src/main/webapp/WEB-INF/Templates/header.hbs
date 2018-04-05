@@ -1,8 +1,13 @@
 
 	<div class="container-full-width">
+	{{#if login}}
 		<nav class="navbar navbar-fixed-top"
-			style="opacity: 0.8;background-color: {{bgcolor}};" data-spy="affix" data-offset-top="197">
-
+			style="opacity: 0.8;background-color:{{bgcolor}};" data-spy="affix" data-offset-top="197">
+	{{else}}
+		
+			<nav class="navbar navbar-fixed-top"
+			style="opacity: 0.8;background-color:{{#loggedInUser}}{{bgcolor}}{{/loggedInUser}};" data-spy="affix" data-offset-top="197">
+	{{/if}}
 			<div class="navbar-header">
 				<a class="navbar-brand" href="#"><img src = "images/logo.jpg" width="50" height="50" ></a>
 			</div>
@@ -23,7 +28,7 @@
 					{{else}}	
 								
 						<li class="dropdown"><a class="dropdown-toggle"
-						data-toggle="dropdown" href="#">{{name}} <span><img src = "{{image}}" width="30" height="25" class="img-rounded"></span></a>
+						data-toggle="dropdown" href="#">{{#loggedInUser}}{{name}}{{/loggedInUser}} <span><img src = "{{#loggedInUser}}{{imagepath}}{{/loggedInUser}}" width="30" height="25" class="img-rounded"></span></a>
 						{{/if}}
 						<ul class="dropdown-menu">
 							<li><a class="dropdown-item" href="profile">View Profile</a></li>

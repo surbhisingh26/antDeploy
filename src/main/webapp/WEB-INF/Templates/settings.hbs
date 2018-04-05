@@ -27,7 +27,7 @@
 	</form>
 	</div >
 	<div class="col-md-4 col-md-offset-2">
-	<img src ="{{image}}" alt="file" width = "200" height="200">
+	<img src ="{{#loggedInUser}}{{imagepath}}{{/loggedInUser}}" alt="file" width = "200" height="200">
 	</div>
 	</div>
 	{{>footer}}

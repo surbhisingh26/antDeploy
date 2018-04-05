@@ -11,7 +11,7 @@ import com.surbhi.webProject1.requests.DBConnection;
 public class UserValidService {
 	String bgcolor=null;
 	DBConnection db = new DBConnection();
-	public String[] checkValid(String uname,String password){
+	public String checkValid(String uname,String password){
 		DB mongo;
 		
 		mongo=db.getDB();
@@ -21,27 +21,26 @@ public class UserValidService {
 		BasicDBObject query = new BasicDBObject();
 		query.put("username", uname);
 		DBCursor<User> cursor = coll.find(query);
-		String[] result = new String[4];
+		String result = null;
 		if (cursor.hasNext()) {
 			User registration = cursor.next();
 			String pass = registration.getPassword();
 			 
 				if(pass.equals(password)){
-					result[0] = registration.getName();
-					result[1] = registration.getBgcolor();
-					result[2] = registration.getId();
-					result[3] = registration.getImagepath();
+					
+					result = registration.getId();
+					System.out.println("uid is ... "+result);
 
 					return result;
 				}				
 				else{
-					result[0]=password;
-					return result;
+					
+					return password;
 				}
 			
 		}
-		result[0]=uname;
-		return result;
+		
+		return uname;
 		
 	}
 	

@@ -10,7 +10,7 @@ import com.surbhi.webProject1.pojo.Passenger;
 import com.surbhi.webProject1.requests.DBConnection;
 
 public class BuyTicketService {
-	public void bookPassenger(String pid, String user,String fname,int Tick,String Email,String date,String Time,String Place){
+	public void bookPassenger(String pid, String userId,String fname,int Tick,String Email,String date,String Time,String Place){
 		DB mongo;
 		DBConnection db1 = new DBConnection();
 		Passenger passenger = new Passenger();
@@ -43,7 +43,7 @@ public class BuyTicketService {
 
 		if(passen==null){
 	
-			passenger.setLoginuser(user);
+			passenger.setLoginuserId(userId);
 			passenger.setName(fname);
 			passenger.setTickets(Tick);
 			passenger.setEmail(Email);
@@ -55,7 +55,7 @@ public class BuyTicketService {
 		}
 		else{
 			
-			passen.setLoginuser(user);
+			passen.setLoginuserId(userId);
 			passen.setName(fname);
 			passen.setTickets(Tick);
 			passen.setEmail(Email);

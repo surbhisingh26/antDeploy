@@ -91,27 +91,24 @@ public class UserService  {
 		}
 		coll.updateById(registration.getUsername(), registration);
 	}
-	public void updateColor(String bgcolor,String uname){
+	public User updateColor(String bgcolor,String uid){
 		DB mongo;
 		mongo=db1.getDB();
 
 		DBCollection collec = mongo.getCollection("registration");
-		JacksonDBCollection<User, String> coll = JacksonDBCollection.wrap(collec,User.class, String.class);
-		//Registration registration = new Registration();					
-		BasicDBObject query = new BasicDBObject();
-		query.put("username", uname);
-
-		DBCursor<User> cursor = coll.find(query);
-		if (cursor.hasNext()) {
-
-
-
-			coll.update(new BasicDBObject("username", uname),
-					new BasicDBObject("$set", new BasicDBObject("bgcolor", bgcolor)));
+		JacksonDBCollection<User, String> collection = JacksonDBCollection.wrap(collec,User.class, String.class);
+					
+		System.out.println("color "+uid);
+		User user = collection.findOneById(uid);
+		user.setBgcolor(bgcolor);
+		collection.updateById(uid, user);
+		return user;
 		}
-	}
-	public void updatePic(String path,String uid){
+	
+
+	public User updatePic(String path,String uid){
 		try{
+			System.out.println("pic "+uid);
 			DB mongo;
 			mongo=db1.getDB();
 
@@ -127,7 +124,7 @@ public class UserService  {
 
 			coll.updateById(uid, user);
 
-
+			return user;
 
 			/*//File imageFile = new File(filecontent);
 
@@ -169,6 +166,7 @@ public class UserService  {
 		catch(Exception e){
 			e.printStackTrace();
 		}
+		return null;
 
 
 	}
