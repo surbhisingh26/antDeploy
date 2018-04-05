@@ -187,14 +187,14 @@ public class Calls extends HttpServlet{
 				
 				loginCookie.setMaxAge(30*60);
 				response.addCookie(loginCookie);
-				/*session.setAttribute("name",result[0]);
+				session.setAttribute("name",result[0]);
 				session.setAttribute("user", uname);
 				session.setAttribute("uid", result[2]);
-				session.setAttribute("image", result[3]);*/
-				hmap=checkSession(request,response);
+				session.setAttribute("image", result[3]);
+				/*hmap=checkSession(request,response);
 				hmap.put("name", result[0]);
 				hmap.put("uid", result[2]);
-				hmap.put("image", result[3]);
+				hmap.put("image", result[3]);*/
 				System.out.println("uid....... "+result[2]);
 				String bgcolor =result[1];
 				session.setAttribute("bgcolor",bgcolor);
