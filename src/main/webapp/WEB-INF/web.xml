@@ -3,47 +3,38 @@
  "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
+	<welcome-file-list>
+		<welcome-file>home</welcome-file>
+
+	</welcome-file-list>
 	<display-name>Archetype Created Web Application</display-name>
+  <session-descriptor>
+  <tracking enabled="true"></tracking>
+  <persistent-store-type>cookie</persistent-store-type>
+ <persistent-store-cookie-name>WEBCOOKIE</persistent-store-cookie-name>
+  </session-descriptor>
+  
+	<filter>
+		<filter-name>Call</filter-name>
+		<filter-class>com.surbhi.webProject1.requests.CallFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>Call</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
 	<servlet>
-		<servlet-name>DBConnection</servlet-name>
-		<display-name>DBConnection</display-name>
-		<description></description>
-		<servlet-class>webProject1.requests.DBConnection</servlet-class>
-	</servlet>
-	<servlet>
-		<servlet-name>GetDataa</servlet-name>
-		<display-name>GetData</display-name>
-		<description></description>
-		<servlet-class>webProject1.requests.GetData</servlet-class>
-	</servlet>
-	<servlet>
-		<servlet-name>Registerr</servlet-name>
-		<display-name>Register</display-name>
-		<description></description>
-		<servlet-class>webProject1.requests.Register</servlet-class>
-	</servlet>
-	<servlet>
-		<servlet-name>UserValid</servlet-name>
-		<display-name>UserValid</display-name>
-		<description></description>
-		<servlet-class>webProject1.requests.UserValid</servlet-class>
+		<servlet-name>Calls</servlet-name>
+		<display-name>Calls</display-name>
+		<servlet-class>com.surbhi.webProject1.requests.Calls</servlet-class>
+		<load-on-startup>1</load-on-startup>
 	</servlet>
 
 	<servlet-mapping>
-		<servlet-name>DBConnection</servlet-name>
-		<url-pattern>/DBConnection</url-pattern>
+		<servlet-name>Calls</servlet-name>
+		<url-pattern>/paths/*</url-pattern>
 	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>GetDataa</servlet-name>
-		<url-pattern>/GetData</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>Registerr</servlet-name>
-		<url-pattern>/Register</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>UserValid</servlet-name>
-		<url-pattern>/UserValid</url-pattern>
-	</servlet-mapping>
-
+	
 </web-app>
+	
