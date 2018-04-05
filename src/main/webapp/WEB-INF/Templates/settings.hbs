@@ -1,0 +1,52 @@
+	{{>head}}
+	{{>header}}
+	<div class= "row" style="margin-top:100px;">
+	<div class="col-md-8 col-md-offset-2">
+	<label>Change Theme Settings</label>
+	<hr>
+	<form action = "color">
+	Change Navbar Color <div id="cp2" class="input-group colorpicker-component"> 
+		  <input type="hidden" value = "#000000" class="form-control" id="bgcolor" name="bgcolor"/> 
+		  <span class="input-group-addon"></span>
+		</div> 
+	  <button type ="submit" class = "btn btn-info pull-right">Apply</button>  </form>  
+		</div>
+	</div>
+	<hr>
+	<div class = "row">
+	<div class="col-md-8 col-md-offset-2">
+	<label>Change Profile Picture</label>
+	<hr>
+	<form class="form-horizontal" action= "profilepic" method = "post" enctype="multipart/form-data">
+		<div class="form-group"> 
+		      
+				<input type="file" name = "file" id="file">
+				<input type = "hidden" id = "filename" name="filename">
+		</div>
+		<button type = "submit" class = "btn btn-info pull-right">Upload</button>
+	</form>
+	</div >
+	<div class="col-md-4 col-md-offset-2">
+	<img src ="{{image}}" alt="file" width = "200" height="200">
+	</div>
+	</div>
+	{{>footer}}
+	<script src="js/file-upload.js"></script>
+	<script type="text/javascript">
+	$('#cp2').colorpicker();
+	</script>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('.file-upload').file_upload();
+		});
+		
+		
+    $(document).ready(function(){
+        $('#file').change(function(e){
+            var fileName = $(this);
+            $('#filename').val(($(this).val()));
+        });
+    });
+	</script>
+	{{>end}}
