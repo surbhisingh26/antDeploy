@@ -44,8 +44,6 @@ public class UserValidService {
 		return result;
 		
 	}
-	public String getBgcolor() {
-		return bgcolor;
-	}
+	
 	
 }

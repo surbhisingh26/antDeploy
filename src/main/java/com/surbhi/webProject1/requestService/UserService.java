@@ -1,10 +1,7 @@
 package com.surbhi.webProject1.requestService;
 
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -15,15 +12,11 @@ import org.mongojack.JacksonDBCollection;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
-import com.mongodb.client.gridfs.GridFSBucket;
-import com.mongodb.client.gridfs.GridFSBuckets;
-import com.mongodb.gridfs.GridFS;
-import com.mongodb.gridfs.GridFSDBFile;
-import com.mongodb.gridfs.GridFSInputFile;
+
 import com.surbhi.webProject1.pojo.User;
 import com.surbhi.webProject1.requests.DBConnection;
 
-public class UserService {
+public class UserService  {
 
 
 	DBConnection db1 = new DBConnection();
@@ -179,7 +172,14 @@ public class UserService {
 
 
 	}
-	public void showPic(){
+	public User findOneById(String uid){
+		DB mongo;
+		mongo=db1.getDB();
+
+		DBCollection collec = mongo.getCollection("registration");
+		JacksonDBCollection<User, String> coll = JacksonDBCollection.wrap(collec,User.class, String.class);
+		User user = coll.findOneById(uid);
+		return user;
 
 		//    System.out.println(imageForOutput);
 	}

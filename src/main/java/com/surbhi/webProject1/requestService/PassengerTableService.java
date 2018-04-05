@@ -1,5 +1,6 @@
 package com.surbhi.webProject1.requestService;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +15,7 @@ import com.surbhi.webProject1.pojo.Passenger;
 import com.surbhi.webProject1.pojo.User;
 import com.surbhi.webProject1.requests.DBConnection;
 
-public class PassengerTableService {
+public class PassengerTableService  {
 	DBConnection db = new DBConnection();
 	DB mongo=db.getDB();
  public List<Passenger> Passengers(String userName){

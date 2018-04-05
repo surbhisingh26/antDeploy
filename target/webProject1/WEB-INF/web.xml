@@ -8,7 +8,12 @@
 
 	</welcome-file-list>
 	<display-name>Archetype Created Web Application</display-name>
-
+  <session-descriptor>
+  <tracking enabled="true"></tracking>
+  <persistent-store-type>cookie</persistent-store-type>
+ <persistent-store-cookie-name>WEBCOOKIE</persistent-store-cookie-name>
+  </session-descriptor>
+  
 	<filter>
 		<filter-name>Call</filter-name>
 		<filter-class>com.surbhi.webProject1.requests.CallFilter</filter-class>

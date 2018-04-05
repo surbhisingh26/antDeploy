@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +20,7 @@ import com.github.jknack.handlebars.Template;
 import com.github.jknack.handlebars.io.FileTemplateLoader;
 import com.github.jknack.handlebars.io.TemplateLoader;
 import com.surbhi.webProject1.pojo.Passenger;
+import com.surbhi.webProject1.pojo.User;
 import com.surbhi.webProject1.requestService.BuyTicketService;
 import com.surbhi.webProject1.requestService.PassengerTableService;
 import com.surbhi.webProject1.requestService.UserService;
@@ -58,8 +60,10 @@ public class Calls extends HttpServlet{
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//	PrintWriter out = response.getWriter();
 		Calls c= new Calls();
+		
 		String path = request.getPathInfo();
 		System.out.println("path "+ path);
+		
 
 		if(path==null||path.equals("/")){
 			getHbs(request,response,"home",null);
@@ -158,7 +162,7 @@ public class Calls extends HttpServlet{
 			UserValidService uv = new UserValidService();
 			String[] result = uv.checkValid(uname,password);
 			Map<String, Object> hmap  = new HashMap<String, Object>();
-
+			
 			if(result[0].equals(uname)){
 				msg = "No such username exists!!!"
 						+ " Register or login with another username";
@@ -178,16 +182,24 @@ public class Calls extends HttpServlet{
 			else {
 
 				HttpSession session=request.getSession(); 
-				session.setAttribute("name",result[0]);
+				session.setMaxInactiveInterval(30000);
+				Cookie loginCookie = new Cookie("uid",result[2]);
+				
+				loginCookie.setMaxAge(30*60);
+				response.addCookie(loginCookie);
+				/*session.setAttribute("name",result[0]);
 				session.setAttribute("user", uname);
 				session.setAttribute("uid", result[2]);
-				session.setAttribute("image", result[3]);
-
+				session.setAttribute("image", result[3]);*/
+				hmap=checkSession(request,response);
+				hmap.put("name", result[0]);
+				hmap.put("uid", result[2]);
+				hmap.put("image", result[3]);
 				System.out.println("uid....... "+result[2]);
 				String bgcolor =result[1];
 				session.setAttribute("bgcolor",bgcolor);
-
-				getHbs(request,response,"home",null);
+				hmap.put("image", result[3]);
+				getHbs(request,response,"home",hmap);
 
 			}
 
@@ -211,7 +223,7 @@ public class Calls extends HttpServlet{
 			session.invalidate();  	
 			//System.out.println(request.getContextPath());
 			//request.getRequestDispatcher("").forward(request, response);;
-			response.sendRedirect(request.getServletContext().getContextPath());
+			response.sendRedirect("/");
 			return;
 		}
 		catch(Exception e){
@@ -391,5 +403,24 @@ public class Calls extends HttpServlet{
 			e.printStackTrace();
 		}
 	}
+	public Map<String, Object> checkSession(HttpServletRequest request, HttpServletResponse response){
+		String uid = null;
+		
+		Cookie[] cookies = request.getCookies();
+		if(cookies !=null){
+		for(Cookie cookie : cookies){
+			if(cookie.getName().equals("uid")){ uid = cookie.getValue();
+		
+			}}
+			}
+		UserService userservice= new UserService();
+		User user = userservice.findOneById(uid);
+		Map<String, Object> hmap  = new HashMap<String, Object>();
+		hmap.put("name", user.getName());
+		hmap.put("bgcolor", user.getBgcolor());
+		hmap.put("image", user.getImagepath());
+		return hmap;
+	}
+	
 
 }
