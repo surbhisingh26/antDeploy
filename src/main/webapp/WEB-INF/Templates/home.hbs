@@ -1,7 +1,7 @@
 {{>head}}
 {{>header}}
-<div>	
-	<div id="home" class="container-full-width">
+<div class = "container-full-width">	
+	<div id="home" >
 
 		<div id="myCarousel " class="carousel slide" data-ride="carousel">
 			<ol class="carousel-indicators">
@@ -46,12 +46,14 @@
 			</a>
 
 		</div>
-		<br> <br> <br>
+		<br> <br> 
 	</div>
 
 
-	<div id="band" class="container-fluid" style="background-color: white;">
-		<br> <br>
+	<div id="band"  style="background-color: white;padding-bottom:50px">
+		 <div class="row"  style = "padding-bottom:50px">
+		
+			<div class = "col-md-10 col-md-offset-1">
 		<h4 class="text-center">THE BAND</h4>
 		<p class="text-center">
 			<small>We love music!</small><br> We have created a fictional
@@ -68,8 +70,8 @@
 			consequat.
 		</p>
 		<br> <br>
-		<div class="row">
-			<div class="container-fluid" style="background-color: white;">
+		
+			
 				<div class="col-xs-4 ">
 					<p class="text-center">
 						<b>Name</b><br> <br> <img src="images/bandmember.jpg"
@@ -89,12 +91,14 @@
 					</p>
 				</div>
 			</div>
-			<br> <br> <br> <br> <br> 
+			
 		</div>
 	</div>
-	<div id="tour" class="container-fluid" style="background-color: black;">
-		<div class="container" style="background-color: black;">
+
+		<div id = "tour" style="background-color: black;">
 			<br> <br> <br>
+			<div class ="row">
+			<div class = "col-md-10 col-md-offset-1">
 			<h4 class="text-center">T O U R &nbsp;&nbsp;&nbsp; D A T E S</h4>
 			<br>
 			<p class="text-center">
@@ -102,7 +106,7 @@
 				your tickets!
 			</p>
 			<br> <br> <br>
-
+			
 			<ul class="list-group">
 				<li class="list-group-item">September <span
 					class="label label-danger">Sold Out!</span></li>
@@ -157,6 +161,9 @@
 					</div>
 					<br>
 				</div>
+				</div>
+		</div>
+		</div>
 		
 			</div>
 			<!-- Modal -->
@@ -172,7 +179,7 @@
 						</div>
 						<div class="modal-body" style="background-color: white;">
 							<br>
-							<form action="buyTickets" method="post">
+							<form action="bookpassenger" method="post">
 							<input type="hidden" id= "id" name="id" value = {{id}}>
 								<div class="form-group">
 									<label for="text">Name</label> <input type="text"
@@ -226,14 +233,14 @@
 							</p>
 						</div>
 					</div>
-				</div>
-			</div>
+				
 		</div>
 	</div>
-	<div id="contact" class="container-fluid"
-		style="background-color: white;">
-		<div class="container">
+	
+		<div id = "contact" style="background-color: white;">
 			<br> <br> <br>
+			<div class ="row">
+			<div class = "col-md-10 col-md-offset-1">
 			<h4 class="text-center">
 				<strong>C o n t a c t</strong>
 			</h4>
@@ -314,7 +321,9 @@
 			</div>
 		</div>
 	</div>
+	</div>
 </div>
+
 {{>footer}}
 
 {{>end}}

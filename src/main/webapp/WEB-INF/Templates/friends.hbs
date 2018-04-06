@@ -1,0 +1,42 @@
+{{>head}}
+{{>header}}
+<div class = "row" style = "padding-top:80px">
+	<div class = "col-md-8 col-md-offset-1">
+		<form action="searchfriends" method= "post">
+			<b>Search friends by username </b> <input type = "search" id="search" name="search">
+			<button type = "submit" ><i class="glyphicon glyphicon-search" style = "color:black;"></button></i>
+			
+		</form>
+		{{#if userfound}}
+		
+		<div style="padding-top:20px">
+		<div class= "col-md-6">
+		<div class="well well-lg" >
+		<div class ="col-md-4">
+		<img src="{{#searchedUser}}{{imagepath}}{{/searchedUser}}" class="img-rounded" width="50" height ="50">
+		</div>
+		<h3 style="padding-left:30px;color:black;">{{#searchedUser}}{{name}}{{/searchedUser}}</h3>
+		
+		<p style="padding-left:90px;color:gray;"> {{#searchedUser}}{{city}}{{/searchedUser}}</p>
+		
+		</div>
+		</div>
+		<div class= "col-md-4">
+		<form>
+		<input type="hidden" value="{{#searchedUser}}{{id}}{{/searchedUser}}" id="fid" name="fid">
+		<button class="btn btn-primary">Add Friend</button></form>
+		</div>
+		</div>
+		
+		{{else}}
+		<div style="padding-top:20px">
+		<div class= "col-md-4">
+		<p>{{message}}</p>
+		</div>
+		</div>
+		{{/if}}
+	</div>
+</div>
+{{>footer}}
+
+{{>end}}	

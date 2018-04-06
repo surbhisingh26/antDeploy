@@ -1,4 +1,4 @@
-package com.surbhi.webProject1.requests;
+/*package com.surbhi.webProject1.requests;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.Cookie;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+
 import com.github.jknack.handlebars.Handlebars;
 import com.github.jknack.handlebars.Template;
 import com.github.jknack.handlebars.io.FileTemplateLoader;
@@ -25,9 +27,9 @@ import com.surbhi.webProject1.requestService.PassengerTableService;
 import com.surbhi.webProject1.requestService.UserService;
 import com.surbhi.webProject1.requestService.UserValidService;
 
-/**
+*//**
  * Servlet implementation class Home
- */
+ *//*
 
 @MultipartConfig(fileSizeThreshold=1024*1024*2,
 maxFileSize=1024*1024*5)
@@ -38,17 +40,17 @@ public class Calls extends HttpServlet{
 	String msg;
 	//private String excludedUrlsRegex;
 
-	/**
+	*//**
 	 * @see HttpServlet#HttpServlet()
-	 */
+	 *//*
 	public Calls() {
 		super();
 	}
 
 
-	/**
+	*//**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	 *//*
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request,response);
 	}
@@ -85,9 +87,9 @@ public class Calls extends HttpServlet{
 			} 
 		}
 	}
-	/**
+	*//**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	 *//*
 	protected void getHbs(HttpServletRequest request, HttpServletResponse response,String file,Map<String, Object> hmap) throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
 
@@ -185,7 +187,7 @@ public class Calls extends HttpServlet{
 			else {
 
 				Cookie loginCookie = new Cookie("uid",result);
-				//uid=result;
+				
 				
 				response.addCookie(loginCookie);
 				loginCookie.setMaxAge(30*60); 			
@@ -193,7 +195,9 @@ public class Calls extends HttpServlet{
 				hmap=checkSession(request,response);
 				System.out.println("signin" +uid);
 				getHbs(request,response,"home",hmap);
-				
+				System.out.println("Context path "+request.getContextPath());
+				System.out.println("Uri "+request.getRequestURI());
+				response.sendRedirect(request.getContextPath());
 
 			}
 
@@ -218,8 +222,8 @@ public class Calls extends HttpServlet{
 			response.addCookie(loginCookie); 	
 			uid=null;
 			//System.out.println(request.getContextPath());
-			request.getRequestDispatcher("").forward(request, response);
-			//response.sendRedirect("/");
+			//request.getRequestDispatcher("").forward(request, response);
+			response.sendRedirect("/webProject1");
 			return;
 		}
 		catch(Exception e){
@@ -305,9 +309,12 @@ public class Calls extends HttpServlet{
 		try {
 
 			Map<String, Object> hmap = new HashMap<String, Object>();
+			System.out.println("before function "+uid);
+		
 			hmap = checkSession(request, response);
 			PassengerTableService pts = new PassengerTableService();
-
+			System.out.println("after function "+uid);
+		
 			List<Passenger> passengerList = new ArrayList<Passenger>();
 
 			if(uid==null){
@@ -422,8 +429,10 @@ public class Calls extends HttpServlet{
 
 				if(cookie.getName().equals("uid")){
 					uid = cookie.getValue();
-
+					
 				}}
+		} else{
+			uid=null;
 		}
 		System.out.println("cookie "+uid);
 		UserService userservice = new UserService();
@@ -435,3 +444,4 @@ public class Calls extends HttpServlet{
 
 
 }
+*/

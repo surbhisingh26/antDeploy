@@ -18,7 +18,6 @@ import com.surbhi.webProject1.requests.DBConnection;
 
 public class UserService  {
 
-
 	DBConnection db1 = new DBConnection();
 	public boolean registerUser(String fname,String lname,String uname,String country,String city,String mobile,String password,String gender,String dob,String bgcolor,String imagepath){
 		DB mongo;
