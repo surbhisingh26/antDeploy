@@ -1,5 +1,34 @@
 {{>head}}
 {{>header}}
-
+{{#RequestList}}
+<div class="row" style="margin-top:100px">
+<div class = "col-md-4 col-md-offset-2">
+		
+		
+		
+		<div class ="col-md-4">
+		<img src="{{imagepath}}" class="img-rounded" width="80" height ="80">
+		</div>
+		
+		<h5 style="padding-left:100px;color:black;">{{name}}</h5>
+		
+		<h6 style="padding-left:100px;color:gray;"> {{city}}</h6>
+		
+		
+		
+		
+		</div>
+		
+		<div class= "col-md-4 col-md-offset-2">
+		<form action = "addfriend">
+		<input type="hidden" value="{{#searchedUser}}{{id}}{{/searchedUser}}" id="fid" name="fid">
+		
+		<button class="btn btn-info">Accept</button>
+		<button class="btn btn-info">Reject</button>
+		
+		</form>
+		</div>
+		</div>
+		{{/RequestList}}
 {{footer}}
 {{end}}
