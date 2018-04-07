@@ -183,6 +183,7 @@ public class UserActions extends HttpServlet {
 			String uname = request.getParameter("username");
 			String country = request.getParameter("country");
 			String city = request.getParameter("city");
+			String email = request.getParameter("email");
 			String dob = request.getParameter("dob");
 			String mobile =request.getParameter("mobile");
 			String password = request.getParameter("pass");
@@ -198,7 +199,7 @@ public class UserActions extends HttpServlet {
 			}
 			String imagePath= fileSaveDir + File.separator + "default.jpg";
 			UserService rs = new UserService();
-			Boolean result = rs.registerUser(fname, lname, uname,country,city,mobile,password,gender,dob,bgcolor,imagePath);
+			Boolean result = rs.registerUser(fname, lname, uname,country,city,mobile,password,gender,dob,bgcolor,imagePath,email);
 			Map<String, Object> hmap  = new HashMap<String, Object>();
 			if(result == false){
 

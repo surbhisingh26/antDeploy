@@ -10,6 +10,7 @@ public class User extends BaseObject{
 
 	private String uType;
 	private String name;
+	private String email;
 	private String username;
 	private String gender;
 	private Date dob;
@@ -86,6 +87,14 @@ public class User extends BaseObject{
 
 	public void setImagepath(String imagepath) {
 		this.imagepath = imagepath;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+		
+	}
+	public String getEmail() {
+		return email;
 	}
 	
 }

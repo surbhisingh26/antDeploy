@@ -9,22 +9,25 @@
 		</form>
 		{{#if userfound}}
 		
-		<div style="padding-top:20px">
+		<div style="padding-top:25px">
 		<div class= "col-md-6">
-		<div class="well well-lg" >
+		
 		<div class ="col-md-4">
-		<img src="{{#searchedUser}}{{imagepath}}{{/searchedUser}}" class="img-rounded" width="50" height ="50">
+		<img src="{{#searchedUser}}{{imagepath}}{{/searchedUser}}" class="img-rounded" width="80" height ="80" >
 		</div>
-		<h3 style="padding-left:30px;color:black;">{{#searchedUser}}{{name}}{{/searchedUser}}</h3>
+		<h5 style="padding-left:30px;color:black;">{{#searchedUser}}{{name}}{{/searchedUser}}</h5>
 		
-		<p style="padding-left:90px;color:gray;"> {{#searchedUser}}{{city}}{{/searchedUser}}</p>
+		<h6 style="padding-left:90px;color:gray;"> {{#searchedUser}}{{city}}{{/searchedUser}}</h6>
+		
 		
 		</div>
-		</div>
-		<div class= "col-md-4">
-		<form>
+		<div class= "col-md-4 col-md-offset-2">
+		<form action = "addfriend">
 		<input type="hidden" value="{{#searchedUser}}{{id}}{{/searchedUser}}" id="fid" name="fid">
-		<button class="btn btn-primary">Add Friend</button></form>
+		
+		<button class="btn btn-primary">Add Friend</button>
+		
+		</form>
 		</div>
 		</div>
 		
@@ -37,6 +40,81 @@
 		{{/if}}
 	</div>
 </div>
+<hr>
+<div class="row" style="padding-top:20px">
+		{{#RequestedList}}
+		<div class = "col-md-4 col-md-offset-2">
+		
+		
+		
+		<div class ="col-md-4">
+		<img src="{{imagepath}}" class="img-rounded" width="80" height ="80">
+		</div>
+		
+		<h5 style="padding-left:100px;color:black;">{{name}}</h5>
+		
+		<h6 style="padding-left:100px;color:gray;"> {{city}}</h6>
+		
+		
+		
+		
+		</div>
+		
+		<div class= "col-md-4 col-md-offset-2">
+		<form action = "addfriend">
+		<input type="hidden" value="{{#searchedUser}}{{id}}{{/searchedUser}}" id="fid" name="fid">
+		
+		<button class="btn btn-info" disabled="disabled">Request Sent...</button>
+		
+		</form>
+		</div>
+		{{/RequestedList}}
+		
+		</div>
+<hr>
+		<div class="row" style="padding-top:20px">
+		{{#FriendsList}}
+		<div class = "col-md-4 col-md-offset-2">
+		<div style="padding-top:20px">
+		<div class= "col-md-6">
+		<div class="well well-lg" >
+		<div class ="col-md-4">
+		<img src="{{imagepath}}" class="img-rounded" width="50" height ="50">
+		</div>
+		<h3 style="padding-left:30px;color:black;">{{name}}</h3>
+		
+		<p style="padding-left:90px;color:gray;"> {{city}}</p>
+		
+		</div>
+		</div>
+		</div>
+		</div>
+		<div class = "col-md-4">
+		<div style="padding-top:20px">
+		<div class= "col-md-6">
+		<div class="well well-lg" >
+		<div class ="col-md-4">
+		<img src="{{imagepath}}" class="img-rounded" width="50" height ="50">
+		</div>
+		<h3 style="padding-left:30px;color:black;">{{name}}</h3>
+		
+		<p style="padding-left:90px;color:gray;"> {{city}}</p>
+		
+		</div>
+		</div>
+		</div>
+		</div>
+		<div class= "col-md-4">
+		<form action = "addfriend">
+		<input type="hidden" value="{{#searchedUser}}{{id}}{{/searchedUser}}" id="fid" name="fid">
+		
+		<button class="btn btn-primary btn-disabled">Friend</button>
+		
+		</form>
+		</div>
+		{{/FriendsList}}
+		
+		</div>
 {{>footer}}
 
 {{>end}}	

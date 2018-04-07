@@ -19,7 +19,7 @@ import com.surbhi.webProject1.requests.DBConnection;
 public class UserService  {
 
 	DBConnection db1 = new DBConnection();
-	public boolean registerUser(String fname,String lname,String uname,String country,String city,String mobile,String password,String gender,String dob,String bgcolor,String imagepath){
+	public boolean registerUser(String fname,String lname,String uname,String country,String city,String mobile,String password,String gender,String dob,String bgcolor,String imagepath,String email){
 		DB mongo;
 		mongo=db1.getDB();
 
@@ -45,6 +45,7 @@ public class UserService  {
 		registration.setuType("User");
 		registration.setName(fname,lname);
 		registration.setUsername(uname);
+		registration.setEmail(email);
 		registration.setGender(gender);
 		registration.setCountry(country);
 		registration.setCity(city);
@@ -57,7 +58,7 @@ public class UserService  {
 		return true;
 
 	}
-	public void updateUser(String fname,String lname,String uname,String country,String city,String mobile,String password,String gender,String dob){
+	public void updateUser(String fname,String lname,String uname,String country,String city,String mobile,String password,String gender,String dob,String email){
 		DB mongo;
 		mongo=db1.getDB();
 
@@ -80,6 +81,7 @@ public class UserService  {
 			registration.setuType("User");
 			registration.setName(fname,lname);
 			registration.setUsername(uname);
+			registration.setEmail(email);
 			registration.setGender(gender);
 			registration.setCountry(country);
 			registration.setCity(city);
