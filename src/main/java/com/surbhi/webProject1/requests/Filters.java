@@ -36,7 +36,7 @@ public class Filters implements Filter{
 				System.out.println("passenger");
 			}
 			
-			else if(path.contains("friend")){
+			else if(path.contains("friend")||path.contains("Friend")){
 				
 				request.getRequestDispatcher("/friendpaths" + path).forward(request, response);
 				System.out.println("friend");

@@ -4,7 +4,7 @@ import java.util.Properties;
 import javax.mail.*;    
 import javax.mail.internet.*;    
 public class SendEmail{  
-    public void send(String mailTo,String link){  
+    public void send(String mailTo,String msg){  
           //Get properties object   
     	final String from = "surbhi.singh.ss05@gmail.com";
     	final String password="as192118020809";
@@ -28,7 +28,7 @@ public class SendEmail{
            MimeMessage message = new MimeMessage(session);    
            message.addRecipient(Message.RecipientType.TO,new InternetAddress(mailTo));    
            message.setSubject("Friend Request");    
-           message.setText("You have a friend request\nClick on the link below to respond to friend request\n\n"+link);    
+           message.setText(msg);    
            //send message  
            Transport.send(message);    
            System.out.println("message sent successfully");    

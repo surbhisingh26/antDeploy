@@ -18,7 +18,7 @@ import com.surbhi.webProject1.pojo.User;
 import com.surbhi.webProject1.requests.DBConnection;
 
 public class FriendService {
-	public User searchfriends(String search){
+	public User searchFriends(String search){
 		DBConnection db = new DBConnection();
 		DB mongo;
 		mongo=db.getDB();
@@ -30,20 +30,51 @@ public class FriendService {
 		DBCursor<User> cursor = coll.find(query);
 
 		if (cursor.hasNext()) {
-			User user = cursor.next();
-			return user;
+			User searcheduser = cursor.next();
+			return searcheduser;	
 		}
-		else
-			return null;
+		
+		return null;
+	}
+	public String getFriendStatus(User searcheduser,String uid){
+		
+		DBConnection db = new DBConnection();
+		DB mongo;
+		mongo=db.getDB();
+		DBCollection collection = mongo.getCollection("friends");
+		JacksonDBCollection<Friend, String> coll1 = JacksonDBCollection.wrap(collection,Friend.class, String.class);
+		BasicDBObject findquery = new BasicDBObject();
+		findquery.put("uid", uid);
+		DBCursor<Friend> cursor1 = coll1.find(findquery);
+		while(cursor1.hasNext()){
+			Friend friend = cursor1.next();
+			System.out.println("id found... "+friend.getFid());
+			if(friend.getFid().equals(searcheduser.getId())){
+				System.out.println("id found... "+searcheduser.getId());
+				String status = friend.getStatus();
+				System.out.println("status found... "+friend.getStatus());
+				return status;
+			}
+		}
+		return null;
+		
 	}
 
-	public String addfriend(String uid,String fid){
+	public String addFriend(String uid,String fid){
 		DBConnection db = new DBConnection();
 		DB mongo;
 		mongo=db.getDB();
 
 		DBCollection collec = mongo.getCollection("friends");
 		JacksonDBCollection<Friend, String> coll = JacksonDBCollection.wrap(collec,Friend.class, String.class);
+		BasicDBObject query = new BasicDBObject();
+		query.put("uid", uid);
+		DBCursor<Friend> cursor = coll.find(query);
+		while(cursor.hasNext()){
+			Friend friend = cursor.next();
+			if(friend.getFid().equals(fid))
+					return null;
+		}
 		Friend friend = new Friend();
 		friend.setFid(fid);
 		friend.setUid(uid);
@@ -51,7 +82,7 @@ public class FriendService {
 		Friend friend1 = new Friend();
 		friend1.setFid(uid);
 		friend1.setUid(fid);
-		friend1.setStatus("Friend Request");
+		friend1.setStatus("Request pending");
 		coll.insert(friend);
 		coll.insert(friend1);
 		DBCollection collection = mongo.getCollection("registration");
@@ -61,7 +92,7 @@ public class FriendService {
 
 	}
 
-	public List[] showfriends(String uid){
+	public List[] showFriends(String uid){
 		
 		List<User> FriendsList = new ArrayList<User>();
 		List<User> RequestedList = new ArrayList<User>();
@@ -100,7 +131,7 @@ public class FriendService {
 
 	}
 	
-	public List<User> friendrequest(String uid){
+	public List<User> friendRequest(String uid){
 		
 		List<User> RequestList = new ArrayList<User>();
 		DBConnection db = new DBConnection();
@@ -116,7 +147,7 @@ public class FriendService {
 			DBCollection collection = mongo.getCollection("registration");
 			JacksonDBCollection<User, String> coll1 = JacksonDBCollection.wrap(collection,User.class, String.class);
 			Friend friend = cursor.next();
-			if(friend.getStatus().equals("Friend Request")){
+			if(friend.getStatus().equals("Request pending")){
 				String fid = friend.getFid();
 				User friendRequest = coll1.findOneById(fid);
 				RequestList.add(friendRequest);
@@ -124,6 +155,49 @@ public class FriendService {
 		}
 		
 		return RequestList;
+	}
+	
+	public void friendResponse(String uid,String fid,String button){
+		
+		DBConnection db = new DBConnection();
+		DB mongo;
+		mongo=db.getDB();
+		DBCollection collec = mongo.getCollection("friends");
+		JacksonDBCollection<Friend, String> coll = JacksonDBCollection.wrap(collec,Friend.class, String.class);
+		BasicDBObject queryfid = new BasicDBObject();
+		queryfid.put("uid", fid);
+		BasicDBObject queryuid = new BasicDBObject();
+		queryuid.put("uid", uid);
+		
+		System.out.println("problem "+uid);
+		DBCursor<Friend> cursor = coll.find(queryuid);
+		while(cursor.hasNext()){
+			Friend friend = cursor.next();
+			System.out.println("friend 1 "+friend.getFid());
+			System.out.println(fid);
+			if(friend.getFid().equals(fid)){
+				if(button.equals("reject")){					
+					coll.removeById(friend.getId());
+				}
+				else if(button.equals("accept"))
+					friend.setStatus("Friends");
+				coll.updateById(friend.getId(), friend);
+			}
+		}
+		DBCursor<Friend> cursor1 = coll.find(queryfid);
+		while(cursor1.hasNext()){
+			Friend friend = cursor1.next();
+			System.out.println("friend 2 "+friend.getFid());
+			System.out.println(uid);
+			if(friend.getFid().equals(uid)){
+				if(button.equals("reject")){					
+					coll.removeById(friend.getId());
+				}
+				else if(button.equals("accept"))
+					friend.setStatus("Friends");
+				coll.updateById(friend.getId(), friend);
+			}
+		}
 	}
 
 }

@@ -20,11 +20,11 @@
 		</div>
 		
 		<div class= "col-md-4 col-md-offset-2">
-		<form action = "addfriend">
-		<input type="hidden" value="{{#searchedUser}}{{id}}{{/searchedUser}}" id="fid" name="fid">
-		
-		<button class="btn btn-info">Accept</button>
-		<button class="btn btn-info">Reject</button>
+		<form action = "friendresponse">
+		<input type="hidden" value="{{id}}" id="fid" name="fid">
+		<input type="hidden" value="{{email}}" id="email" name="email">
+		<button class="btn btn-info" name="response" value="accept">Accept</button>
+		<button class="btn btn-info" name="response" value="reject">Reject</button>
 		
 		</form>
 		</div>
