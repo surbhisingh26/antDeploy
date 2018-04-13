@@ -16,6 +16,7 @@ public class Passenger extends BaseObject{
 	private Date date;
 	private Date time;
 	private int totalPay;
+	private boolean viewhistory;
 	
 	public String getName() {
 		return name;
@@ -70,5 +71,11 @@ public class Passenger extends BaseObject{
 	}
 	public void setLoginuserId(String loginuserId) {
 		LoginuserId = loginuserId;
+	}
+	public boolean getViewhistory() {
+		return viewhistory;
+	}
+	public void setViewhistory(boolean b) {
+		this.viewhistory = b;
 	}
 }

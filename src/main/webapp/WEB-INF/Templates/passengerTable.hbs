@@ -1,10 +1,12 @@
 {{>head}}
 {{>header}}
-<div class="container">
-	<h3  style="margin-top:100px;">Your Reservation History</h3>
-		<table class="table table-bordered" id="myTable" style="margin-top:30px;">
+<div class="container-full-width" style="background-color:#F2F3F4">
+<div class="row">
+<div class="col-md-10 col-md-offset-1">
+	<h1  style="margin-top:100px;text-align:center;color:black" >Reservation History</h1>
+		<table class="table table-hover table-striped" id="myTable" style="margin-top:30px;margin-bottom:30px;">
 	
-	<tr>
+	<tr style="background-color:#c1c1c1" >
 		<th>Name</th>
 		<th>Number of Tickets</th>
 		<th>Travel date</th>
@@ -12,13 +14,14 @@
 		<th>Travel place</th>
 		<th>Email</th>
 		<th>Total</th>
-		<th>Actions</th>
+		<th></th>
 	</tr>
 	
-	
+	<div class="tablerow">
+	</div>
 	{{#passengerList}}
 	
-	<tr>
+	<tr class="content">
 	
 		<td>{{name}}</td>
 		<td>{{tickets}}</td>
@@ -41,6 +44,7 @@
 	{{/passengerList}}
 	
 	</table>
+</div>
 </div>
 <div class = "container">
 {{#passengerList}}
@@ -131,7 +135,7 @@
 							<form action="deletePassengers" method="post">
 							<input type = "hidden" value = "{{id}}" name = "pid">
 								<button type="submit" class="btn btn-block "
-									style="background-color: black;" >Yes</button>
+									style="background-color: black;">Yes</button>
 
 							</form>
 
@@ -145,18 +149,48 @@
 			
 			</div>
 			{{/passengerList}}
+			<div class="footer">
+			<div class ="container" style="text-align:center;">
 			
+			<ul class="pagination">
+			 <li class="page-item">
+      <a class="page-link" href="#" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+        <span class="sr-only">Previous</span>
+      </a>
+    </li>
+  <li class = "page-item active"><a href="#">1</a></li>
+  
+ 
+  
+  
+</ul>
+</div>
+</div>
+</div>
 	{{>footer}}
 	<script>
-	$(document).ready(function(){
+	count = {{count}};
+	var add = parseInt(count/5);
+	$(document).ready(function(){			
+	if(count>=5){
 	
+	
+	for(var i=1;i<=add;i++){
+	alert(i);
+	$('.pagination').append('<li class = "page-item"><a href="#">'+(i+1)+'</a></li>');
+	
+	}
+	}
+	$('.pagination').append('<li class="page-item"> <a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span> <span class="sr-only">Next</span></a></li>');
+	
+
 	
 	$('.dateformat').each(function(){
 	var me = $(this);	
 	$(me).text(moment($(me).text(),'ddd MMM DD HH:mm:ss IST yyyy').format('DD/MM/YYYY'));
 	});
-	
-	
+		
 	
 	$('.timeformat').each(function(){
 	var time = $(this);	
@@ -166,13 +200,13 @@
 	var formattedDate = "";
 
 	{{#passengerList}}
+	
 	if('{{date}}' != "" && moment("{{date}}",'ddd MMM DD HH:mm:ss IST yyyy').isValid()){
 	formattedDate = moment('{{date}}','ddd MMM DD HH:mm:ss IST yyyy').format('DD/MM/YYYY');
 	}
 	
 	$("#editPassenger{{id}} ").find('.datepicker').val(formattedDate);
 	{{/passengerList}}
-	
 	});
 	</script>
 {{>end}}

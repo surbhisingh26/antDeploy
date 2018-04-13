@@ -59,8 +59,7 @@ public class FriendActions extends HttpServlet {
 			try {
 				String ur = path.replace("/", "");
 				Method method = FriendActions.class.getDeclaredMethod(ur,HttpServletRequest.class,HttpServletResponse.class);
-				//				System.out.println("method is "+method);
-				//				System.out.println("method name is "+method.getName());
+				
 
 				method.invoke(friendaction,request,response);
 			} catch (Exception e) {
@@ -126,9 +125,6 @@ public class FriendActions extends HttpServlet {
 					else 
 						hmap.put("Requestsent",true);
 				}
-				
-
-
 				
 				}
 			utility.getHbs(response, "friends", hmap);

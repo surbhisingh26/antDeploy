@@ -2,9 +2,7 @@ package com.surbhi.webProject1.requests;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -13,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.surbhi.webProject1.app.Utility;
-import com.surbhi.webProject1.pojo.Passenger;
 import com.surbhi.webProject1.requestService.BookingService;
 import com.surbhi.webProject1.requestService.PassengerTableService;
 
@@ -116,7 +113,7 @@ public class PassengerActions extends HttpServlet {
 			PassengerTableService pts = new PassengerTableService();
 			System.out.println("after function "+uid);
 		
-			List<Passenger> passengerList = new ArrayList<Passenger>();
+			//List<Passenger> passengerList = new ArrayList<Passenger>();
 
 			if(uid==null){
 				msg = "Please login first!!!";
@@ -125,9 +122,11 @@ public class PassengerActions extends HttpServlet {
 				utility.getHbs(response,"login",null);
 			}
 			else{
-				passengerList = pts.Passengers(uid);	
-				System.out.println("\n Passenger List is \n" + passengerList);
-				hmap.put("passengerList", passengerList);
+				Map<String, Object> map = pts.Passengers(uid);	
+			//	System.out.println("\n Passenger List is \n" + passengerList);
+				hmap.put("passengerList", map.get("passengerList"));
+				hmap.put("count", map.get("count"));
+				System.out.println(map.get("count"));
 				utility.getHbs(response,"passengerTable",hmap);
 
 			}

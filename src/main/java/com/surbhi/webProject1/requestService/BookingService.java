@@ -50,6 +50,7 @@ public class BookingService {
 			passenger.setTime(time);
 			passenger.setTotalPay(23*Tick);
 			passenger.setPlace(Place);
+			passenger.setViewhistory(true);
 			coll.insert(passenger);
 		}
 		else{
@@ -62,19 +63,21 @@ public class BookingService {
 			passen.setTime(time);
 			passen.setTotalPay(23*Tick);
 			passen.setPlace(Place);
+			passen.setViewhistory(true);
 			coll.updateById((pid),passen);
 			
 		}
 
 	}
-	public void deletePassenger(String id){
+	public void deletePassenger(String pid){
 		DB mongo;
 		DBConnection db1 = new DBConnection();
 		mongo=db1.getDB();
 		DBCollection collection = mongo.getCollection("passenger");
 		JacksonDBCollection<Passenger, String> coll = JacksonDBCollection.wrap(collection,Passenger.class, String.class);
-		
-		coll.removeById(id);
+		Passenger passenger = coll.findOneById(pid);
+		passenger.setViewhistory(false);
+		coll.updateById(pid,passenger);
 		
 	}
 }

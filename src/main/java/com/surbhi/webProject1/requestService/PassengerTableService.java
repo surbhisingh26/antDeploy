@@ -2,7 +2,9 @@ package com.surbhi.webProject1.requestService;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mongojack.DBCursor;
 import org.mongojack.JacksonDBCollection;
@@ -18,11 +20,11 @@ import com.surbhi.webProject1.requests.DBConnection;
 public class PassengerTableService  {
 	DBConnection db = new DBConnection();
 	DB mongo=db.getDB();
- public List<Passenger> Passengers(String uid){
+ public Map<String, Object> Passengers(String uid){
 	 String uType=null;;
 	 DBCollection collection = mongo.getCollection("registration");
 		JacksonDBCollection<User, String> userCollection = JacksonDBCollection.wrap(collection,User.class, String.class);	
-		
+		int count = 0;
 		User user = userCollection.findOneById(uid);
 		System.out.println("user is "+user);
 		if(user!=null){
@@ -35,11 +37,14 @@ public class PassengerTableService  {
 		JacksonDBCollection<Passenger, String> passengerCollection = JacksonDBCollection.wrap(collec,Passenger.class, String.class);
 		Passenger passenger = new Passenger();
 		List<Passenger> passengerList = new ArrayList<Passenger>();
+		Map<String, Object> map = new HashMap<String, Object>();
+		
 		if(uType.equalsIgnoreCase("Admin")){	
 			DBCursor<Passenger> cur = passengerCollection.find();
 			
 			while (cur.hasNext()) {					
 				passenger =  cur.next();
+				count += 1;
 				passengerList.add(passenger);
 			}
 		}
@@ -50,14 +55,19 @@ public class PassengerTableService  {
 			query1.put("loginuserId", uid);	
 			DBCursor<Passenger> cursor = passengerCollection.find(query1);
 			
-			while(cursor.hasNext()){					
+			while(cursor.hasNext()){	
+				
 				passenger =  cursor.next();
+				count += 1;
+				if(passenger.getViewhistory()==true)
 				passengerList.add(passenger);
 				
 			}		
 
 		}
-		return passengerList;
+		map.put("passengerList", passengerList);
+		map.put("count", count);
+		return map;
  }
 
 }
