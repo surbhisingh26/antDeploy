@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.surbhi.webProject1.app.Pager;
 import com.surbhi.webProject1.app.Utility;
 import com.surbhi.webProject1.requestService.BookingService;
 import com.surbhi.webProject1.requestService.PassengerTableService;
@@ -107,64 +108,18 @@ public class PassengerActions extends HttpServlet {
 		try {
 
 			Map<String, Object> hmap = new HashMap<String, Object>();
+			Map<String, Object> pages = new HashMap<String, Object>();
 
-			int num=0;
-			String page=null;
-			int currentPage=0;
-			int nextPage=0;
-			int prevPage=0;
-
-			String limit=request.getParameter("limit");
-
+			String limit=(String)request.getParameter("limit");
 			hmap = utility.checkSession(request);
 			uid = (String) hmap.get("uid");
 			PassengerTableService pts = new PassengerTableService();
 			System.out.println("after function "+uid);
-
-			/*if(button!=null){
-
-				Cookie[] cookies = request.getCookies();
-				if(cookies !=null){
-					for(Cookie cookie : cookies){
-						System.out.println("cookies "+cookie);
-
-						if(cookie.getName().equals("page")){
-							//page = cookie.getValue();
-
-
-						}}
-				}
-				Cookie cookie=new Cookie("page","");  
-				cookie.setMaxAge(0);  
-				response.addCookie(cookie); 
-
-				//page = (String) request.getAttribute("page");
-				num = Integer.parseInt(page);
-				if(button.equals("prev")){
-					if(num>1)
-					num -= 1;
-				}
-				else{
-
-					num += 1;
-				}
-			}
-			else{
-				page = (String)request.getParameter("page");
-				currentPage = Integer.parseInt(page);
-				nextPage = currentPage+1;
-				previousPage = currentPage-1;
-
-				System.out.println("Page number is "+num);
-
-			}
-			Cookie cookie = new Cookie("page",Integer.toString(num));
-			response.addCookie(cookie);
-			System.out.println("page is "+num);*/
 			int pageLimit = Integer.parseInt(limit);
-			page = (String)request.getParameter("page");
-			currentPage = Integer.parseInt(page);
-
+			System.out.println("page limit "+pageLimit);
+			String page = (String)request.getParameter("page");
+			int currentPage = Integer.parseInt(page);
+			
 			if(uid==null){
 				msg = "Please login first!!!";
 				hmap.put("message", msg);
@@ -177,23 +132,17 @@ public class PassengerActions extends HttpServlet {
 				hmap.put("passengerList", map.get("passengerList"));
 				hmap.put("count", map.get("count"));
 				long count = (Long) (map.get("count"));
-
-				if(currentPage>2)					
-				prevPage = currentPage-1;
-				else
-					hmap.put("prev",true);
-					
-				if(currentPage<Math.ceil(count/pageLimit))
-					nextPage = currentPage+1;
-				else
-					hmap.put("next",true);
-				hmap.put("nextPage", nextPage);
-				hmap.put("prevPage", prevPage);
-				hmap.put("limit",limit);
+				int totalPage = (int) Math.ceil(count/pageLimit);
 				
 				System.out.println(map.get("count"));
 				utility.getHbs(response,"passengerTable",hmap);
-
+				Pager pager = new Pager();
+				pages = pager.pager(currentPage,totalPage,pageLimit);
+				System.out.println(pages);
+				System.out.println(pages.get("pager"));
+				hmap.put("pager",pages.get("pager"));
+				System.out.println("Another pager "+hmap.get("pager"));
+				hmap.put("pages",pages);
 			}
 
 		}
@@ -213,5 +162,9 @@ public class PassengerActions extends HttpServlet {
 		catch(Exception e){
 			e.printStackTrace();
 		}
+	}
+	public void pager(HttpServletRequest request, HttpServletResponse response){
+		
+		
 	}
 }

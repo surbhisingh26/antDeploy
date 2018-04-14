@@ -149,55 +149,13 @@
 			
 			</div>
 			{{/passengerList}}
-			<div class="footer">
-			<div class ="container" style="text-align:center;">
-			
-			<ul class="pagination">
-			
-			 {{#if prev}}
-			  <li class="page-item disabled">
-			
-        <span aria-hidden="true">&laquo;</span>
-        
-      </li>
-			 {{else}}
-			  <li class="page-item">
-			 <a class="page-link" href="passengers?page={{prevPage}}&limit={{limit}}" aria-label="Previous">
-        <span aria-hidden="true">&laquo;</span>
-        <span class="sr-only">Previous</span>
-      </a></li>
-			 {{/if}}
-      
-    
-
-  
- 
-  
-  
-</ul>
-</div>
-</div>
-</div>
+			{{>pager}}
+	</div>
 	{{>footer}}
 	<script>
-	count = {{count}};
-	var add = Math.ceil(count/1);
+	
 	$(document).ready(function(){			
-	if(count>=1){
 	
-	//var start=Math.ceil(add/1)
-	for(var i=1;i<=add;i++){
-	
-	$('.pagination').append('<li class = "page-item"><a href="passengers?page='+(i)+'&limit={{limit}}">'+(i)+'</a></li>');
-	
-	}
-	}
-	{{#if next}}
-	$('.pagination').append('<li class="page-item disabled"> <span aria-hidden="true">&raquo;</span></li>');
-	{{else}}
-	$('.pagination').append('<li class="page-item"> <a class="page-link" href="passengers?page={{nextPage}}&limit={{limit}}" aria-label="Next"><span aria-hidden="true">&raquo;</span> <span class="sr-only">Next</span></a></li>');
-	{{/if}}
-
 	
 	$('.dateformat').each(function(){
 	var me = $(this);	

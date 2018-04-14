@@ -20,7 +20,7 @@ import com.surbhi.webProject1.requests.DBConnection;
 public class PassengerTableService  {
 	DBConnection db = new DBConnection();
 	DB mongo=db.getDB();
-	public Map<String, Object> Passengers(String uid, int page, int recordNum){
+	public Map<String, Object> Passengers(String uid, int page, int limit){
 		String uType=null;;
 		DBCollection collection = mongo.getCollection("registration");
 		JacksonDBCollection<User, String> userCollection = JacksonDBCollection.wrap(collection,User.class, String.class);	
@@ -42,7 +42,7 @@ public class PassengerTableService  {
 
 		if(uType.equalsIgnoreCase("Admin")){	
 			count = passengerCollection.count();
-			DBCursor<Passenger> cur = passengerCollection.find().skip((page-1)*(recordNum)).limit(recordNum);
+			DBCursor<Passenger> cur = passengerCollection.find().skip((page-1)*(limit)).limit(limit);
 
 			while (cur.hasNext()) {	
 				passenger =  cur.next();				
@@ -56,7 +56,7 @@ public class PassengerTableService  {
 
 			query1.put("loginuserId", uid);	
 			count = passengerCollection.count(query1);
-			DBCursor<Passenger> cursor = passengerCollection.find(query1).skip((page-1)*(recordNum)).limit(recordNum);
+			DBCursor<Passenger> cursor = passengerCollection.find(query1).skip((page-1)*(limit)).limit(limit);
 
 			while(cursor.hasNext()){	
 
