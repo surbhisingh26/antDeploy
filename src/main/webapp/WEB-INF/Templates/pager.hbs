@@ -2,8 +2,7 @@
 			<div class ="container" style="text-align:center;">
 			
 			<ul class="pagination">
-			<p>{{#pager}}{{link}}{{/pager}}</p>
-		{{#if prev}}
+		{{#pages}}{{#if prev}}
 		<li class="page-item disabled"><span aria-hidden="true">&laquo;</span></li>
 		{{else}}
 		<li class="page-item">
@@ -12,19 +11,20 @@
         <span class="sr-only">Previous</span>
       </a></li>
 		{{/if}}
-			 
+			{{/pages}} 
 	 {{#pager}}
-	<li class = "page-item"><a href="passengers?page={{link}}&limit={{limit}}">{{link}}</a></li>
+	<li class = "page-item"><a href="passengers?page={{.}}&limit={{#pages}}{{limit}}{{/pages}}">{{.}}</a></li>
 	{{/pager}}
 	
-	 {{#if next}}
+	 {{#pages}}{{#if next}}
 	<li class="page-item disabled"> <span aria-hidden="true">&raquo;</span></li>
 	{{else}}
 	<li class="page-item"> 
-	<a class="page-link" href="passengers?page={{nextPage}}&limit={{limit}}" aria-label="Next">
+	<a class="page-link" href="passengers?page={{#pages}}{{nextPage}}{{/pages}}&limit={{#pages}}{{limit}}{{/pages}}" aria-label="Next">
 	<span aria-hidden="true">&raquo;</span> <span class="sr-only">Next</span>
 	</a></li>
 	{{/if}}
+	{{/pages}}
       </ul>
 </div>
 </div>

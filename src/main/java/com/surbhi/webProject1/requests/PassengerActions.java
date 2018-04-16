@@ -109,7 +109,7 @@ public class PassengerActions extends HttpServlet {
 
 			Map<String, Object> hmap = new HashMap<String, Object>();
 			Map<String, Object> pages = new HashMap<String, Object>();
-
+			final int pagerSize=10;
 			String limit=(String)request.getParameter("limit");
 			hmap = utility.checkSession(request);
 			uid = (String) hmap.get("uid");
@@ -132,17 +132,19 @@ public class PassengerActions extends HttpServlet {
 				hmap.put("passengerList", map.get("passengerList"));
 				hmap.put("count", map.get("count"));
 				long count = (Long) (map.get("count"));
-				int totalPage = (int) Math.ceil(count/pageLimit);
-				
+				int totalPage = (int) Math.ceil((double)count/pageLimit);
+				System.out.println("Total pages are "+totalPage);
 				System.out.println(map.get("count"));
 				utility.getHbs(response,"passengerTable",hmap);
 				Pager pager = new Pager();
-				pages = pager.pager(currentPage,totalPage,pageLimit);
+				pages = pager.pager(currentPage,totalPage,pageLimit,pagerSize);
 				System.out.println(pages);
 				System.out.println(pages.get("pager"));
 				hmap.put("pager",pages.get("pager"));
 				System.out.println("Another pager "+hmap.get("pager"));
 				hmap.put("pages",pages);
+				System.out.println("Pages "+pages);
+				utility.getHbs(response,"pager",hmap);
 			}
 
 		}
