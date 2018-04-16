@@ -20,6 +20,8 @@ public class User extends BaseObject{
 	private String password;
 	private String bgcolor;
 	private String imagepath;
+	private Date lastLoggedIn;
+	private String loggedIn;
 	public String getName() {
 		return name;
 	}
@@ -95,6 +97,22 @@ public class User extends BaseObject{
 	}
 	public String getEmail() {
 		return email;
+	}
+
+	public Date getLastLoggedIn() {
+		return lastLoggedIn;
+	}
+
+	public void setLastLoggedIn(Date lastLoggedIn) {
+		this.lastLoggedIn = lastLoggedIn;
+	}
+
+	public String getLoggedIn() {
+		return loggedIn;
+	}
+
+	public void setLoggedIn(String loggedIn) {
+		this.loggedIn = loggedIn;
 	}
 	
 }

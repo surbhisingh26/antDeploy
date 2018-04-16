@@ -177,7 +177,7 @@ public class FriendActions extends HttpServlet {
 			hmap = utility.checkSession(request);
 			String button = request.getParameter("response");
 			String fid = request.getParameter("fid");
-			String sendTo = request.getParameter("email");
+		//	String sendTo = request.getParameter("email");
 			uid = (String) hmap.get("uid");
 			FriendService friendservice = new FriendService();
 			friendservice.friendResponse(uid,fid,button);

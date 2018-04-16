@@ -5,8 +5,8 @@
 	<label>Change Theme Settings</label>
 	<hr>
 	<form action = "color">
-	Change Navbar Color <div id="cp2" class="input-group colorpicker-component"> 
-		  <input type="hidden" value = "#000000" class="form-control" id="bgcolor" name="bgcolor"/> 
+	Change Theme Color <div id="cp2" class="input-group colorpicker-component"> 
+		  <input type="hidden" value = {{#loggedInUser}}{{bgcolor}}{{/loggedInUser}} class="form-control" id="bgcolor" name="bgcolor"/> 
 		  <span class="input-group-addon"></span>
 		</div> 
 	  <button type ="submit" class = "btn btn-info pull-right">Apply</button>  </form>  

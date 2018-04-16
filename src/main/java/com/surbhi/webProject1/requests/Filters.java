@@ -31,7 +31,7 @@ public class Filters implements Filter{
 
 		if(!path.contains(".")) {
 			
-			if(path.contains("passenger"))	{		
+			if(path.contains("passenger")||path.contains("Passenger"))	{		
 				request.getRequestDispatcher("/passengerpaths" + path).forward(request, response);
 				System.out.println("passenger");
 			}

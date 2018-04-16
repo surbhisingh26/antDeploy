@@ -139,10 +139,11 @@ public class UserActions extends HttpServlet {
 
 				Cookie loginCookie = new Cookie("uid",result);
 
-
+				System.out.println("uid is "+uid);
 				response.addCookie(loginCookie);
 				loginCookie.setMaxAge(30*60); 			
-
+				UserService userservice = new UserService();
+				userservice.login(uid);
 				response.sendRedirect("/webProject1");
 
 			}
@@ -162,7 +163,14 @@ public class UserActions extends HttpServlet {
 	}
 	public void logout(HttpServletRequest request, HttpServletResponse response){
 		try {
-
+			
+			Map<String, Object> hmap = new HashMap<String, Object>();
+			hmap = utility.checkSession(request);
+			uid = (String) hmap.get("uid");
+			
+			UserService userservice = new UserService();
+			userservice.logout(uid);
+			
 			Cookie loginCookie=new Cookie("uid","");  
 			loginCookie.setMaxAge(0);  
 			response.addCookie(loginCookie); 	

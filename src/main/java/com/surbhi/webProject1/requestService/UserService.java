@@ -4,6 +4,7 @@ package com.surbhi.webProject1.requestService;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import org.mongojack.DBCursor;
@@ -126,43 +127,6 @@ public class UserService  {
 			coll.updateById(uid, user);
 
 			return user;
-
-			/*//File imageFile = new File(filecontent);
-
-			// create a "photo" namespace
-			GridFS gfsPhoto = new GridFS(mongo, "images");
-
-			// get image file from local drive
-
-
-			GridFSInputFile gfsFile = gfsPhoto.createFile(filecontent,path);
-
-			gfsFile.setContentType("image");
-			// set a new filename for identify purpose
-			//gfsFile.setFilename(filename);
-
-			// save the image file into mongoDB
-			gfsFile.save();
-
-
-			System.out.println("Done");
-
-			String newFileName = path;
-			System.out.println(newFileName);
-		    GridFS gfsPhoto1 = new GridFS(mongo, "images");
-		    GridFSDBFile imageForOutput = gfsPhoto1.findOne(newFileName);
-		   System.out.println(imageForOutput.getContentType());
-		   System.out.println(imageForOutput.getMD5());
-
-		   System.out.println(imageForOutput.getChunkSize());
-
-		   System.out.println(imageForOutput.getInputStream());
-		   System.out.println(imageForOutput.getMetaData());
-
-
-		  //  imageForOutput.writeTo(out)writeTo("C:/image/"+path);
-		    return imageForOutput.getInputStream();*/
-
 		}
 		catch(Exception e){
 			e.printStackTrace();
@@ -180,7 +144,33 @@ public class UserService  {
 		User user = coll.findOneById(uid);
 		return user;
 
-		//    System.out.println(imageForOutput);
+	}
+	public void login(String uid){
+		DB mongo;
+		mongo=db1.getDB();
+
+		DBCollection collec = mongo.getCollection("registration");
+		JacksonDBCollection<User, String> coll = JacksonDBCollection.wrap(collec,User.class, String.class);
+		User user = coll.findOneById(uid);
+		System.out.println("Logged in ");
+		System.out.println(user.getLoggedIn());
+		user.setLoggedIn("true");
+		coll.updateById(uid, user);
+		
+	}
+	public void logout(String uid){
+		DB mongo;
+		mongo=db1.getDB();
+
+		DBCollection collec = mongo.getCollection("registration");
+		JacksonDBCollection<User, String> coll = JacksonDBCollection.wrap(collec,User.class, String.class);
+		Date date = new Date();		
+		
+		//System.out.println("Date is "+now);
+		User user = coll.findOneById(uid);
+		user.setLoggedIn("false");
+		user.setLastLoggedIn(date);
+		coll.updateById(uid, user);
 	}
 
 }

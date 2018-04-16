@@ -49,7 +49,6 @@ public class PassengerActions extends HttpServlet {
 		String path = request.getPathInfo();
 		System.out.println("path "+ path);
 
-
 		if(path==null||path.equals("/")){
 			Map<String, Object> hmap  = new HashMap<String, Object>();
 			hmap = utility.checkSession(request);
@@ -70,7 +69,7 @@ public class PassengerActions extends HttpServlet {
 			} 
 		}
 	}
-	public void bookpassenger(HttpServletRequest request, HttpServletResponse response){
+	public void bookPassenger(HttpServletRequest request, HttpServletResponse response){
 		try {
 
 			Map<String, Object> hmap  = new HashMap<String, Object>();
@@ -108,9 +107,16 @@ public class PassengerActions extends HttpServlet {
 		try {
 
 			Map<String, Object> hmap = new HashMap<String, Object>();
-			Map<String, Object> pages = new HashMap<String, Object>();
+			
 			final int pagerSize=10;
+			String sortBy = request.getParameter("sortBy");
+			String ascending = request.getParameter("ascending");
+			System.out.println("Sort By " +sortBy);
+			System.out.println("Ascending " + ascending);
 			String limit=(String)request.getParameter("limit");
+			if(limit==null){
+				limit="5";
+			}
 			hmap = utility.checkSession(request);
 			uid = (String) hmap.get("uid");
 			PassengerTableService pts = new PassengerTableService();
@@ -118,8 +124,11 @@ public class PassengerActions extends HttpServlet {
 			int pageLimit = Integer.parseInt(limit);
 			System.out.println("page limit "+pageLimit);
 			String page = (String)request.getParameter("page");
+			if(page==null){
+				page="1";
+			}
 			int currentPage = Integer.parseInt(page);
-			
+
 			if(uid==null){
 				msg = "Please login first!!!";
 				hmap.put("message", msg);
@@ -127,24 +136,23 @@ public class PassengerActions extends HttpServlet {
 				utility.getHbs(response,"login",null);
 			}
 			else{
-				Map<String, Object> map = pts.Passengers(uid,currentPage,pageLimit);	
-				//	System.out.println("\n Passenger List is \n" + passengerList);
-				hmap.put("passengerList", map.get("passengerList"));
-				hmap.put("count", map.get("count"));
-				long count = (Long) (map.get("count"));
+				if(sortBy==null)
+					sortBy="date";
+				if(ascending==null)
+					ascending="true";
+				hmap.putAll(pts.Passengers(uid,currentPage,pageLimit,sortBy,ascending));
+				System.out.println("Sort By" +sortBy);
+				System.out.println("Ascending " + ascending);
+
+				long count = (Long) (hmap.get("count"));
 				int totalPage = (int) Math.ceil((double)count/pageLimit);
 				System.out.println("Total pages are "+totalPage);
-				System.out.println(map.get("count"));
-				utility.getHbs(response,"passengerTable",hmap);
+				System.out.println(hmap.get("count"));
 				Pager pager = new Pager();
-				pages = pager.pager(currentPage,totalPage,pageLimit,pagerSize);
-				System.out.println(pages);
-				System.out.println(pages.get("pager"));
-				hmap.put("pager",pages.get("pager"));
-				System.out.println("Another pager "+hmap.get("pager"));
-				hmap.put("pages",pages);
-				System.out.println("Pages "+pages);
-				utility.getHbs(response,"pager",hmap);
+				hmap.putAll(pager.pager(currentPage,totalPage,pageLimit,pagerSize));
+				//System.out.println("Current page is ");
+				utility.getHbs(response,"passengerTable",hmap);
+
 			}
 
 		}
@@ -165,8 +173,17 @@ public class PassengerActions extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-	public void pager(HttpServletRequest request, HttpServletResponse response){
-		
-		
+	public void sortPassengers(HttpServletRequest request, HttpServletResponse response){
+		try {
+			String descending= request.getParameter("descending");
+			String ascending= request.getParameter("ascending");
+			System.out.println(descending);
+			System.out.println(ascending);
+
+
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
 	}
 }

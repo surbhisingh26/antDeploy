@@ -1,19 +1,74 @@
 {{>head}}
 {{>header}}
-<div class="container-full-width" style="background-color:#F2F3F4">
+<div class="container" style="background-color:#F2F3F4">
 <div class="row">
-<div class="col-md-10 col-md-offset-1">
+<div class="col-md-12">
 	<h1  style="margin-top:100px;text-align:center;color:black" >Reservation History</h1>
 		<table class="table table-hover table-striped" id="myTable" style="margin-top:30px;margin-bottom:30px;">
 	
 	<tr style="background-color:#c1c1c1" >
-		<th>Name</th>
-		<th>Number of Tickets</th>
-		<th>Travel date</th>
-		<th>Time</th>
-		<th>Travel place</th>
-		<th>Email</th>
-		<th>Total</th>
+		<th>Name
+			<a href="passengers?sortBy=name&ascending=true&page={{currentPage}}&limit={{limit}}" style="color:black;" data-toggle="tooltip" title="sort up" class="sort">
+				<i class = "fa fa-long-arrow-up" style="padding-left:10px;padding-right:5px" ></i></a>
+			<a href="passengers?sortBy=name&ascending=false&page={{currentPage}}&limit={{limit}}" data-toggle="tooltip" title="sort down" class="sort">
+				<i class = "fa fa-long-arrow-down">
+				</i>
+			</a>
+		</th>
+		
+		<th>Tickets
+			<a href="passengers?sortBy=tickets&ascending=true&page={{currentPage}}&limit={{limit}}" style="color:black;" data-toggle="tooltip" title="sort up" class="sort">
+				<i class = "fa fa-long-arrow-up" style="padding-left:10px;padding-right:5px"></i></a>
+			<a href="passengers?sortBy=tickets&ascending=false&page={{currentPage}}&limit={{limit}}" data-toggle="tooltip" title="sort down" class="sort">
+				<i class = "fa fa-long-arrow-down">
+				</i>
+			</a>
+		</th>
+		
+		<th>Travel Date
+			<a href="passengers?sortBy=date&ascending=true&page={{currentPage}}&limit={{limit}}" style="color:black;" data-toggle="tooltip" title="sort up" class="sort">
+				<i class = "fa fa-long-arrow-up" style="padding-left:10px;padding-right:5px"></i></a>
+			<a href="passengers?sortBy=date&ascending=false&page={{currentPage}}&limit={{limit}}" data-toggle="tooltip" title="sort down" class="sort">
+				<i class = "fa fa-long-arrow-down">
+				</i>
+			</a>
+		</th>
+		
+		<th>Time
+			<a href="passengers?sortBy=time&ascending=true&page={{currentPage}}&limit={{limit}}" style="color:black;" data-toggle="tooltip" title="sort up" class="sort">
+				<i class = "fa fa-long-arrow-up" style="padding-left:10px;padding-right:5px"></i></a>
+			<a href="passengers?sortBy=time&ascending=false&page={{currentPage}}&limit={{limit}}" data-toggle="tooltip" title="sort down" class="sort">
+				<i class = "fa fa-long-arrow-down">
+				</i>
+			</a>
+		</th>
+		
+		<th>Travel place
+			<a href="passengers?sortBy=place&ascending=true&page={{currentPage}}&limit={{limit}}" style="color:black;" data-toggle="tooltip" title="sort up" class="sort">
+				<i class = "fa fa-long-arrow-up" style="padding-left:10px;padding-right:5px"></i></a>
+			<a href="passengers?sortBy=place&ascending=false&page={{currentPage}}&limit={{limit}}" data-toggle="tooltip" title="sort down" class="sort">
+				<i class = "fa fa-long-arrow-down">
+				</i>
+			</a>
+		</th>
+		
+		<th>Email
+			<a href="passengers?sortBy=email&ascending=true&page={{currentPage}}&limit={{limit}}" style="color:black;" data-toggle="tooltip" title="sort up" class="sort">
+				<i class = "fa fa-long-arrow-up" style="padding-left:10px;padding-right:5px"></i></a>
+			<a href="passengers?sortBy=email&ascending=false&page={{currentPage}}&limit={{limit}}" data-toggle="tooltip" title="sort down" class="sort">
+				<i class = "fa fa-long-arrow-down">
+				</i>
+			</a>
+		</th>
+		
+		<th>Total
+			<a href="passengers?sortBy=totalPay&ascending=true&page={{currentPage}}&limit={{limit}}" style="color:black;" data-toggle="tooltip" title="sort up" class="sort">
+				<i class = "fa fa-long-arrow-up" style="padding-left:10px;padding-right:5px"></i></a>
+			<a href="passengers?sortBy=totalPay&ascending=false&page={{currentPage}}&limit={{limit}}" data-toggle="tooltip" title="sort down" class="sort">
+				<i class = "fa fa-long-arrow-down">
+				</i>
+			</a>
+		</th>
 		<th></th>
 	</tr>
 	
@@ -149,14 +204,11 @@
 			
 			</div>
 			{{/passengerList}}
-		
+		{{>pager}}
 	</div>
 	{{>footer}}
 	<script>
-	
-	$(document).ready(function(){			
-	
-	
+
 	$('.dateformat').each(function(){
 	var me = $(this);	
 	$(me).text(moment($(me).text(),'ddd MMM DD HH:mm:ss IST yyyy').format('DD/MM/YYYY'));
@@ -178,6 +230,10 @@
 	
 	$("#editPassenger{{id}} ").find('.datepicker').val(formattedDate);
 	{{/passengerList}}
-	});
+
+		
+	
+
 	</script>
+
 {{>end}}
