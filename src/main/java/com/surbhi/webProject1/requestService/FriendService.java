@@ -1,10 +1,13 @@
 package com.surbhi.webProject1.requestService;
 
 
+
 import java.util.ArrayList;
-
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import org.mongojack.DBCursor;
 import org.mongojack.JacksonDBCollection;
@@ -92,11 +95,12 @@ public class FriendService {
 
 	}
 
-	public List[] showFriends(String uid){
+	public Map<String, Object> showFriends(String uid){
 		
 		List<User> FriendsList = new ArrayList<User>();
 		List<User> RequestedList = new ArrayList<User>();
-		
+		List<Long> TimeList = new ArrayList<Long>();
+		Map<String, Object> hmap = new HashMap<String, Object>();
 		DBConnection db = new DBConnection();
 		DB mongo;
 		mongo=db.getDB();
@@ -116,20 +120,24 @@ public class FriendService {
 				System.out.println("Friend found...");
 				User userFriend = coll1.findOneById(fid);
 				FriendsList.add(userFriend);
+			
 			}
 			else if(friend.getStatus().equals("Request sent")){
 				System.out.println("Request found...");
 				User userRequested = coll1.findOneById(fid);
 				RequestedList.add(userRequested);
-			}
+			
 
 		}
-		List map[]=new List[2];
-		map[0] = FriendsList;
-		map[1] = RequestedList;
-		return map;
+		}
+		
+		hmap.put("FriendsList",FriendsList);
+		hmap.put("RequestedList",RequestedList);
+		
+		return hmap;
 
 	}
+
 	
 	public List<User> friendRequest(String uid){
 		

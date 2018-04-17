@@ -101,9 +101,14 @@
 		<img src="{{imagepath}}" class="img-rounded" width="70" height ="70">
 		</div>
 		<div clas="col-md-3">
-		<h5 style="padding-left:100px;color:black;">{{name}}</h5>
+		<h5 style="padding-left:100px;color:black;">{{name}}{{#if loggedIn}}<i class = "fa fa-circle" style="padding-left:5px; color:green;font-size:70%"></i>{{else}}
+		<input type="hidden" class="lastLoggedInAt{{id}}" value="{{lastLoggedInAt}}">
+		<small style="padding-left:10px"><label class="lastLoggedin{{id}}"></label></small>
 		
-		<h6 style="padding-left:100px;color:gray;"> {{city}}</h6>
+		
+		{{/if}}</h5>
+		
+		<h5 style="padding-left:100px;color:gray;"> {{city}}</h5>
 		</div>
 		
 		</div>
@@ -119,5 +124,34 @@
 		
 		
 {{>footer}}
+
+ <script>
+ $(document).ready(function(){
+ var now = moment();
+ {{#FriendsList}}
+ 
+ 
+	var lastlogin = $('.lastLoggedInAt{{id}}');	
+	 var lastloginVal = moment($(lastlogin).val(),'ddd MMM DD HH:mm:ss IST yyyy');
+
+var Days =  moment.duration(now - lastloginVal).days();
+var Hours =  moment.duration(now - lastloginVal).hours();
+var Minutes =  moment.duration(now - lastloginVal).minutes();
+var Seconds =  moment.duration(now - lastloginVal).seconds();
+
+if(Days!=0)
+$('.lastLoggedin{{id}}').text(Days+"d ago");
+else if(Hours!=0)
+$('.lastLoggedin{{id}}').text(Hours+"h ago");
+else if(Minutes!=0)
+$('.lastLoggedin{{id}}').text(Minutes+"min ago");
+else if(Seconds!=0)
+$('.lastLoggedin{{id}}').text("Just now");
+{{/FriendsList}}
+
+
+	
+ });
+ </script>
 
 {{>end}}	

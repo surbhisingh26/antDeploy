@@ -74,13 +74,10 @@ public class FriendActions extends HttpServlet {
 			hmap = utility.checkSession(request);
 			uid = (String) hmap.get("uid");
 
-			FriendService friendservice = new FriendService();
-			List map[] = new List[2];
-			map = friendservice.showFriends(uid);
-			hmap.put("FriendsList",map[0]);
-			System.out.println(map[0]);
-			System.out.println(map[1]);
-			hmap.put("RequestedList",map[1]);
+			FriendService friendservice = new FriendService();			
+			hmap.putAll(friendservice.showFriends(uid));
+			//System.out.println("Friend list  .. "+hmap.get("FriendsList"));
+			//System.out.println(hmap.get("LastLoggedInAt"));
 			utility.getHbs(response, "friends", hmap);
 		}
 		catch(Exception e){

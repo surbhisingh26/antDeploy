@@ -7,11 +7,7 @@
 
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link href="https://fonts.googleapis.com/css?family=Lato"
-	rel="stylesheet" type="text/css">
-<link href="https://fonts.googleapis.com/css?family=Montserrat"
-	rel="stylesheet" type="text/css">
-
+<link href='https://fonts.googleapis.com/css?family=Alegreya SC' rel='stylesheet'>
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.43/css/bootstrap-datetimepicker.min.css"> 
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.43/css/bootstrap-datetimepicker-standalone.css"> 
  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.3.6/css/bootstrap-colorpicker.css" rel="stylesheet">
@@ -32,20 +28,48 @@
 }
 .btn{
 margin-top:20px;
+border-radius: 0;
+ transition: .2s;
+ box-shadow: 0px 0px 10px 1px;
 }
 
 body {
 	position: relative;
 	top: -22px;
-	font: 400 15px/1.8 Lato, sans-serif;
+	font: 400 15px/1.8 Alegreya SC;
 	color: #777;
 }
 .navbar-brand {
   height: 50px;
   padding: 3px 10px;
 }
-
-
+.footer{
+position: relative;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    
+    color: white;
+    text-align: center;
+}
+.grid-divider {
+        position: relative;
+        padding: 0;
+    }
+    .grid-divider>[class*='col-'] {
+        position: static;
+    }
+    .grid-divider>[class*='col-']:nth-child(n+2):before {
+        content: "";
+        border-left: 1px solid #DDD;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+		 box-shadow: 0px 0px 10px 1px;
+    }
+    .col-padding {
+        padding: 0 15px;
+    }
 </style>
 </head>
 <body data-spy="scroll" data-target=".navbar" data-offset="50">

@@ -140,6 +140,8 @@ public class PassengerActions extends HttpServlet {
 					sortBy="date";
 				if(ascending==null)
 					ascending="true";
+				hmap.put("sortBy", sortBy);
+				hmap.put("ascending",ascending);
 				hmap.putAll(pts.Passengers(uid,currentPage,pageLimit,sortBy,ascending));
 				System.out.println("Sort By" +sortBy);
 				System.out.println("Ascending " + ascending);

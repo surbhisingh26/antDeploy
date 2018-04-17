@@ -4,7 +4,6 @@ package com.surbhi.webProject1.requestService;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 import org.mongojack.DBCursor;
@@ -145,17 +144,18 @@ public class UserService  {
 		return user;
 
 	}
-	public void login(String uid){
+	public Boolean login(String uid){
 		DB mongo;
 		mongo=db1.getDB();
 
 		DBCollection collec = mongo.getCollection("registration");
 		JacksonDBCollection<User, String> coll = JacksonDBCollection.wrap(collec,User.class, String.class);
 		User user = coll.findOneById(uid);
-		System.out.println("Logged in ");
-		System.out.println(user.getLoggedIn());
-		user.setLoggedIn("true");
+		System.out.println(uid);
+		System.out.println(user.getName());
+		user.setLoggedIn(true);
 		coll.updateById(uid, user);
+		return user.getLoggedIn();
 		
 	}
 	public void logout(String uid){
@@ -168,8 +168,8 @@ public class UserService  {
 		
 		//System.out.println("Date is "+now);
 		User user = coll.findOneById(uid);
-		user.setLoggedIn("false");
-		user.setLastLoggedIn(date);
+		user.setLoggedIn(false);
+		user.setLastLoggedInAt(date);
 		coll.updateById(uid, user);
 	}
 

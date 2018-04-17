@@ -143,7 +143,8 @@ public class UserActions extends HttpServlet {
 				response.addCookie(loginCookie);
 				loginCookie.setMaxAge(30*60); 			
 				UserService userservice = new UserService();
-				userservice.login(uid);
+				Boolean loggedIn = userservice.login(result);
+				hmap.put("LoggedIn", loggedIn);
 				response.sendRedirect("/webProject1");
 
 			}

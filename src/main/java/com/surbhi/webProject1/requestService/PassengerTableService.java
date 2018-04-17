@@ -76,15 +76,5 @@ public class PassengerTableService  {
 		map.put("count", count);
 		return map;
 	}
-	public void sort(){
-		DBConnection db = new DBConnection();
-		DB mongo=db.getDB();
-		DBCollection collec = mongo.getCollection("passenger");
-		JacksonDBCollection<Passenger, String> passengerCollection = JacksonDBCollection.wrap(collec,Passenger.class, String.class);
-		BasicDBObject query = new BasicDBObject();
-
-		query.put("name", -1);	
-		DBCursor<Passenger> cursor = passengerCollection.find().sort(query);
-	}
 
 }
