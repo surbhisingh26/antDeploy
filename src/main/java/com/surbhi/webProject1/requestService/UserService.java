@@ -19,7 +19,7 @@ import com.surbhi.webProject1.requests.DBConnection;
 public class UserService  {
 
 	DBConnection db1 = new DBConnection();
-	public boolean registerUser(String fname,String lname,String uname,String country,String city,String mobile,String password,String gender,String dob,String bgcolor,String imagepath,String email){
+	public boolean registerUser(String fname,String lname,String uname,String country,String city,String mobile,String password,String gender,String dob,String bgcolor,String imagepath,String email,String reference,String referenceId){
 		DB mongo;
 		mongo=db1.getDB();
 
@@ -53,6 +53,11 @@ public class UserService  {
 		registration.setPassword(password);
 		registration.setDob(date);
 		registration.setBgcolor(bgcolor);
+		registration.setLastLoggedInAt(null);
+		registration.setImagepath(imagepath);
+		registration.setLoggedIn(false);
+		registration.setReference(reference);
+		registration.setReferenceId(referenceId);
 
 		coll.insert(registration);
 		return true;

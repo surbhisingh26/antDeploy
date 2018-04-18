@@ -113,12 +113,25 @@ public class UserActions extends HttpServlet {
 		try {
 
 			String uname = request.getParameter("uname");
-
+			//System.out.println("username "+uname);
+			if(uname==null)
+				uname="";
 			String password = request.getParameter("pass");
+			if(password==null)
+				password="";
+			String reference = request.getParameter("reference");
+			if(reference==null)
+				reference = "No reference";
+			String referenceId = request.getParameter("referenceId");
+			if(referenceId==null)
+				referenceId="null";
+			System.out.println("reference is "+reference);
+			System.out.println("ref Id is "+referenceId);
 			UserValidService uv = new UserValidService();
-			String result = uv.checkValid(uname,password);
+			String result = uv.checkValid(uname,password,reference,referenceId);
 			Map<String, Object> hmap  = new HashMap<String, Object>();
-
+			//System.out.println(request.getParameter("firstname"));
+			System.out.println(result);
 			if(result.equals(uname)){
 				msg = "No such username exists!!!"
 						+ " Register or login with another username";
@@ -135,6 +148,11 @@ public class UserActions extends HttpServlet {
 				utility.getHbs(response,"message",hmap);
 				utility.getHbs(response,"login",null);
 			}
+			
+			else if(result.equals("Register First")){
+				hmap.put("register", "registration");
+				//utility.getHbs(response,"registration",hmap);
+			}
 			else {
 
 				Cookie loginCookie = new Cookie("uid",result);
@@ -148,6 +166,7 @@ public class UserActions extends HttpServlet {
 				response.sendRedirect("/webProject1");
 
 			}
+			
 
 		}
 		catch(Exception e){
@@ -156,6 +175,7 @@ public class UserActions extends HttpServlet {
 	}
 	public void register(HttpServletRequest request, HttpServletResponse response){
 		try {
+			System.out.println("I am here in register...");
 			utility.getHbs(response,"registration",null);
 		}
 		catch(Exception e){
@@ -196,6 +216,9 @@ public class UserActions extends HttpServlet {
 			String dob = request.getParameter("dob");
 			String mobile =request.getParameter("mobile");
 			String password = request.getParameter("pass");
+			
+			String reference = request.getParameter("reference");
+			String referenceId = request.getParameter("referenceId");
 			String gender = request.getParameter("gender");
 			String bgcolor = "#000000";
 			String rootPath = System.getProperty("catalina.home");
@@ -208,7 +231,7 @@ public class UserActions extends HttpServlet {
 			}
 			String imagePath= fileSaveDir + File.separator + "default.jpg";
 			UserService rs = new UserService();
-			Boolean result = rs.registerUser(fname, lname, uname,country,city,mobile,password,gender,dob,bgcolor,imagePath,email);
+			Boolean result = rs.registerUser(fname, lname, uname,country,city,mobile,password,gender,dob,bgcolor,imagePath,email,reference,referenceId);
 			Map<String, Object> hmap  = new HashMap<String, Object>();
 			if(result == false){
 

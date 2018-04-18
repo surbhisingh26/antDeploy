@@ -27,7 +27,7 @@
 	padding-top: 70px;
 }
 .btn{
-margin-top:20px;
+margin-top:10px;
 border-radius: 0;
  transition: .2s;
  box-shadow: 0px 0px 10px 1px;
@@ -55,9 +55,12 @@ position: relative;
 .grid-divider {
         position: relative;
         padding: 0;
+ 
     }
     .grid-divider>[class*='col-'] {
         position: static;
+		
+		
     }
     .grid-divider>[class*='col-']:nth-child(n+2):before {
         content: "";
@@ -65,7 +68,9 @@ position: relative;
         position: absolute;
         top: 0;
         bottom: 0;
-		 box-shadow: 0px 0px 10px 1px;
+		
+		 overflow: hidden;
+		  
     }
     .col-padding {
         padding: 0 15px;

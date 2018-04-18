@@ -9,7 +9,8 @@
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.43/js/bootstrap-datetimepicker.min.js"></script>
 	<script
 	src="http://localhost:8080/webProject1/jsFiles/dateTime.js"></script>
-	
+	<script
+	src="http://localhost:8080/webProject1/jsFiles/check.js"></script>
 	
 	<script>
 	{{currentPage}}
@@ -20,3 +21,128 @@
 		
 	});
 	</script>
+	
+	<script>
+
+		 function statusChangeCallback(response) {
+    console.log('statusChangeCallback');
+    console.log(response);
+    // The response object is returned with a status field that lets the
+    // app know the current login status of the person.
+    // Full docs on the response object can be found in the documentation
+    // for FB.getLoginStatus().
+    if (response.status === 'connected') {
+      // Logged into your app and Facebook.
+      testAPI();
+    } else {
+      // The person is not logged into your app or we are unable to tell.
+      document.getElementById('status').innerHTML = 'Please log ' +
+        'into this app.';
+    }
+  }
+
+  // This function is called when someone finishes with the Login
+  // Button.  See the onlogin handler attached to it in the sample
+  // code below.
+  function checkLoginState() {
+    FB.getLoginStatus(function(response) {
+      statusChangeCallback(response);
+	  console.log(response);
+    });
+  }
+$(document).ready(function(){
+	
+
+
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '611146029225608',
+      cookie     : true,  // enable cookies to allow the server to access 
+                          // the session
+      xfbml      : true,  // parse social plugins on this page
+      version    : 'v2.8' // use graph api version 2.8
+    });
+
+    // Now that we've initialized the JavaScript SDK, we call 
+    // FB.getLoginStatus().  This function gets the state of the
+    // person visiting this page and can return one of three states to
+    // the callback you provide.  They can be:
+    //
+    // 1. Logged into your app ('connected')
+    // 2. Logged into Facebook, but not your app ('not_authorized')
+    // 3. Not logged into Facebook and can't tell if they are logged into
+    //    your app or not.
+    //
+    // These three cases are handled in the callback function.
+
+    FB.getLoginStatus(function(response) {
+      statusChangeCallback(response);
+	  console.log(response);
+    });
+
+  };
+
+  // Load the SDK asynchronously
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "https://connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+
+  // Here we run a very simple test of the Graph API after login is
+  // successful.  See statusChangeCallback() for when this call is made.
+  
+});
+	function testAPI() {
+    console.log('Welcome!  Fetching your information.... ');
+    FB.api('/me', {fields: 'first_name,last_name,name,email,gender'},function(response) {
+      console.log('Successful login for: ' + response.name , "response ", response);
+      var id=response.id;
+	  var fname=response.first_name;
+	  var lname=response.last_name;
+	  var email=response.email;
+	  var gender=response.gender;
+	console.log(name);
+	// window.location = '/webProject1/register';
+	
+
+$.ajax({url: "/webProject1/signin?reference=fb&referenceId="+id})
+  .done(function(response) {
+	  {{register}}
+    console.log( "success ", response );
+  
+	
+$('#fname').val(fname);
+$('#lname').val(lname);
+$('#useremail').val(email);
+$('#username').val(email);
+$('input[name='+gender+']').prop('checked',true);
+	$('#reference').val('fb');
+	$('#referenceId').val(id);
+	if(window.location!="https://be6dbeed.ngrok.io/webProject1/register"){
+	window.location = 'register';
+	}
+	
+	//else{
+	//	window.location = '/webProject1';
+	//}
+  })
+  .fail(function(response) {
+    console.log( "error ", response );
+  })
+  .always(function(response) {
+    console.log( "complete ", response );
+  });
+ 
+// Perform other work here ...
+ 
+// Set another completion function for the request above
+
+
+
+    });
+	
+  }
+</script>

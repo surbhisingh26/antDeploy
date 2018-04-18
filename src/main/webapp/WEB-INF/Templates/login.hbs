@@ -4,9 +4,10 @@
 		
 		<div class="col-xs-8 col-xs-offset-2">
 			<div class="jumbotron"
-				style="background-color: #eafbf2; margin-bottom: 183px; margin-top: 183px">
+				style="background-color: #eafbf2; margin-bottom: 110px; margin-top: 120px">
 				<div class="row grid-divider">
 				<div class="col-md-6">
+				
 			<div class="col-padding">
 				<form action="signin" method="post">
 				
@@ -24,17 +25,35 @@
 					
 				</form>
 				
+				
+				
+				
 				</div>
 				</div>
 				<div class="col-md-6 ">
-				<form action="register">
-						<button type="submit" class="btn btn-danger pull-right" style="margin-top: 5px">Register Here</button>
-						<label class="pull-right" style="margin-right: 10px">New
-							User? </label>
+				<form action="register" class="text-center">
+				<h4 style="margin-top: 40px">New User?</h4>
+						<button type="submit" class="btn btn-danger" style="margin-top: 10px">Register Here</button>
+						
 					</form>
 				
 				</div>
 				</div>
+				
+				<div class="col-padding" style="margin-top:5px">
+				
+				<div id="spinner"style="background: #4267b2;border-radius: 0px;color: white;height: 30px;text-align: center; width: 500px;margin-top:20px;">
+    <div class="fb-login-button" data-max-rows="1" data-size="medium" data-button-type="continue_with" data-use-continue-as="true" onlogin="checkLoginState()" data-scope="email,public_profile" onclick="profile"></div>
+</div>
+				
+				<div id="status">
+</div>
+				
+				<!--<h5 style="padding-top:5px" class="text-center"><strong>OR</strong></h5>
+				<form class="text-center">
+				<button class="btn btn-default"><img src= "images/google.jpg" width="7%" height="5%" style="padding-right:5px">Signup with Google</button>
+				</form>-->
+			</div>
 			</div>
 
 		</div>
@@ -42,4 +61,7 @@
 
 	</div>
 {{>footer}}
+
+
+
 {{>end}}

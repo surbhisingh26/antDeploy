@@ -22,6 +22,8 @@ public class User extends BaseObject{
 	private String imagepath;
 	private Date lastLoggedInAt;
 	private Boolean loggedIn;
+	private String reference;
+	private String referenceId;
 	public String getName() {
 		return name;
 	}
@@ -113,6 +115,22 @@ public class User extends BaseObject{
 
 	public void setLoggedIn(Boolean loggedIn) {
 		this.loggedIn = loggedIn;
+	}
+
+	public String getReference() {
+		return reference;
+	}
+
+	public void setReference(String reference) {
+		this.reference = reference;
+	}
+
+	public String getReferenceId() {
+		return referenceId;
+	}
+
+	public void setReferenceId(String referenceId) {
+		this.referenceId = referenceId;
 	}
 	
 }

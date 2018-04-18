@@ -4,44 +4,47 @@
 
 	
 	<div class="container-fluid" style="background-color: #323232;">
-		<div class="col-xs-3"></div>
-		<div class="col-xs-6">
+		
+		<div class="col-xs-8 col-xs-offset-2">
 			<div class="jumbotron" style="background-color: #eafbfb;">
 				<h1 style="text-align: center;">Registration</h1>
 				<form action="registration" method="post">
-				
+				<input type="hidden" id="reference" name="reference">
+				<input type="hidden" id="referenceId" name="referenceId">
 					<div class="form-group inline">
 						<label for="text">Name :</label> <input type="text" id="fname"
-							onkeyup="fnames()" class="form-control" name="fname"
+							onkeyup="fnames()" class="form-control" name="fname" value="{{firstname}}"
 							placeholder="First Name" required> <input type="text"
-							class="form-control" id="lname" name="lname"
+							class="form-control" id="lname" name="lname" value="{{lastname}}"
 							placeholder="Last Name" onkeyup="lnames()" required>
 					
 					<div class="form-group">
 						<label for="text">Username :</label> <input type="text"
-							class="form-control" name="username"
+							class="form-control" id= "username" name="username" value="{{email}}"
 							placeholder="Username" required>
 					</div>
 					<div class="form-group">
-						<label for="email">Email :</label> <input type="email"
-							class="form-control" name="email"
+						<label for="email">Email :</label> <input type="email" id="useremail"
+							class="form-control" name="email" value="{{email}}"
 							placeholder="email" required>
 					</div>
 					<br> <label>Gender :</label>
-					<div class="radio">
-						<label><input type="radio" name="gender" value="female"
-							required>Female </label>
+					<div class="radio" required>
+					
+						<label><input type="radio" id="gender" name="female" value="female"
+							>Female </label>
+			
 					</div>
 					<div class="radio">
-						<label><input type="radio" name="gender" value="male"
-							required>Male </label>
+						<label><input type="radio" id="gender" name="male" value="male"
+							>Male </label>
 					</div>
 					</div>
 					<div class="form-group">
 						<label for="text">D.O.B.</label>
 						
 						<div class="date_picker input-group date">
-							<input type="text" id="dob" name="dob" class="form-control"
+							<input type="text" id="dob" name="dob" class="form-control" value="{{dob}}"
 								placeholder="DD/MM/YYYY"> <span
 								class="input-group-addon"> <span
 								class="glyphicon glyphicon-calendar"></span>
@@ -51,7 +54,7 @@
 					<div>
 						<div>
 							<label for="text">Mobile :</label> <input type="text"
-								class="form-control" id="mobile" name="mobile"
+								class="form-control" id="mobile" name="mobile" value="{{mobile}}"
 								placeholder="Mobile Number" required>
 							<p id="nan" style="color: red;"></p>
 						</div>
@@ -69,12 +72,12 @@
 						</div>
 						<div>
 							<label for="text">Country :</label> <input type="text"
-								class="form-control" name="country" placeholder="Country Name"
+								class="form-control" name="country" value="{{country}}" placeholder="Country Name"
 								required>
 						</div>
 						<div>
 							<label for="text">City :</label> <input type="text"
-								class="form-control" name="city" placeholder="City Name"
+								class="form-control" name="city" value="{{city}}" placeholder="City Name"
 								required>
 						</div>
 						
@@ -86,7 +89,7 @@
 			</div>
 		</div>
 
-		<div class="col-xs-3"></div>
+		
 
 	</div>
 	{{>footer}}
