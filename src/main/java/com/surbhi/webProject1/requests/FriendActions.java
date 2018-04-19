@@ -11,6 +11,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.surbhi.webProject1.app.Notify;
 import com.surbhi.webProject1.app.SendEmail;
 import com.surbhi.webProject1.app.Utility;
 import com.surbhi.webProject1.pojo.User;
@@ -94,7 +96,8 @@ public class FriendActions extends HttpServlet {
 			System.out.println(search);
 			FriendService friendService = new FriendService();
 			User searcheduser = friendService.searchFriends(search);
-			String status = friendService.getFriendStatus(searcheduser,uid);
+			
+			
 
 			if(searcheduser==null){
 				String message= "No such username found!!!";
@@ -104,7 +107,7 @@ public class FriendActions extends HttpServlet {
 				utility.getHbs(response, "friends", hmap);
 			}
 			else{
-
+				String status = friendService.getFriendStatus(searcheduser,uid);
 				System.out.println("found... "+searcheduser.getName());
 
 				hmap.put("searchedUser", searcheduser);
@@ -140,10 +143,12 @@ public class FriendActions extends HttpServlet {
 			String fid = request.getParameter("fid");
 			FriendService friendservice = new FriendService();
 			String mailTo = friendservice.addFriend(uid,fid);
+			Notify notify = new Notify();
+			notify.requestSent(uid,fid);
 			if(mailTo!=null){
 			String link= "http://localhost:8080/webProject1/friendrequest";
 			SendEmail email = new SendEmail();
-			email.send("surbhi.singh.ss05@gmail.com","You have a friend request\nClick on the link below to respond to friend request\n\n"+link);
+			email.send("surbhi.singh.ss05@gmail.com","You have a friend request\nClick on the link below to respond to friend request\n\n"+link,"Friend Request");
 			
 			}
 			response.sendRedirect("friends");
@@ -182,9 +187,9 @@ public class FriendActions extends HttpServlet {
 			System.out.println("userrrrr..................."+ hmap.get("loggedInUser"));
 			SendEmail email = new SendEmail();
 			if(button.equals("Accept"))
-				email.send("surbhi.singh.ss05@gmail.com","Your friend request is accepted by "+ user.getName());
+				email.send("surbhi.singh.ss05@gmail.com","Your friend request is accepted by "+ user.getName(),"Request Accepted");
 			else
-			email.send("surbhi.singh.ss05@gmail.com","Your friend request is rejected by "+ user.getName());
+			email.send("surbhi.singh.ss05@gmail.com","Your friend request is rejected by "+ user.getName(),"Request Rejected");
 			response.sendRedirect("friends");
 
 		}

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import com.google.gson.Gson;
 import com.surbhi.webProject1.app.Utility;
 import com.surbhi.webProject1.pojo.User;
 import com.surbhi.webProject1.requestService.UserService;
@@ -150,21 +151,32 @@ public class UserActions extends HttpServlet {
 			}
 			
 			else if(result.equals("Register First")){
-				hmap.put("register", "registration");
+				hmap.put("register", true);
 				//utility.getHbs(response,"registration",hmap);
+				response.setContentType("application/json");
+			    response.setCharacterEncoding("UTF-8");
+			    response.getWriter().write(new Gson().toJson(hmap));
+				
+				
 			}
 			else {
-
+				
 				Cookie loginCookie = new Cookie("uid",result);
 
-				System.out.println("uid is "+uid);
+				System.out.println("uid is "+result);
 				response.addCookie(loginCookie);
 				loginCookie.setMaxAge(30*60); 			
 				UserService userservice = new UserService();
 				Boolean loggedIn = userservice.login(result);
 				hmap.put("LoggedIn", loggedIn);
-				response.sendRedirect("/webProject1");
-
+				
+				hmap.put("register", false);
+				response.setContentType("application/json");
+			    response.setCharacterEncoding("UTF-8");
+			    response.getWriter().write(new Gson().toJson(hmap));
+			    if(referenceId.equals("null"))
+			    response.sendRedirect("/webProject1");
+			    
 			}
 			
 
@@ -188,16 +200,20 @@ public class UserActions extends HttpServlet {
 			Map<String, Object> hmap = new HashMap<String, Object>();
 			hmap = utility.checkSession(request);
 			uid = (String) hmap.get("uid");
+		String reference = request.getParameter("reference");
+		
 			
-			UserService userservice = new UserService();
-			userservice.logout(uid);
 			
 			Cookie loginCookie=new Cookie("uid","");  
 			loginCookie.setMaxAge(0);  
-			response.addCookie(loginCookie); 	
+			response.addCookie(loginCookie); 
+			
+			UserService userservice = new UserService();
+			userservice.logout(uid);
 
 			//System.out.println(request.getContextPath());
 			//request.getRequestDispatcher("").forward(request, response);
+			if(reference==null)
 			response.sendRedirect("/webProject1");
 			return;
 		}
@@ -222,16 +238,23 @@ public class UserActions extends HttpServlet {
 			String gender = request.getParameter("gender");
 			String bgcolor = "#000000";
 			String rootPath = System.getProperty("catalina.home");
-			String savePath = rootPath + File.separator + "images";
+			String savePath = rootPath + File.separator + "webapps/images";
 			File fileSaveDir=new File(savePath);
 			//File file = new File(rootPath + File.separator + "images");
 			//File fileSaveDir=new File(file);
 			if(!fileSaveDir.exists()){
 				fileSaveDir.mkdir();
 			}
-			String imagePath= fileSaveDir + File.separator + "default.jpg";
+			//String imagePath= fileSaveDir + File.separator + "default.jpg";
+			String filePath=null;
+			if(reference.equals("fb")){
+				filePath = request.getParameter("picUrl");
+			}
+			else
+				filePath = File.separator +"images" + File.separator + "default.jpg";
+			
 			UserService rs = new UserService();
-			Boolean result = rs.registerUser(fname, lname, uname,country,city,mobile,password,gender,dob,bgcolor,imagePath,email,reference,referenceId);
+			Boolean result = rs.registerUser(fname, lname, uname,country,city,mobile,password,gender,dob,bgcolor,filePath,email,reference,referenceId);
 			Map<String, Object> hmap  = new HashMap<String, Object>();
 			if(result == false){
 
@@ -243,8 +266,16 @@ public class UserActions extends HttpServlet {
 			else{
 				msg = "You are successfully registered!!! Login here";
 				hmap.put("message", msg);
-				utility.getHbs(response,"message",hmap);
-				utility.getHbs(response,"login",null);
+				
+				if(!referenceId.equals("null")){
+					response.sendRedirect("/webProject1");
+				}
+				else
+				{
+					utility.getHbs(response,"message",hmap);
+					utility.getHbs(response,"login",null);
+				}
+					
 			}
 		}
 		catch(Exception e){
@@ -302,9 +333,6 @@ public class UserActions extends HttpServlet {
 			String savePath = rootPath + File.separator + "webapps/images";
 			File fileSaveDir=new File(savePath);
 
-			if(!fileSaveDir.exists()){
-				fileSaveDir.mkdir();
-			}
 
 			Part file = request.getPart("file");
 			String path = request.getParameter("filename");
