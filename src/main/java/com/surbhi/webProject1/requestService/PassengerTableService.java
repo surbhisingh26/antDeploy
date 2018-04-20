@@ -12,9 +12,8 @@ import org.mongojack.JacksonDBCollection;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
-
-import com.surbhi.webProject1.pojo.Passenger;
-import com.surbhi.webProject1.pojo.User;
+import com.surbhi.webProject1.model.Passenger;
+import com.surbhi.webProject1.model.User;
 import com.surbhi.webProject1.requests.DBConnection;
 
 public class PassengerTableService  {

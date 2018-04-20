@@ -1,5 +1,4 @@
 package com.surbhi.webProject1.requests;
-
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -12,10 +11,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.surbhi.webProject1.app.Notify;
 import com.surbhi.webProject1.app.SendEmail;
 import com.surbhi.webProject1.app.Utility;
-import com.surbhi.webProject1.pojo.User;
+import com.surbhi.webProject1.model.User;
 import com.surbhi.webProject1.requestService.FriendService;
 
 /**
@@ -140,11 +138,11 @@ public class FriendActions extends HttpServlet {
 			hmap = utility.checkSession(request);
 			uid = (String) hmap.get("uid");
 			System.out.println("uid...");
+			
 			String fid = request.getParameter("fid");
 			FriendService friendservice = new FriendService();
 			String mailTo = friendservice.addFriend(uid,fid);
-			Notify notify = new Notify();
-			notify.requestSent(uid,fid);
+			
 			if(mailTo!=null){
 			String link= "http://localhost:8080/webProject1/friendrequest";
 			SendEmail email = new SendEmail();
@@ -186,7 +184,7 @@ public class FriendActions extends HttpServlet {
 			User user = (User) hmap.get("loggedInUser");
 			System.out.println("userrrrr..................."+ hmap.get("loggedInUser"));
 			SendEmail email = new SendEmail();
-			if(button.equals("Accept"))
+			if(button.equalsIgnoreCase("accept"))
 				email.send("surbhi.singh.ss05@gmail.com","Your friend request is accepted by "+ user.getName(),"Request Accepted");
 			else
 			email.send("surbhi.singh.ss05@gmail.com","Your friend request is rejected by "+ user.getName(),"Request Rejected");
@@ -197,5 +195,5 @@ public class FriendActions extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-
+	
 }

@@ -15,9 +15,9 @@ import org.mongojack.JacksonDBCollection;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
-import com.surbhi.webProject1.pojo.Friend;
-
-import com.surbhi.webProject1.pojo.User;
+import com.surbhi.webProject1.model.Friend;
+import com.surbhi.webProject1.model.Notify;
+import com.surbhi.webProject1.model.User;
 import com.surbhi.webProject1.requests.DBConnection;
 
 public class FriendService {
@@ -90,8 +90,22 @@ public class FriendService {
 		coll.insert(friend1);
 		DBCollection collection = mongo.getCollection("registration");
 		JacksonDBCollection<User, String> coll1 = JacksonDBCollection.wrap(collection,User.class, String.class);
-		User user = coll1.findOneById(fid);
-		return user.getEmail();
+		User userFriend = coll1.findOneById(fid);
+		User user = coll1.findOneById(uid);
+		
+		String notification = "You have a friend request from "+user.getName();
+		DBCollection Notifycollection = mongo.getCollection("notification");
+		JacksonDBCollection<Notify, String> coll2 = JacksonDBCollection.wrap(Notifycollection,Notify.class, String.class);
+		Notify notify = new Notify();
+		notify.setUserId(fid);
+		notify.setNotification(notification);
+		notify.setLink("friendrequest");
+		Date date = new Date();
+		notify.setDate(date);
+		coll2.insert(notify);
+	
+		
+		return userFriend.getEmail();
 
 	}
 
@@ -99,7 +113,7 @@ public class FriendService {
 		
 		List<User> FriendsList = new ArrayList<User>();
 		List<User> RequestedList = new ArrayList<User>();
-		List<Long> TimeList = new ArrayList<Long>();
+		
 		Map<String, Object> hmap = new HashMap<String, Object>();
 		DBConnection db = new DBConnection();
 		DB mongo;
@@ -148,6 +162,7 @@ public class FriendService {
 
 		DBCollection collec = mongo.getCollection("friends");
 		JacksonDBCollection<Friend, String> coll = JacksonDBCollection.wrap(collec,Friend.class, String.class);
+		
 		BasicDBObject query = new BasicDBObject();
 		query.put("uid", uid);
 		DBCursor<Friend> cursor = coll.find(query);
@@ -172,6 +187,17 @@ public class FriendService {
 		mongo=db.getDB();
 		DBCollection collec = mongo.getCollection("friends");
 		JacksonDBCollection<Friend, String> coll = JacksonDBCollection.wrap(collec,Friend.class, String.class);
+		
+		DBCollection Notifycollection = mongo.getCollection("notification");
+		JacksonDBCollection<Notify, String> coll2 = JacksonDBCollection.wrap(Notifycollection,Notify.class, String.class);
+		Notify notify = new Notify();
+		
+		DBCollection collection = mongo.getCollection("registration");
+		JacksonDBCollection<User, String> coll3 = JacksonDBCollection.wrap(collection,User.class, String.class);
+		//User user = coll3.findOneById(uid);
+		User userFriend = coll3.findOneById(uid);
+		
+		
 		BasicDBObject queryfid = new BasicDBObject();
 		queryfid.put("uid", fid);
 		BasicDBObject queryuid = new BasicDBObject();
@@ -186,10 +212,25 @@ public class FriendService {
 			if(friend.getFid().equals(fid)){
 				if(button.equals("reject")){					
 					coll.removeById(friend.getId());
+					notify.setUserId(fid);
+					notify.setNotification(userFriend.getName() +" rejected your friend request");
+					System.out.println("Friend is" +userFriend.getName());
+					notify.setLink("friends");
+					Date date = new Date();
+					notify.setDate(date);
+					coll2.insert(notify);
 				}
-				else if(button.equals("accept"))
+				else if(button.equals("accept")){
 					friend.setStatus("Friends");
 				coll.updateById(friend.getId(), friend);
+				notify.setUserId(fid);
+				notify.setNotification(userFriend.getName() +" accepted your friend request");
+				System.out.println("Friend is" +userFriend.getName());
+				notify.setLink("friends");
+				Date date = new Date();
+				notify.setDate(date);
+				coll2.insert(notify);
+				}
 			}
 		}
 		DBCursor<Friend> cursor1 = coll.find(queryfid);

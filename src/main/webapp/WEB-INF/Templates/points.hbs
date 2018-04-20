@@ -1,0 +1,44 @@
+{{>head}}
+{{>header}}
+
+<div class="row" style="margin-top:80px">
+	<h1 class="text-center" style="color:black">Earn Points</h1>
+	<div class="col-md-10 col-md-offset-1" style="margin-top:30px">
+		<ul>
+			<li>This is an opportunity to get discounts offers...</li>
+			<li>One free ticket can be earned for 500 points.</li>
+			<li>Invite your friends and family to register on our website from the link below and earn 50 points for each friend who join this website from your referral.</li>
+			<li>If your referral after joining, refer our website to their friends then on their joining also you will get 10 points </li>
+			<li>You will also earn 50 points for each ticket you book from our website.</li>
+			</ul>
+			<h4 style="color:{{#loggedInUser}}{{bgcolor}}{{/loggedInUser}}"><b>So refer as much as you can to get discounts and more exciting offers...</b></h4>
+			<hr>
+			
+			<a href="#" onclick="send()" id="send" style="margin-top:10px">Send Invitation To</a>
+			<form class="form-inline" action="invite">
+			<div class="form-group">
+			<input type="hidden" id="email" style="margin-top:10px" name="inviteEmail">
+			</div></form>
+			<hr>
+			
+			<div class="col-md-5 ">
+			<h1  class="bg-success">Your Total Points :</h1>
+			</div>
+			<div class="col-md-5 col-md-offset-1">
+			<h1 >{{#user}}{{points}}{{/user}}</h1>
+			</div>
+			</div>
+		
+	</div>
+
+
+{{>footer}}
+<script>
+function send(){
+$('#email').attr('type','email');
+$('#email').after('<button type="hidden" class="btn btn-default" style="margin-left:10px; margin-top:0px !important">Invite</button>');
+$('#email').before('<br><label>Your friend\'s email</label><br>');
+$('a').attr('onclick','');
+}
+</script>
+{{>end}}

@@ -69,7 +69,7 @@ public class PassengerActions extends HttpServlet {
 			} 
 		}
 	}
-	public void bookPassenger(HttpServletRequest request, HttpServletResponse response){
+	public void bookpassenger(HttpServletRequest request, HttpServletResponse response){
 		try {
 
 			Map<String, Object> hmap  = new HashMap<String, Object>();

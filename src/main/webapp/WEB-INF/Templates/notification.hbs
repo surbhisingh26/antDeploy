@@ -1,0 +1,45 @@
+{{>head}}
+{{>header}}
+<div class="row" style="margin-top:100px">
+<div class="col-md-8 col-md-offset-2">
+<ul class="list-group">
+{{#Notifications}}
+<input type="hidden" class="date{{id}}">
+<a href="{{link}}"><li class="list-group-item" style="opacity: 0.8;background-color:{{#loggedInUser}}{{bgcolor}}{{/loggedInUser}}">{{notification}}<small><label class="time{{id}}"></label></small></li></a>
+
+{{/Notifications}}
+</ul>
+</div>
+</div>
+{{>footer}}
+
+<script>
+ $(document).ready(function(){
+ var now = moment();
+ {{#Notifications}}
+ 
+ 
+	var date = $('.date{{id}}');	
+	 var notifyTime = moment($(date).val(),'ddd MMM DD HH:mm:ss IST yyyy');
+
+var Days =  moment.duration(now - notifyTime).days();
+var Hours =  moment.duration(now - notifyTime).hours();
+var Minutes =  moment.duration(now - notifyTime).minutes();
+var Seconds =  moment.duration(now - notifyTime).seconds();
+
+if(Days!=0)
+$('.time{{id}}').text(Days+"d ago");
+else if(Hours!=0)
+$('.time{{id}}').text(Hours+"h ago");
+else if(Minutes!=0)
+$('.time{{id}}').text(Minutes+"min ago");
+else if(Seconds!=0)
+$('.time{{id}}').text("Just now");
+{{/Notifications}}
+
+
+	
+ });
+ </script>
+
+{{>end}}

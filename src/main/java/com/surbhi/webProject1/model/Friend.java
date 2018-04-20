@@ -1,4 +1,4 @@
-package com.surbhi.webProject1.pojo;
+package com.surbhi.webProject1.model;
 
 public class Friend extends BaseObject {
 	

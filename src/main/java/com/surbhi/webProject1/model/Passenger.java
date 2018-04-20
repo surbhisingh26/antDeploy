@@ -1,4 +1,4 @@
-package com.surbhi.webProject1.pojo;
+package com.surbhi.webProject1.model;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

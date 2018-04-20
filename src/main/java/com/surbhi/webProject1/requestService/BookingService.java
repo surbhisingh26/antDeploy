@@ -6,7 +6,9 @@ import java.util.Date;
 import org.mongojack.JacksonDBCollection;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
-import com.surbhi.webProject1.pojo.Passenger;
+import com.surbhi.webProject1.model.Notify;
+import com.surbhi.webProject1.model.Passenger;
+import com.surbhi.webProject1.model.User;
 import com.surbhi.webProject1.requests.DBConnection;
 
 public class BookingService {
@@ -67,6 +69,23 @@ public class BookingService {
 			coll.updateById((pid),passen);
 			
 		}
+		DBCollection collec = mongo.getCollection("registration");
+
+		JacksonDBCollection<User, String> coll1 = JacksonDBCollection.wrap(collec,User.class, String.class);
+		
+		DBCollection collection1 = mongo.getCollection("notification");
+		JacksonDBCollection<Notify, String> coll2 = JacksonDBCollection.wrap(collection1,Notify.class, String.class);
+		
+		User user = coll1.findOneById(userId);
+		user.setPoints(user.getPoints()+50*Tick);
+		coll1.updateById(userId, user);
+		Notify notify = new Notify();
+		notify.setUserId(userId);
+		notify.setNotification("You have earned "+50*Tick +"points for booking");
+		notify.setLink("points");
+		Date Ndate = new Date();	
+		notify.setDate(Ndate);
+		coll2.insert(notify);
 
 	}
 	public void deletePassenger(String pid){

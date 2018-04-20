@@ -3,7 +3,9 @@ package com.surbhi.webProject1.requests;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -14,8 +16,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
 import com.google.gson.Gson;
+import com.surbhi.webProject1.app.SendEmail;
 import com.surbhi.webProject1.app.Utility;
-import com.surbhi.webProject1.pojo.User;
+import com.surbhi.webProject1.model.Notify;
+import com.surbhi.webProject1.model.User;
 import com.surbhi.webProject1.requestService.UserService;
 import com.surbhi.webProject1.requestService.UserValidService;
 
@@ -234,7 +238,11 @@ public class UserActions extends HttpServlet {
 			String password = request.getParameter("pass");
 			
 			String reference = request.getParameter("reference");
+			if(reference==null)
+				reference = "No reference";
 			String referenceId = request.getParameter("referenceId");
+			if(referenceId==null)
+				referenceId="null";
 			String gender = request.getParameter("gender");
 			String bgcolor = "#000000";
 			String rootPath = System.getProperty("catalina.home");
@@ -353,5 +361,55 @@ public class UserActions extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-	
+	public void notification(HttpServletRequest request, HttpServletResponse response){
+		try {
+			
+			Map<String, Object> hmap = new HashMap<String, Object>();
+			List<Notify> Notifications = new ArrayList<Notify>();
+			hmap = utility.checkSession(request);
+			uid = (String) hmap.get("uid");
+			UserService userservice = new UserService();
+			Notifications = userservice.notify(uid);
+			hmap.put("Notifications", Notifications);
+			utility.getHbs(response,"notification",hmap);
+			
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
 	}
+	public void points(HttpServletRequest request, HttpServletResponse response){
+		try {
+			Map<String, Object> hmap = new HashMap<String, Object>();
+			hmap = utility.checkSession(request);
+			uid = (String) hmap.get("uid");
+			
+			UserService userservice = new UserService();
+			User user = userservice.findOneById(uid);
+			hmap.put("user", user);
+			utility.getHbs(response,"points",hmap);
+			
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	public void invite(HttpServletRequest request, HttpServletResponse response){
+		try {
+			Map<String, Object> hmap = new HashMap<String, Object>();
+			hmap = utility.checkSession(request);
+			uid = (String) hmap.get("uid");
+			String inviteEmail = request.getParameter("inviteEmail");
+			System.out.println(inviteEmail);
+			UserService userservice = new UserService();
+			userservice.invite(uid,inviteEmail);
+			SendEmail email = new SendEmail();
+			String link = "http://localhost:8080/webProject1/register";
+			email.send(inviteEmail, "Join this amazing website and get your flights book at very reasonable prizes...\n\nJoin now and get 50 bonus points\n\n These points can make you get exciting offers and discounts on your booking\n\nClick the link below to join now\n\n"+link, "Want to explore the world??");
+			response.sendRedirect("points");
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+}

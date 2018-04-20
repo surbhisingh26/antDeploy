@@ -1,10 +1,10 @@
 {{>head}}
 {{>header}}
-<div class = "row" style = "padding-top:80px">
+<div class = "row" style = "padding-top:90px ;background-color:black " >
 	<div class = "col-md-8 col-md-offset-1">
 		<form action="searchfriends" method= "post">
-			<b>Search friends by username </b> <input type = "search" id="search" name="search">
-			<button type = "submit" ><i class="glyphicon glyphicon-search" style = "color:black;"></button></i>
+			 <input class ="form-group" type = "search" id="search" name="search" style="box-shadow: 0px 0px 10px 1px;" placeholder="Search By Username">
+			<button type = "submit" class="btn btn-default" style="margin-top:0px!important; margin-left:5px;"><i class="glyphicon glyphicon-search" style = "color:black;"></button></i>
 			
 		</form>
 		{{#if userfound}}
@@ -27,13 +27,11 @@
 			<button class="btn btn-primary" disabled="disabled">Friend</button>
 		
 		
-			{{else}}
-			{{#if Requestsent}}
+			{{else}}{{#if Requestsent}}
 			<button class="btn btn-info" disabled="disabled">Request Sent...</button>
-			{{else}}
-			{{#if Requestpending}}
+			{{else}}{{#if Requestpending}}
 			<form action = "addfriend">
-			<input type="hidden" value="{{#RequestList}}{{id}}{{/RequestList}}" id="fid" name="fid">
+			<input type="hidden" value="{{#RequestList}}{{id}}{{/RequestList}}" id="fid" name="fid" >
 			<button class="btn btn-info">Accept</button>
 			<button class="btn btn-info">Reject</button>
 			</form>
@@ -61,24 +59,24 @@
 
 		{{#RequestedList}}
 		<div class="row" style="padding-top:20px">
-		<div class = "col-md-4 col-md-offset-2">
+		<div class = "col-md-5 col-md-offset-2">
 		
 		
 		
 		<div class ="col-md-4">
-		<img src="{{imagepath}}" class="img-rounded" width="70" height ="70">
+		<img src="{{imagepath}}" class="img-rounded" width="70" height ="70" style="box-shadow: 0px 0px 10px 1px;">
 		</div>
 		
-		<h5 style="padding-left:100px;color:black;">{{name}}</h5>
+		<h5 style="color:black;">{{name}}</h5>
 		
-		<h6 style="padding-left:100px;color:gray;"> {{city}}</h6>
+		<h6 style="color:gray;"> {{city}}</h6>
 		
 		
 		
 		
 		</div>
 		
-		<div class= "col-md-4 col-md-offset-2">
+		<div class= "col-md-3 col-md-offset-2">
 		<form action = "addfriend">
 		<input type="hidden" value="{{#searchedUser}}{{id}}{{/searchedUser}}" id="fid" name="fid">
 		
@@ -94,26 +92,26 @@
 		
 		{{#FriendsList}}
 		<div class="row" style="padding-top:20px">
-		<div class = "col-md-4 col-md-offset-2">
+		<div class = "col-md-5 col-md-offset-2">
 		
 		
 		<div class ="col-md-3">
-		<img src="{{imagepath}}" class="img-rounded" width="70" height ="70">
+		<img src="{{imagepath}}" class="img-rounded" width="70" height ="70" style="box-shadow: 0px 0px 10px 1px;">
 		</div>
 		<div class="col-md-9">
-		<h4 style="color:black;">{{name}}{{#if loggedIn}}<i class = "fa fa-circle" style="padding-left:5px; color:green;font-size:70%"></i>{{else}}
+		<h4 style="color:black">{{name}}{{#if loggedIn}}<i class = "fa fa-circle" style="padding-left:5px; color:green;font-size:70% "></i>{{else}}
 		<input type="hidden" class="lastLoggedInAt{{id}}" value="{{lastLoggedInAt}}">
 		<small style="padding-left:10px"><label class="lastLoggedin{{id}}"></label></small>
 		
 		
 		{{/if}}</h4>
 		<div class="col-md-2">
-		<h5 style="color:gray;"> {{city}}</h5>
+		<h5 style="color:black;"> {{city}}</h5>
 		</div>
 		</div>
 		
 		</div>
-		<div class= "col-md-4 col-md-offset-2">
+		<div class= "col-md-3 col-md-offset-2">
 		
 		
 		<button class="btn btn-primary " disabled="disabled">Friend</button>

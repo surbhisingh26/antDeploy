@@ -1,10 +1,9 @@
 package com.surbhi.webProject1.app;
-
 import java.util.Properties;    
 import javax.mail.*;    
 import javax.mail.internet.*;    
 public class SendEmail{  
-    public void send(String mailTo,String msg,String sub){  
+    public void send(String mailTo,String msg,String subject){  
           //Get properties object   
     	final String from = "surbhi.singh.ss05@gmail.com";
     	final String password="as192118020809";
@@ -27,7 +26,8 @@ public class SendEmail{
           try {    
            MimeMessage message = new MimeMessage(session);    
            message.addRecipient(Message.RecipientType.TO,new InternetAddress(mailTo));    
-           message.setSubject(sub);    
+           message.setSubject(subject);   
+           
            message.setText(msg);    
            //send message  
            Transport.send(message);    

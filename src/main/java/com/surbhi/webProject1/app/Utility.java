@@ -14,7 +14,7 @@ import com.github.jknack.handlebars.Handlebars;
 import com.github.jknack.handlebars.Template;
 import com.github.jknack.handlebars.io.FileTemplateLoader;
 import com.github.jknack.handlebars.io.TemplateLoader;
-import com.surbhi.webProject1.pojo.User;
+import com.surbhi.webProject1.model.User;
 import com.surbhi.webProject1.requestService.UserService;
 
 public class Utility {
@@ -32,7 +32,7 @@ public class Utility {
 		if(uid==null){
 			
 
-			String bgcolor = "#000000";
+		String bgcolor = "#000000";
 			hmap.put("bgcolor", bgcolor);
 			hmap.put("login",true);
 		}

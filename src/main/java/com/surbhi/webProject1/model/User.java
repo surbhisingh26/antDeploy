@@ -1,4 +1,4 @@
-package com.surbhi.webProject1.pojo;
+package com.surbhi.webProject1.model;
 
 import java.util.Date;
 
@@ -24,6 +24,7 @@ public class User extends BaseObject{
 	private Boolean loggedIn;
 	private String reference;
 	private String referenceId;
+	private int points;
 	public String getName() {
 		return name;
 	}
@@ -131,6 +132,14 @@ public class User extends BaseObject{
 
 	public void setReferenceId(String referenceId) {
 		this.referenceId = referenceId;
+	}
+
+	public int getPoints() {
+		return points;
+	}
+
+	public void setPoints(int points) {
+		this.points = points;
 	}
 	
 }

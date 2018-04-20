@@ -5,7 +5,7 @@
 <div class="col-md-12">
 	<h1  style="margin-top:100px;text-align:center;color:black" >Reservation History</h1>
 		<table class="table table-hover table-striped" id="myTable" style="margin-top:30px;margin-bottom:30px;">
-	
+	<thead>
 	<tr style="background-color:#c1c1c1" >
 		<th>Name
 			<a class ="name_true" href="passengers?sortBy=name&ascending=true&page={{currentPage}}&limit={{limit}}" style="color:black;" data-toggle="tooltip" title="sort up" class="sort">
@@ -71,12 +71,11 @@
 		</th>
 		<th></th>
 	</tr>
-	
-	<div class="tablerow">
-	</div>
+	</thead>
+	<tbody>
 	{{#passengerList}}
 	
-	<tr class="content">
+	<tr>
 	
 		<td>{{name}}</td>
 		<td>{{tickets}}</td>
@@ -97,7 +96,7 @@
 		
 	</tr>
 	{{/passengerList}}
-	
+	</tbody>
 	</table>
 </div>
 </div>

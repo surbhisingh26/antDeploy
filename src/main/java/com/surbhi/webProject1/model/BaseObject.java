@@ -1,4 +1,4 @@
-package com.surbhi.webProject1.pojo;
+package com.surbhi.webProject1.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.mongojack.ObjectId;
