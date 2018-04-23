@@ -15,6 +15,7 @@
 			<hr>
 			
 			<a href="#" onclick="send()" id="send" style="margin-top:10px">Send Invitation To</a>
+		<p id = "registered">{{mailMessage}}</p>
 			<form class="form-inline" action="invite">
 			<div class="form-group">
 			<input type="hidden" id="email" style="margin-top:10px" name="inviteEmail">
@@ -25,7 +26,7 @@
 			<h1  class="bg-success">Your Total Points :</h1>
 			</div>
 			<div class="col-md-5 col-md-offset-1">
-			<h1 >{{#user}}{{points}}{{/user}}</h1>
+			<h1 >{{#loggedInUser}}{{points}}{{/loggedInUser}}</h1>
 			</div>
 			</div>
 		
@@ -39,6 +40,7 @@ $('#email').attr('type','email');
 $('#email').after('<button type="hidden" class="btn btn-default" style="margin-left:10px; margin-top:0px !important">Invite</button>');
 $('#email').before('<br><label>Your friend\'s email</label><br>');
 $('a').attr('onclick','');
+$('#registered').text('');
 }
 </script>
 {{>end}}

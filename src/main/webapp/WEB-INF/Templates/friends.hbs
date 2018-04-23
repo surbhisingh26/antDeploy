@@ -140,6 +140,10 @@ var Seconds =  moment.duration(now - lastloginVal).seconds();
 
 if(Days!=0)
 $('.lastLoggedin{{id}}').text(Days+"d ago");
+if(Days<=10)
+$('.time{{id}}').text(Days+"d ago");
+else
+$('.time{{id}}').text("a while ago");
 else if(Hours!=0)
 $('.lastLoggedin{{id}}').text(Hours+"h ago");
 else if(Minutes!=0)

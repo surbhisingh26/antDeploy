@@ -4,8 +4,8 @@
 <div class="col-md-8 col-md-offset-2">
 <ul class="list-group">
 {{#Notifications}}
-<input type="hidden" class="date{{id}}">
-<a href="{{link}}"><li class="list-group-item" style="opacity: 0.8;background-color:{{#loggedInUser}}{{bgcolor}}{{/loggedInUser}}">{{notification}}<small><label class="time{{id}}"></label></small></li></a>
+<input type="hidden" class="date{{id}}" value="{{date}}">
+<a href="{{link}}"><li class="list-group-item" style="opacity: 0.8;background-color:{{#loggedInUser}}{{bgcolor}}{{/loggedInUser}}">{{notification}}<small class="pull-right"><label class="time{{id}}" style="color:gray">{{date}}</label></small></li></a>
 
 {{/Notifications}}
 </ul>
@@ -14,7 +14,7 @@
 {{>footer}}
 
 <script>
- $(document).ready(function(){
+ 
  var now = moment();
  {{#Notifications}}
  
@@ -28,7 +28,10 @@ var Minutes =  moment.duration(now - notifyTime).minutes();
 var Seconds =  moment.duration(now - notifyTime).seconds();
 
 if(Days!=0)
+if(Days<=10)
 $('.time{{id}}').text(Days+"d ago");
+else
+$('.time{{id}}').text(notifyTime.format("DD/MM/YYYY"));
 else if(Hours!=0)
 $('.time{{id}}').text(Hours+"h ago");
 else if(Minutes!=0)
@@ -39,7 +42,7 @@ $('.time{{id}}').text("Just now");
 
 
 	
- });
+ 
  </script>
 
 {{>end}}

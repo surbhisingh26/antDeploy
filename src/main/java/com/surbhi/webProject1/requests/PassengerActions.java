@@ -150,8 +150,11 @@ public class PassengerActions extends HttpServlet {
 				int totalPage = (int) Math.ceil((double)count/pageLimit);
 				System.out.println("Total pages are "+totalPage);
 				System.out.println(hmap.get("count"));
+				hmap.put("link", "passengers");
+				if(count!=0){
 				Pager pager = new Pager();
 				hmap.putAll(pager.pager(currentPage,totalPage,pageLimit,pagerSize));
+				}
 				//System.out.println("Current page is ");
 				utility.getHbs(response,"passengerTable",hmap);
 

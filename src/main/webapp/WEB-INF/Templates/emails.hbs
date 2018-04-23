@@ -1,0 +1,82 @@
+{{>head}}
+{{>header}}
+<div class="container" style="background-color:#F2F3F4">
+<div class="row">
+<div class="col-md-12">
+	<h1  style="margin-top:100px;text-align:center;color:black" >Email History</h1>
+		<table class="table table-hover table-striped" id="myTable" style="margin-top:30px;margin-bottom:30px;">
+	<thead>
+	<tr style="background-color:#c1c1c1" >
+		<th>Reciever's email
+			<a class ="name_true" href="emails?sortBy=email&ascending=true&page={{currentPage}}&limit={{limit}}" style="color:black;" data-toggle="tooltip" title="sort up" class="sort">
+				<i class = "fa fa-long-arrow-up" style="padding-left:5px;padding-right:3px;font-size:80%" ></i></a>
+			<a class ="name_false" href="emails?sortBy=email&ascending=false&page={{currentPage}}&limit={{limit}}" style="color:black;" data-toggle="tooltip" title="sort down" class="sort">
+				<i class = "fa fa-long-arrow-down" style="font-size:80%">
+				</i>
+			</a>
+		</th>
+		
+		<th>Mail Subject
+			<a class ="tickets_true"  href="emails?sortBy=subject&ascending=true&page={{currentPage}}&limit={{limit}}" style="color:black;" data-toggle="tooltip" title="sort up" class="sort">
+				<i class = "fa fa-long-arrow-up" style="padding-left:5px;padding-right:3px;font-size:80%"></i></a>
+			<a class ="tickets_false"  href="emails?sortBy=subject&ascending=false&page={{currentPage}}&limit={{limit}}" style="color:black;" data-toggle="tooltip" title="sort down" class="sort">
+				<i class = "fa fa-long-arrow-down" style="font-size:80%">
+				</i>
+			</a>
+		</th>
+		
+		<th>Mail Purpose
+			<a class ="date_true"  href="emails?sortBy=body&ascending=true&page={{currentPage}}&limit={{limit}}"  style="color:black;" data-toggle="tooltip" title="sort up" class="sort">
+				<i class = "fa fa-long-arrow-up" style="padding-left:5px;padding-right:3px;font-size:80%"></i></a>
+			<a class ="date_false"  href="emails?sortBy=body&ascending=false&page={{currentPage}}&limit={{limit}}" style="color:black;" data-toggle="tooltip" title="sort down" class="sort">
+				<i class = "fa fa-long-arrow-down" style="font-size:80%">
+				</i>
+			</a>
+		</th>
+		
+		<th>Mail From
+			<a  class ="time_true" href="emails?sortBy=from&ascending=true&page={{currentPage}}&limit={{limit}}" style="color:black;" data-toggle="tooltip" title="sort up" class="sort">
+				<i class = "fa fa-long-arrow-up" style="padding-left:5px;padding-right:3px;font-size:80%"></i></a>
+			<a class ="time_false"  href="emails?sortBy=from&ascending=false&page={{currentPage}}&limit={{limit}}" style="color:black;" data-toggle="tooltip" title="sort down" class="sort">
+				<i class = "fa fa-long-arrow-down" style="font-size:80%">
+				</i>
+			</a>
+		</th>
+		<th>date
+			<a  class ="time_true" href="emails?sortBy=date&ascending=true&page={{currentPage}}&limit={{limit}}" style="color:black;" data-toggle="tooltip" title="sort up" class="sort">
+				<i class = "fa fa-long-arrow-up" style="padding-left:5px;padding-right:3px;font-size:80%"></i></a>
+			<a class ="time_false"  href="emails?sortBy=date&ascending=false&page={{currentPage}}&limit={{limit}}" style="color:black;" data-toggle="tooltip" title="sort down" class="sort">
+				<i class = "fa fa-long-arrow-down" style="font-size:80%">
+				</i>
+			</a>
+		</th>
+		
+	</tr>
+	</thead>
+	<tbody>
+	{{#mailList}}
+	
+	<tr>
+	
+		<td>{{recieverEmail}}</td>
+		<td>{{subject}}</td>
+		<td>{{purpose}}</td>
+		<td>{{from}}</td>
+		<td class ="dateformat">{{date}}</td>
+					
+	</tr>
+	{{/mailList}}
+	</tbody>
+	</table>
+</div>
+{{>pager}}
+</div>
+{{>footer}}
+
+<script>
+$('.dateformat').each(function(){
+	var me = $(this);	
+	$(me).text(moment($(me).text(),'ddd MMM DD HH:mm:ss IST yyyy').format('DD/MM/YYYY'));
+	});
+</script>
+{{>end}}

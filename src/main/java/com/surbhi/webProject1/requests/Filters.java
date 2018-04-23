@@ -41,6 +41,11 @@ public class Filters implements Filter{
 				request.getRequestDispatcher("/friendpaths" + path).forward(request, response);
 				System.out.println("friend");
 			}
+			else if(path.contains("email")||path.contains("Email")){
+				
+				request.getRequestDispatcher("/emailpaths" + path).forward(request, response);
+				System.out.println("email");
+			}
 			
 			else{
 				

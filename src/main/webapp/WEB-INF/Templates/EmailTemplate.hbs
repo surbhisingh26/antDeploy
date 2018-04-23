@@ -1,0 +1,26 @@
+<html>
+<body>
+<div style="text-align:center;padding-top:30px;padding-bottom:30px;background-color:gray;font:Alegreya SC">
+<p>Heyy {{name}},</p>
+{{#if friendRequest}}
+<p style="color:blue">You have a friend request from {{#loggedInUser}}{{name}}{{/loggedInUser}}</p>
+<a href="http://localhost:8080/webProject1/friendrequest"><button style=" background-color:#145156;color:white">View on website</button></a>
+{{/if}}
+{{#if requestReject}}
+<p style="color:blue">You friend request is rejected by {{#loggedInUser}}{{name}}{{/loggedInUser}}</p>
+<a href="http://localhost:8080/webProject1/friends"><button style=" background-color:#145156;color:white">View Friends</button></a>
+{{/if}}
+{{#if requestReject}}
+<p style="color:blue">You friend request is accpeted by {{#loggedInUser}}{{name}}{{/loggedInUser}}</p>
+<a href="http://localhost:8080/webProject1/friends"><button style=" background-color:#145156;color:white">View Friends</button></a>
+{{/if}}
+{{#if inviteToJoin}}
+
+<h3 style="color:#B82E13">Join this amazing website!!!</h3>
+<p> Get your flights book at very reasonable prizes...Join now and get 50 bonus points</p> 
+<p>These points can make you get exciting offers and discounts on your booking</p>
+<p>Click the button below to accept this invitation</p>
+<a href="http://localhost:8080/webProject1/register"><button style="background-color:#145156;color:white">Accept Invite</button></a>
+{{/if}}
+</html>
+</body>

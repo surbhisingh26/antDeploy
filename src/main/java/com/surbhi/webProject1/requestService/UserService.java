@@ -4,9 +4,9 @@ package com.surbhi.webProject1.requestService;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+
 import java.util.Date;
-import java.util.List;
+
 
 import org.mongojack.DBCursor;
 
@@ -68,14 +68,13 @@ public class UserService  {
 		
 		DBCollection collection = mongo.getCollection("invitation");
 		JacksonDBCollection<Invite, String> coll1 = JacksonDBCollection.wrap(collection,Invite.class, String.class);
-		DBCollection collection1 = mongo.getCollection("notification");
-		JacksonDBCollection<Notify, String> coll2 = JacksonDBCollection.wrap(collection1,Notify.class, String.class);
-		Notify notification = new Notify();
+		String notification = "Welcome "+fname+" "+lname+"\n Congratulation!!! You have been rewarded by 50 points in your account";
+		String link = "points";
 		Date Ndate = new Date();
-		notification.setUserId(registration.getId());
-		notification.setNotification("Welcome "+fname+" "+lname+"\n Congratulation!!! You have been rewarded by 50 points in your account");
-		notification.setLink("points");
-		notification.setDate(Ndate);
+		
+		NotificationService notificationservice = new NotificationService();
+		notificationservice.send(registration.getId(),notification,link,Ndate);
+		
 		
 		BasicDBObject query1 = new BasicDBObject();
 		query.put("recieverEmail", email);
@@ -92,7 +91,7 @@ public class UserService  {
 			notify.setLink("points");
 				
 			notify.setDate(Ndate);
-			coll2.insert(notify);
+			
 			coll1.remove(query1);
 			
 		}
@@ -216,30 +215,21 @@ public class UserService  {
 		user.setLastLoggedInAt(date);
 		coll.updateById(uid, user);
 	}
-	public List<Notify> notify(String uid){
+	
+	public String invite(String senderId,String recieverEmail){
 		
 		DB mongo;
 		mongo=db1.getDB();
-		List<Notify> Notifications = new ArrayList<Notify>();
-		DBCollection collec = mongo.getCollection("notification");
-		JacksonDBCollection<Notify, String> coll = JacksonDBCollection.wrap(collec,Notify.class, String.class);
+		
+		DBCollection collection = mongo.getCollection("registration");
+		JacksonDBCollection<User, String> coll1 = JacksonDBCollection.wrap(collection,User.class, String.class);
+		User user = coll1.findOneById(senderId);
 		BasicDBObject query = new BasicDBObject();
-		System.out.println("Uid id "+uid);
-		query.put("userId", uid);
-		DBCursor<Notify> cursor = coll.find(query);
-		while(cursor.hasNext()){
-			Notify notify = cursor.next();
-			Notifications.add(notify);
-			System.out.println("Notifications are "+notify.getNotification());
-			System.out.println("Notifications are "+notify);
-		}
-		return Notifications;
+		query.put("email", recieverEmail);
+		DBCursor<User> cursor = coll1.find(query);
+		if(cursor.hasNext())
+			return null;
 		
-	}
-	public void invite(String senderId,String recieverEmail){
-		
-		DB mongo;
-		mongo=db1.getDB();
 		
 		DBCollection collec = mongo.getCollection("invitation");
 		JacksonDBCollection<Invite, String> coll = JacksonDBCollection.wrap(collec,Invite.class, String.class);
@@ -248,6 +238,12 @@ public class UserService  {
 		invite.setRecieverEmail(recieverEmail);
 		coll.insert(invite);
 		
+		
+		
+		return user.getUsername();
+		
 	}
+	
+	
 
 }

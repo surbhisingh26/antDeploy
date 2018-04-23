@@ -7,7 +7,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 import org.mongojack.DBCursor;
 import org.mongojack.JacksonDBCollection;
@@ -16,7 +15,6 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.surbhi.webProject1.model.Friend;
-import com.surbhi.webProject1.model.Notify;
 import com.surbhi.webProject1.model.User;
 import com.surbhi.webProject1.requests.DBConnection;
 
@@ -63,11 +61,11 @@ public class FriendService {
 		
 	}
 
-	public String addFriend(String uid,String fid){
+	public User addFriend(String uid,String fid){
 		DBConnection db = new DBConnection();
 		DB mongo;
 		mongo=db.getDB();
-
+		//Map<String, Object> hmap = new HashMap<String, Object>();
 		DBCollection collec = mongo.getCollection("friends");
 		JacksonDBCollection<Friend, String> coll = JacksonDBCollection.wrap(collec,Friend.class, String.class);
 		BasicDBObject query = new BasicDBObject();
@@ -94,18 +92,14 @@ public class FriendService {
 		User user = coll1.findOneById(uid);
 		
 		String notification = "You have a friend request from "+user.getName();
-		DBCollection Notifycollection = mongo.getCollection("notification");
-		JacksonDBCollection<Notify, String> coll2 = JacksonDBCollection.wrap(Notifycollection,Notify.class, String.class);
-		Notify notify = new Notify();
-		notify.setUserId(fid);
-		notify.setNotification(notification);
-		notify.setLink("friendrequest");
+		NotificationService notificationservice = new NotificationService();
 		Date date = new Date();
-		notify.setDate(date);
-		coll2.insert(notify);
-	
+		String link = "friendrequest";
+		notificationservice.send(fid,notification,link,date);
 		
-		return userFriend.getEmail();
+		System.out.println("lalala...."+userFriend.getUsername());
+		
+		return userFriend;
 
 	}
 
@@ -180,17 +174,16 @@ public class FriendService {
 		return RequestList;
 	}
 	
-	public void friendResponse(String uid,String fid,String button){
-		
+	public Map<String, Object> friendResponse(String uid,String fid,String button){
+		Map<String, Object> hmap = new HashMap<String, Object>();
 		DBConnection db = new DBConnection();
 		DB mongo;
 		mongo=db.getDB();
 		DBCollection collec = mongo.getCollection("friends");
 		JacksonDBCollection<Friend, String> coll = JacksonDBCollection.wrap(collec,Friend.class, String.class);
 		
-		DBCollection Notifycollection = mongo.getCollection("notification");
-		JacksonDBCollection<Notify, String> coll2 = JacksonDBCollection.wrap(Notifycollection,Notify.class, String.class);
-		Notify notify = new Notify();
+		NotificationService notificationservice = new NotificationService();
+		
 		
 		DBCollection collection = mongo.getCollection("registration");
 		JacksonDBCollection<User, String> coll3 = JacksonDBCollection.wrap(collection,User.class, String.class);
@@ -212,24 +205,21 @@ public class FriendService {
 			if(friend.getFid().equals(fid)){
 				if(button.equals("reject")){					
 					coll.removeById(friend.getId());
-					notify.setUserId(fid);
-					notify.setNotification(userFriend.getName() +" rejected your friend request");
+					String notification = userFriend.getName() +" rejected your friend request";
+					String link = "friends";					
 					System.out.println("Friend is" +userFriend.getName());
-					notify.setLink("friends");
 					Date date = new Date();
-					notify.setDate(date);
-					coll2.insert(notify);
+					
+					notificationservice.send(fid,notification,link,date);
 				}
 				else if(button.equals("accept")){
 					friend.setStatus("Friends");
 				coll.updateById(friend.getId(), friend);
-				notify.setUserId(fid);
-				notify.setNotification(userFriend.getName() +" accepted your friend request");
+				String notification = userFriend.getName() +" accepted your friend request";
+				String link = "friends";
 				System.out.println("Friend is" +userFriend.getName());
-				notify.setLink("friends");
 				Date date = new Date();
-				notify.setDate(date);
-				coll2.insert(notify);
+				notificationservice.send(fid,notification,link,date);
 				}
 			}
 		}
@@ -247,6 +237,11 @@ public class FriendService {
 				coll.updateById(friend.getId(), friend);
 			}
 		}
+		System.out.println("Email is.... "+userFriend.getEmail());
+		hmap.put("recieveremail",userFriend.getEmail());
+		System.out.println("email is.... "+hmap.get("mailTo"));
+		hmap.put("recievername", userFriend.getUsername());
+		return hmap;
 	}
 
 }

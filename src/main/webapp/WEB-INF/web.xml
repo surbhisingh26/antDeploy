@@ -43,6 +43,12 @@
 		<description></description>
 		<servlet-class>com.surbhi.webProject1.requests.FriendActions</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>EmailActions</servlet-name>
+		<display-name>EmailActions</display-name>
+		<description></description>
+		<servlet-class>com.surbhi.webProject1.requests.EmailActions</servlet-class>
+	</servlet>
 
 	<!-- <servlet-mapping>
 		<servlet-name>Calls</servlet-name>
@@ -59,6 +65,10 @@
 	<servlet-mapping>
 		<servlet-name>FriendActions</servlet-name>
 		<url-pattern>/friendpaths/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>EmailActions</servlet-name>
+		<url-pattern>/emailpaths/*</url-pattern>
 	</servlet-mapping>
 	
 </web-app>

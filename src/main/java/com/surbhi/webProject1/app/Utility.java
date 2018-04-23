@@ -38,7 +38,10 @@ public class Utility {
 		}
 
 		else{
-			
+			UserService userservice = new UserService();
+			User user = userservice.findOneById(uid);
+			if(user.getuType().equalsIgnoreCase("Admin"))
+				hmap.put("admin", true);
 			hmap.put("login",false);
 		}
 		System.out.println("I am here in hbs...");

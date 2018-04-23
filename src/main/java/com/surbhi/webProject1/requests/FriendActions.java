@@ -11,10 +11,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.surbhi.webProject1.app.SendEmail;
+import com.surbhi.webProject1.requests.EmailActions;
 import com.surbhi.webProject1.app.Utility;
 import com.surbhi.webProject1.model.User;
+import com.surbhi.webProject1.requestService.EmailService;
 import com.surbhi.webProject1.requestService.FriendService;
+
 
 /**
  * Servlet implementation class FriendsAction
@@ -138,16 +140,21 @@ public class FriendActions extends HttpServlet {
 			hmap = utility.checkSession(request);
 			uid = (String) hmap.get("uid");
 			System.out.println("uid...");
-			
+			String username = (String) hmap.get("username");
 			String fid = request.getParameter("fid");
 			FriendService friendservice = new FriendService();
-			String mailTo = friendservice.addFriend(uid,fid);
+			User friend = friendservice.addFriend(uid,fid);
+			System.out.println("............"+friend.getEmail());
+			if(friend.getEmail()!=null){
 			
-			if(mailTo!=null){
-			String link= "http://localhost:8080/webProject1/friendrequest";
-			SendEmail email = new SendEmail();
-			email.send("surbhi.singh.ss05@gmail.com","You have a friend request\nClick on the link below to respond to friend request\n\n"+link,"Friend Request");
-			
+			String sender = "surbhi.singh.ss05@gmail.com";
+			String purpose = "friendRequest";
+			String subject = "Friend Request";
+			EmailActions email = new EmailActions();
+			email.send(request,response,sender,purpose,subject);
+			EmailService emailservice = new EmailService();
+
+			emailservice.email(friend.getName(), purpose,subject,friend.getEmail(),username);
 			}
 			response.sendRedirect("friends");
 		}
@@ -180,14 +187,29 @@ public class FriendActions extends HttpServlet {
 		//	String sendTo = request.getParameter("email");
 			uid = (String) hmap.get("uid");
 			FriendService friendservice = new FriendService();
-			friendservice.friendResponse(uid,fid,button);
-			User user = (User) hmap.get("loggedInUser");
+			hmap.putAll(friendservice.friendResponse(uid,fid,button));
+			//User user = (User) hmap.get("loggedInUser");
 			System.out.println("userrrrr..................."+ hmap.get("loggedInUser"));
-			SendEmail email = new SendEmail();
-			if(button.equalsIgnoreCase("accept"))
-				email.send("surbhi.singh.ss05@gmail.com","Your friend request is accepted by "+ user.getName(),"Request Accepted");
-			else
-			email.send("surbhi.singh.ss05@gmail.com","Your friend request is rejected by "+ user.getName(),"Request Rejected");
+			EmailActions email = new EmailActions();
+			String sender = "surbhi.singh.ss05@gmail.com";
+			String purpose = null;
+			String subject = null;
+			if(button.equalsIgnoreCase("accept")){
+				purpose = "requestAccepted";
+				subject = "Request Accepted";
+				email.send(request,response,sender,purpose,subject);
+			
+			
+			}
+			else{
+				purpose = "requestRejected";
+				subject = "Request Rejected";
+			email.send(request,response,sender,purpose,subject);
+			
+			
+			}
+			EmailService emailservice = new EmailService();
+			emailservice.email((String)hmap.get("recievername"), purpose,subject,(String)hmap.get("recieveremail"),(String)hmap.get("username"));
 			response.sendRedirect("friends");
 
 		}

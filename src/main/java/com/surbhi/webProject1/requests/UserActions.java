@@ -16,10 +16,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
 import com.google.gson.Gson;
-import com.surbhi.webProject1.app.SendEmail;
+import com.surbhi.webProject1.requests.EmailActions;
 import com.surbhi.webProject1.app.Utility;
 import com.surbhi.webProject1.model.Notify;
 import com.surbhi.webProject1.model.User;
+import com.surbhi.webProject1.requestService.EmailService;
+import com.surbhi.webProject1.requestService.NotificationService;
 import com.surbhi.webProject1.requestService.UserService;
 import com.surbhi.webProject1.requestService.UserValidService;
 
@@ -275,6 +277,7 @@ public class UserActions extends HttpServlet {
 				msg = "You are successfully registered!!! Login here";
 				hmap.put("message", msg);
 				
+				
 				if(!referenceId.equals("null")){
 					response.sendRedirect("/webProject1");
 				}
@@ -368,8 +371,8 @@ public class UserActions extends HttpServlet {
 			List<Notify> Notifications = new ArrayList<Notify>();
 			hmap = utility.checkSession(request);
 			uid = (String) hmap.get("uid");
-			UserService userservice = new UserService();
-			Notifications = userservice.notify(uid);
+			NotificationService notification = new NotificationService();
+			Notifications = notification.show(uid);
 			hmap.put("Notifications", Notifications);
 			utility.getHbs(response,"notification",hmap);
 			
@@ -384,9 +387,6 @@ public class UserActions extends HttpServlet {
 			hmap = utility.checkSession(request);
 			uid = (String) hmap.get("uid");
 			
-			UserService userservice = new UserService();
-			User user = userservice.findOneById(uid);
-			hmap.put("user", user);
 			utility.getHbs(response,"points",hmap);
 			
 		}
@@ -402,11 +402,29 @@ public class UserActions extends HttpServlet {
 			String inviteEmail = request.getParameter("inviteEmail");
 			System.out.println(inviteEmail);
 			UserService userservice = new UserService();
-			userservice.invite(uid,inviteEmail);
-			SendEmail email = new SendEmail();
-			String link = "http://localhost:8080/webProject1/register";
-			email.send(inviteEmail, "Join this amazing website and get your flights book at very reasonable prizes...\n\nJoin now and get 50 bonus points\n\n These points can make you get exciting offers and discounts on your booking\n\nClick the link below to join now\n\n"+link, "Want to explore the world??");
-			response.sendRedirect("points");
+			String from = userservice.invite(uid,inviteEmail);
+			if(from==null){
+				msg = "User with this email is already our member!!! Try another";
+				System.out.println(msg);
+				hmap.put("mailMessage", msg);
+				utility.getHbs(response,"points",hmap);
+				//response.sendRedirect("points");
+				System.out.println("Message is .... "+hmap.get("mailMessage"));
+			}
+			else{
+			EmailActions email = new EmailActions();
+			
+			String subject = "Want to explore the world??";
+			String purpose = "inviteToJoin";
+			email.send(request,response,inviteEmail,purpose, subject);
+			EmailService emailservice = new EmailService();
+			emailservice.email(inviteEmail, purpose,subject,null,from);
+			msg = "Mail Sent...";
+			hmap.put("mailMessage", msg);
+			utility.getHbs(response,"points",hmap);
+			//response.sendRedirect("points");
+			}
+			
 		}
 		catch(Exception e){
 			e.printStackTrace();
