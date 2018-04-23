@@ -22,17 +22,17 @@ public class Utility {
 	public void getHbs(HttpServletResponse response,String file,Map<String, Object> hmap) throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
 		System.out.println("I am here in hbs...");
-		
+
 		TemplateLoader loader = new FileTemplateLoader("C:/soft/apache-tomcat-8.5.23/webapps/webProject1/WEB-INF/Templates",".hbs");
 		Handlebars handlebars = new Handlebars(loader);
 		Template template = handlebars.compile(file);
 		if(hmap==null){
-			
+
 			hmap  = new HashMap<String, Object>();}
 		if(uid==null){
-			
 
-		String bgcolor = "#000000";
+
+			String bgcolor = "#000000";
 			hmap.put("bgcolor", bgcolor);
 			hmap.put("login",true);
 		}
@@ -47,6 +47,23 @@ public class Utility {
 		System.out.println("I am here in hbs...");
 		out.print(template.apply(hmap));
 	}
+
+	public String getHbsAsString(String file,Map<String, Object> hmap) throws ServletException, IOException {
+		System.out.println("I am here in hbs...");
+
+		TemplateLoader loader = new FileTemplateLoader("C:/soft/apache-tomcat-8.5.23/webapps/webProject1/WEB-INF/Templates",".hbs");
+		Handlebars handlebars = new Handlebars(loader);
+		Template template = handlebars.compile(file);
+		if(hmap==null){			
+			hmap  = new HashMap<String, Object>();
+		}
+
+		System.out.println("I am here in hbs...");
+		template.apply(hmap);
+		return template.apply(hmap);
+	}
+
+
 	public Map<String, Object> checkSession(HttpServletRequest request){
 
 		Cookie[] cookies = request.getCookies();
@@ -56,12 +73,12 @@ public class Utility {
 
 				if(cookie.getName().equals("uid")){
 					uid = cookie.getValue();
-					
+
 				}}
 		} else{
 			uid=null;
 		}
-		
+
 		System.out.println("cookie "+uid);
 		UserService userservice = new UserService();
 		User user = userservice.findOneById(uid);

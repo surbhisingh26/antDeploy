@@ -1,13 +1,9 @@
 package com.surbhi.webProject1.requests;
-
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
-
-import java.util.Properties;
-
-
+import java.util.Properties;    
 import javax.mail.*;
 
 import com.surbhi.webProject1.app.Pager;
@@ -72,12 +68,9 @@ public class EmailActions extends HttpServlet{
 	}
     public void send(HttpServletRequest request, HttpServletResponse response,String mailTo,String purpose,String subject) throws ServletException, IOException{  
           //Get properties object   
-    	Map<String, Object> hmap = new HashMap<String, Object>();
-    	hmap = utility.checkSession(request);
-		//String uid = (String) hmap.get("uid");
     	final String from = "surbhi.singh.ss05@gmail.com";
     	final String password="as192118020809";
-    	
+    	Map<String, Object> hmap = new HashMap<String, Object>();
           Properties props = new Properties();    
           props.put("mail.smtp.host", "smtp.gmail.com");    
           props.put("mail.smtp.socketFactory.port", "465");    
@@ -97,29 +90,20 @@ public class EmailActions extends HttpServlet{
            MimeMessage message = new MimeMessage(session);    
            message.addRecipient(Message.RecipientType.TO,new InternetAddress(mailTo));    
            message.setSubject(subject);   
-           MimeMultipart multipart = new MimeMultipart();
-           BodyPart messageBodyPart = new MimeBodyPart();
-          
-          System.out.println("Sending mail");
-   		hmap.put("name", "Surbhi");
-   		hmap.put(purpose,true);
-   		Utility utility = new Utility();
-   		utility.getHbs(response,"EmailTemplate",hmap);
-        message.setContent("","text/html");
-        //HTML mail content
-        
-        
-        multipart.addBodyPart(messageBodyPart); 
-        message.setContent(multipart);
-           
-           
+          // MimeMultipart multipart = new MimeMultipart();
+           //BodyPart messageBodyPart = new MimeBodyPart();
+           hmap.put("name", "Surbhi");
+      		hmap.put(purpose,true);
+      		Utility utility = new Utility();
+      		String text = utility.getHbsAsString("EmailTemplate",hmap);
+      		System.out.println("Text is ...." + text);
+           message.setText(text);    
            //send message  
            Transport.send(message);    
            System.out.println("message sent successfully");    
           } catch (MessagingException e) {throw new RuntimeException(e);}    
              
     }  
-   
     public void emails(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
     	Map<String, Object> hmap = new HashMap<String, Object>();
 		
