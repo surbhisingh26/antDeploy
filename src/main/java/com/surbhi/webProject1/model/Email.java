@@ -11,7 +11,9 @@ public class Email extends BaseObject {
 	private String purpose;
 	private String subject;
 	private String from;
+	private String status;
 	private Date date;
+	private int viewCount;
 	public String getRecieverEmail() {
 		return recieverEmail;
 	}
@@ -41,6 +43,18 @@ public class Email extends BaseObject {
 	}
 	public void setDate(Date date) {
 		this.date = date;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public int getViewCount() {
+		return viewCount;
+	}
+	public void setViewCount(int viewCount) {
+		this.viewCount = viewCount;
 	}
 
 }

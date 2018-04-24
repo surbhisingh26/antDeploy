@@ -188,7 +188,7 @@ public class FriendService {
 		DBCollection collection = mongo.getCollection("registration");
 		JacksonDBCollection<User, String> coll3 = JacksonDBCollection.wrap(collection,User.class, String.class);
 		//User user = coll3.findOneById(uid);
-		User userFriend = coll3.findOneById(uid);
+		User userFriend = coll3.findOneById(fid);
 		
 		
 		BasicDBObject queryfid = new BasicDBObject();

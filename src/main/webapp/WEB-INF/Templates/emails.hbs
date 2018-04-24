@@ -8,44 +8,60 @@
 	<thead>
 	<tr style="background-color:#c1c1c1" >
 		<th>Reciever's email
-			<a class ="name_true" href="emails?sortBy=email&ascending=true&page={{currentPage}}&limit={{limit}}" style="color:black;" data-toggle="tooltip" title="sort up" class="sort">
+			<a class ="email_true" href="emails?sortBy=email&ascending=true&page={{currentPage}}&limit={{limit}}" style="color:black;" data-toggle="tooltip" title="sort up" class="sort">
 				<i class = "fa fa-long-arrow-up" style="padding-left:5px;padding-right:3px;font-size:80%" ></i></a>
-			<a class ="name_false" href="emails?sortBy=email&ascending=false&page={{currentPage}}&limit={{limit}}" style="color:black;" data-toggle="tooltip" title="sort down" class="sort">
+			<a class ="email_false" href="emails?sortBy=email&ascending=false&page={{currentPage}}&limit={{limit}}" style="color:black;" data-toggle="tooltip" title="sort down" class="sort">
 				<i class = "fa fa-long-arrow-down" style="font-size:80%">
 				</i>
 			</a>
 		</th>
 		
 		<th>Mail Subject
-			<a class ="tickets_true"  href="emails?sortBy=subject&ascending=true&page={{currentPage}}&limit={{limit}}" style="color:black;" data-toggle="tooltip" title="sort up" class="sort">
+			<a class ="subject_true"  href="emails?sortBy=subject&ascending=true&page={{currentPage}}&limit={{limit}}" style="color:black;" data-toggle="tooltip" title="sort up" class="sort">
 				<i class = "fa fa-long-arrow-up" style="padding-left:5px;padding-right:3px;font-size:80%"></i></a>
-			<a class ="tickets_false"  href="emails?sortBy=subject&ascending=false&page={{currentPage}}&limit={{limit}}" style="color:black;" data-toggle="tooltip" title="sort down" class="sort">
+			<a class ="subject_false"  href="emails?sortBy=subject&ascending=false&page={{currentPage}}&limit={{limit}}" style="color:black;" data-toggle="tooltip" title="sort down" class="sort">
 				<i class = "fa fa-long-arrow-down" style="font-size:80%">
 				</i>
 			</a>
 		</th>
 		
 		<th>Mail Purpose
-			<a class ="date_true"  href="emails?sortBy=body&ascending=true&page={{currentPage}}&limit={{limit}}"  style="color:black;" data-toggle="tooltip" title="sort up" class="sort">
+			<a class ="purpose_true"  href="emails?sortBy=body&ascending=true&page={{currentPage}}&limit={{limit}}"  style="color:black;" data-toggle="tooltip" title="sort up" class="sort">
 				<i class = "fa fa-long-arrow-up" style="padding-left:5px;padding-right:3px;font-size:80%"></i></a>
-			<a class ="date_false"  href="emails?sortBy=body&ascending=false&page={{currentPage}}&limit={{limit}}" style="color:black;" data-toggle="tooltip" title="sort down" class="sort">
+			<a class ="purpose_false"  href="emails?sortBy=body&ascending=false&page={{currentPage}}&limit={{limit}}" style="color:black;" data-toggle="tooltip" title="sort down" class="sort">
 				<i class = "fa fa-long-arrow-down" style="font-size:80%">
 				</i>
 			</a>
 		</th>
 		
 		<th>Mail From
-			<a  class ="time_true" href="emails?sortBy=from&ascending=true&page={{currentPage}}&limit={{limit}}" style="color:black;" data-toggle="tooltip" title="sort up" class="sort">
+			<a  class ="from_true" href="emails?sortBy=from&ascending=true&page={{currentPage}}&limit={{limit}}" style="color:black;" data-toggle="tooltip" title="sort up" class="sort">
 				<i class = "fa fa-long-arrow-up" style="padding-left:5px;padding-right:3px;font-size:80%"></i></a>
-			<a class ="time_false"  href="emails?sortBy=from&ascending=false&page={{currentPage}}&limit={{limit}}" style="color:black;" data-toggle="tooltip" title="sort down" class="sort">
+			<a class ="from_false"  href="emails?sortBy=from&ascending=false&page={{currentPage}}&limit={{limit}}" style="color:black;" data-toggle="tooltip" title="sort down" class="sort">
 				<i class = "fa fa-long-arrow-down" style="font-size:80%">
 				</i>
 			</a>
 		</th>
 		<th>date
-			<a  class ="time_true" href="emails?sortBy=date&ascending=true&page={{currentPage}}&limit={{limit}}" style="color:black;" data-toggle="tooltip" title="sort up" class="sort">
+			<a  class ="date_true" href="emails?sortBy=date&ascending=true&page={{currentPage}}&limit={{limit}}" style="color:black;" data-toggle="tooltip" title="sort up" class="sort">
 				<i class = "fa fa-long-arrow-up" style="padding-left:5px;padding-right:3px;font-size:80%"></i></a>
-			<a class ="time_false"  href="emails?sortBy=date&ascending=false&page={{currentPage}}&limit={{limit}}" style="color:black;" data-toggle="tooltip" title="sort down" class="sort">
+			<a class ="date_false"  href="emails?sortBy=date&ascending=false&page={{currentPage}}&limit={{limit}}" style="color:black;" data-toggle="tooltip" title="sort down" class="sort">
+				<i class = "fa fa-long-arrow-down" style="font-size:80%">
+				</i>
+			</a>
+		</th>
+		<th>Status
+			<a  class ="status_true" href="emails?sortBy=status&ascending=true&page={{currentPage}}&limit={{limit}}" style="color:black;" data-toggle="tooltip" title="sort up" class="sort">
+				<i class = "fa fa-long-arrow-up" style="padding-left:5px;padding-right:3px;font-size:80%"></i></a>
+			<a class ="status_false"  href="emails?sortBy=status&ascending=false&page={{currentPage}}&limit={{limit}}" style="color:black;" data-toggle="tooltip" title="sort down" class="sort">
+				<i class = "fa fa-long-arrow-down" style="font-size:80%">
+				</i>
+			</a>
+		</th>
+		<th>View
+			<a  class ="viewCount_true" href="emails?sortBy=date&ascending=true&page={{currentPage}}&limit={{limit}}" style="color:black;" data-toggle="tooltip" title="sort up" class="sort">
+				<i class = "fa fa-long-arrow-up" style="padding-left:5px;padding-right:3px;font-size:80%"></i></a>
+			<a class ="viewCount_false"  href="emails?sortBy=date&ascending=false&page={{currentPage}}&limit={{limit}}" style="color:black;" data-toggle="tooltip" title="sort down" class="sort">
 				<i class = "fa fa-long-arrow-down" style="font-size:80%">
 				</i>
 			</a>
@@ -63,6 +79,8 @@
 		<td>{{purpose}}</td>
 		<td>{{from}}</td>
 		<td class ="dateformat">{{date}}</td>
+		<td>{{status}}</td>
+		<td>{{viewCount}}</td>
 					
 	</tr>
 	{{/mailList}}

@@ -2,6 +2,7 @@ package com.surbhi.webProject1.requests;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -139,23 +140,35 @@ public class FriendActions extends HttpServlet {
 			Map<String, Object> hmap = new HashMap<String, Object>();			
 			hmap = utility.checkSession(request);
 			uid = (String) hmap.get("uid");
-			System.out.println("uid...");
-			String username = (String) hmap.get("username");
+			System.out.println("uid..."+uid);
+			User user =  (User) hmap.get("loggedInUser");
+			String username = user.getName();
+			//System.out.println("username is .... "+ username);
 			String fid = request.getParameter("fid");
 			FriendService friendservice = new FriendService();
 			User friend = friendservice.addFriend(uid,fid);
 			System.out.println("............"+friend.getEmail());
 			if(friend.getEmail()!=null){
-			
+			EmailService emailservice = new EmailService();
+			Boolean subscription = emailservice.checkEmailSubscription(friend.getEmail());
+			System.out.println("Subscription for "+friend.getEmail()+"...."+subscription);
 			String sender = "surbhi.singh.ss05@gmail.com";
 			String purpose = "friendRequest";
 			String subject = "Friend Request";
+			String status=null;
+			Date date = new Date();
+			if(subscription==true){
+			
 			EmailActions email = new EmailActions();
-			email.send(request,response,sender,purpose,subject);
-			EmailService emailservice = new EmailService();
-
-			emailservice.email(friend.getName(), purpose,subject,friend.getEmail(),username);
+			email.send(request,friend.getName(),sender,purpose,subject,date.getTime());
+			status="Sent";
 			}
+			else{
+				status="Failed";
+			}
+			emailservice.email(purpose,subject,friend.getEmail(),username,status,date);
+			}
+			
 			response.sendRedirect("friends");
 		}
 		catch(Exception e){
@@ -186,6 +199,8 @@ public class FriendActions extends HttpServlet {
 			String fid = request.getParameter("fid");
 		//	String sendTo = request.getParameter("email");
 			uid = (String) hmap.get("uid");
+			User user =  (User) hmap.get("loggedInUser");
+			String username = user.getName();
 			FriendService friendservice = new FriendService();
 			hmap.putAll(friendservice.friendResponse(uid,fid,button));
 			//User user = (User) hmap.get("loggedInUser");
@@ -194,22 +209,33 @@ public class FriendActions extends HttpServlet {
 			String sender = "surbhi.singh.ss05@gmail.com";
 			String purpose = null;
 			String subject = null;
+			String status = null;
+			EmailService emailservice = new EmailService();
+			Boolean subscription = emailservice.checkEmailSubscription((String)hmap.get("recieveremail"));
+			System.out.println("Subscription for "+(String)hmap.get("recieveremail")+"...."+subscription);
+			Date date = new Date();
+			if(subscription==true){
 			if(button.equalsIgnoreCase("accept")){
+				
 				purpose = "requestAccepted";
 				subject = "Request Accepted";
-				email.send(request,response,sender,purpose,subject);
+				email.send(request,(String)hmap.get("recievername"),sender,purpose,subject,date.getTime());
 			
 			
 			}
 			else{
 				purpose = "requestRejected";
 				subject = "Request Rejected";
-			email.send(request,response,sender,purpose,subject);
+			email.send(request,(String)hmap.get("recievername"),sender,purpose,subject,date.getTime());
 			
 			
 			}
-			EmailService emailservice = new EmailService();
-			emailservice.email((String)hmap.get("recievername"), purpose,subject,(String)hmap.get("recieveremail"),(String)hmap.get("username"));
+			status = "Sent";
+			}
+			else
+				status = "Failed";
+			emailservice.email(purpose,subject,(String)hmap.get("recieveremail"),username,status,date);
+			
 			response.sendRedirect("friends");
 
 		}

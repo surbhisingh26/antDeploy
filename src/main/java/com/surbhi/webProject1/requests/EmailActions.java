@@ -1,6 +1,11 @@
 package com.surbhi.webProject1.requests;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;    
@@ -12,6 +17,7 @@ import com.surbhi.webProject1.requestService.EmailService;
 
 import javax.mail.internet.*;
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;    
@@ -66,11 +72,12 @@ public class EmailActions extends HttpServlet{
 			} 
 		}
 	}
-    public void send(HttpServletRequest request, HttpServletResponse response,String mailTo,String purpose,String subject) throws ServletException, IOException{  
+    public void send(HttpServletRequest request,String recieverName,String mailTo,String purpose,String subject,Long date) throws ServletException, IOException{  
           //Get properties object   
     	final String from = "surbhi.singh.ss05@gmail.com";
     	final String password="as192118020809";
     	Map<String, Object> hmap = new HashMap<String, Object>();
+    	hmap = utility.checkSession(request);
           Properties props = new Properties();    
           props.put("mail.smtp.host", "smtp.gmail.com");    
           props.put("mail.smtp.socketFactory.port", "465");    
@@ -92,16 +99,21 @@ public class EmailActions extends HttpServlet{
            message.setSubject(subject);   
           // MimeMultipart multipart = new MimeMultipart();
            //BodyPart messageBodyPart = new MimeBodyPart();
-           hmap.put("name", "Surbhi");
+           hmap.put("name", recieverName);
       		hmap.put(purpose,true);
+      		hmap.put("recieverEmail", mailTo);
+      		hmap.put("date", date);
+      		
       		Utility utility = new Utility();
       		String text = utility.getHbsAsString("EmailTemplate",hmap);
       		System.out.println("Text is ...." + text);
-           message.setText(text);    
+           //message.setText(text);   
+           message.setContent(text,"text/html");
            //send message  
            Transport.send(message);    
            System.out.println("message sent successfully");    
-          } catch (MessagingException e) {throw new RuntimeException(e);}    
+          }
+          catch (MessagingException e) {throw new RuntimeException(e);}    
              
     }  
     public void emails(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
@@ -160,4 +172,59 @@ public class EmailActions extends HttpServlet{
     	
     }
 }  
+    public void emailunsubscribe(HttpServletRequest request, HttpServletResponse response){
+    	try{
+    		String email = request.getParameter("recieverEmail");
+    		EmailService emailservice = new EmailService();
+    		emailservice.unsubscribe(email);
+    		String msg = "You are successfully unsubscribed to this email";
+    		Map<String,Object> hmap = new HashMap<String,Object>();
+    		hmap.put("message", msg);
+    		utility.getHbs(response,"message",null);
+    	}
+    	catch(Exception e){
+    		e.printStackTrace();
+    	}
+    	
+    }
+    public void trackemails(HttpServletRequest request, HttpServletResponse response){
+    	try{
+    		System.out.println("Email tracking....................");
+    		 response.setContentType("image/jpeg");  
+    		    ServletOutputStream out;  
+    		    out = response.getOutputStream(); 
+    		    FileInputStream fin = new FileInputStream("C:/soft/apache-tomcat-8.5.23/webapps/webProject1/images/whitedot.png");  
+    		      
+    		    BufferedInputStream bin = new BufferedInputStream(fin);  
+    		    BufferedOutputStream bout = new BufferedOutputStream(out);  
+    		    int ch =0; ;  
+    		    while((ch=bin.read())!=-1)  
+    		    {  
+    		    bout.write(ch);  
+    		    }  
+    		      
+    		    bin.close();  
+    		    fin.close();  
+    		    bout.close();  
+    		    out.close(); 
+    		    String from = request.getParameter("from");
+    		    String to = request.getParameter("to");   		    
+    		    String date = request.getParameter("date");
+    		    System.out.println(date);
+    		    Long date1 = Long.parseLong(date);
+    		    System.out.println(date1);
+    		    Date currentDate = new Date(date1);
+    		    System.out.println(currentDate);
+    		    //SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
+    		    //Date Date = dateFormat.format(currentDate);
+    		    EmailService emailservice = new EmailService();
+    		    emailservice.trackemail(from,to,currentDate);
+    		  
+    		    
+    	}
+    	catch(Exception e){
+    		e.printStackTrace();
+    	}
+    	
+    }
 }

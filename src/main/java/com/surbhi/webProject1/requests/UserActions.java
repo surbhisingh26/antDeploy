@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -413,12 +414,22 @@ public class UserActions extends HttpServlet {
 			}
 			else{
 			EmailActions email = new EmailActions();
-			
+			EmailService emailservice = new EmailService();
+			Boolean subscription = emailservice.checkEmailSubscription(inviteEmail);
 			String subject = "Want to explore the world??";
 			String purpose = "inviteToJoin";
-			email.send(request,response,inviteEmail,purpose, subject);
-			EmailService emailservice = new EmailService();
-			emailservice.email(inviteEmail, purpose,subject,null,from);
+			String status = null;
+			System.out.println("Subscription for "+ inviteEmail +"...."+subscription);
+			Date date = new Date();
+			if(subscription==true){
+			
+			email.send(request,"",inviteEmail,purpose, subject,date.getTime());
+			status = "Sent";
+			}
+			else{
+				status="Failed";
+			}
+			emailservice.email(purpose,subject,inviteEmail,from,status,date);
 			msg = "Mail Sent...";
 			hmap.put("mailMessage", msg);
 			utility.getHbs(response,"points",hmap);
