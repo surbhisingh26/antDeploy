@@ -71,6 +71,7 @@ public class PassengerTableService  {
 			}		
 
 		}
+		System.out.println("\n\n\n\n"+passengerList+"\n\n\n\n\n");
 		map.put("passengerList", passengerList);
 		map.put("count", count);
 		return map;

@@ -2,7 +2,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	</script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.3.6/js/bootstrap-colorpicker.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
 
@@ -11,7 +11,9 @@
 	src="/webProject1/jsFiles/dateTime.js"></script>
 	<script
 	src="/webProject1/jsFiles/check.js"></script>
-	
+	<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
 	<script>
 	{{currentPage}}
 	$(document).ready(function(){
@@ -140,12 +142,12 @@ $('input[name='+gender+']').prop('checked',true);
 	$('#referenceId').val(id);
 	$('#picUrl').val(picUrl);
 	
-	if(window.location!="https://26758e08.ngrok.io/webProject1/register"){
+	if(window.location!="https://df757a8a.ngrok.io/webProject1/register"){
 	window.location = 'register';
 	}
 	}
 	else
-		if(window.location=="https://26758e08.ngrok.io/webProject1/login")
+		if(window.location=="https://df757a8a.ngrok.io/webProject1/login")
 	window.location = '/webProject1';
 
 	

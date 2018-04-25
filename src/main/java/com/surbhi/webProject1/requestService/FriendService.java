@@ -34,11 +34,11 @@ public class FriendService {
 			User searcheduser = cursor.next();
 			return searcheduser;	
 		}
-		
+
 		return null;
 	}
 	public String getFriendStatus(User searcheduser,String uid){
-		
+
 		DBConnection db = new DBConnection();
 		DB mongo;
 		mongo=db.getDB();
@@ -58,7 +58,7 @@ public class FriendService {
 			}
 		}
 		return null;
-		
+
 	}
 
 	public User addFriend(String uid,String fid){
@@ -68,46 +68,51 @@ public class FriendService {
 		//Map<String, Object> hmap = new HashMap<String, Object>();
 		DBCollection collec = mongo.getCollection("friends");
 		JacksonDBCollection<Friend, String> coll = JacksonDBCollection.wrap(collec,Friend.class, String.class);
+
+
 		BasicDBObject query = new BasicDBObject();
 		query.put("uid", uid);
 		DBCursor<Friend> cursor = coll.find(query);
 		while(cursor.hasNext()){
 			Friend friend = cursor.next();
 			if(friend.getFid().equals(fid))
-					return null;
+				return null;
 		}
+		Date date = new Date();
 		Friend friend = new Friend();
 		friend.setFid(fid);
 		friend.setUid(uid);
 		friend.setStatus("Request sent");
+		friend.setRequestDate(date);
 		Friend friend1 = new Friend();
 		friend1.setFid(uid);
 		friend1.setUid(fid);
 		friend1.setStatus("Request pending");
+		friend1.setRequestDate(date);
 		coll.insert(friend);
 		coll.insert(friend1);
 		DBCollection collection = mongo.getCollection("registration");
 		JacksonDBCollection<User, String> coll1 = JacksonDBCollection.wrap(collection,User.class, String.class);
 		User userFriend = coll1.findOneById(fid);
 		User user = coll1.findOneById(uid);
-		
+
 		String notification = "You have a friend request from "+user.getName();
 		NotificationService notificationservice = new NotificationService();
-		Date date = new Date();
+
 		String link = "friendrequest";
 		notificationservice.send(fid,notification,link,date);
-		
+
 		System.out.println("lalala...."+userFriend.getUsername());
-		
+
 		return userFriend;
 
 	}
 
 	public Map<String, Object> showFriends(String uid){
-		
+
 		List<User> FriendsList = new ArrayList<User>();
 		List<User> RequestedList = new ArrayList<User>();
-		
+
 		Map<String, Object> hmap = new HashMap<String, Object>();
 		DBConnection db = new DBConnection();
 		DB mongo;
@@ -128,27 +133,27 @@ public class FriendService {
 				System.out.println("Friend found...");
 				User userFriend = coll1.findOneById(fid);
 				FriendsList.add(userFriend);
-			
+
 			}
 			else if(friend.getStatus().equals("Request sent")){
 				System.out.println("Request found...");
 				User userRequested = coll1.findOneById(fid);
 				RequestedList.add(userRequested);
-			
 
+
+			}
 		}
-		}
-		
+
 		hmap.put("FriendsList",FriendsList);
 		hmap.put("RequestedList",RequestedList);
-		
+
 		return hmap;
 
 	}
 
-	
-	public List<User> friendRequest(String uid){
-		
+
+	public List<User> showfriendRequest(String uid){
+
 		List<User> RequestList = new ArrayList<User>();
 		DBConnection db = new DBConnection();
 		DB mongo;
@@ -156,7 +161,7 @@ public class FriendService {
 
 		DBCollection collec = mongo.getCollection("friends");
 		JacksonDBCollection<Friend, String> coll = JacksonDBCollection.wrap(collec,Friend.class, String.class);
-		
+
 		BasicDBObject query = new BasicDBObject();
 		query.put("uid", uid);
 		DBCursor<Friend> cursor = coll.find(query);
@@ -170,10 +175,10 @@ public class FriendService {
 				RequestList.add(friendRequest);
 			}
 		}
-		
+
 		return RequestList;
 	}
-	
+
 	public Map<String, Object> friendResponse(String uid,String fid,String button){
 		Map<String, Object> hmap = new HashMap<String, Object>();
 		DBConnection db = new DBConnection();
@@ -181,62 +186,70 @@ public class FriendService {
 		mongo=db.getDB();
 		DBCollection collec = mongo.getCollection("friends");
 		JacksonDBCollection<Friend, String> coll = JacksonDBCollection.wrap(collec,Friend.class, String.class);
-		
+
 		NotificationService notificationservice = new NotificationService();
-		
-		
+
+
 		DBCollection collection = mongo.getCollection("registration");
 		JacksonDBCollection<User, String> coll3 = JacksonDBCollection.wrap(collection,User.class, String.class);
 		//User user = coll3.findOneById(uid);
 		User userFriend = coll3.findOneById(fid);
-		
-		
+
+		Date date = new Date();
 		BasicDBObject queryfid = new BasicDBObject();
 		queryfid.put("uid", fid);
+		queryfid.put("fid",uid);
 		BasicDBObject queryuid = new BasicDBObject();
 		queryuid.put("uid", uid);
-		
+		queryuid.put("fid", fid);
+
 		System.out.println("problem "+uid);
 		DBCursor<Friend> cursor = coll.find(queryuid);
 		while(cursor.hasNext()){
 			Friend friend = cursor.next();
 			System.out.println("friend 1 "+friend.getFid());
 			System.out.println(fid);
-			if(friend.getFid().equals(fid)){
-				if(button.equals("reject")){					
-					coll.removeById(friend.getId());
-					String notification = userFriend.getName() +" rejected your friend request";
-					String link = "friends";					
-					System.out.println("Friend is" +userFriend.getName());
-					Date date = new Date();
-					
-					notificationservice.send(fid,notification,link,date);
-				}
-				else if(button.equals("accept")){
-					friend.setStatus("Friends");
-				coll.updateById(friend.getId(), friend);
-				String notification = userFriend.getName() +" accepted your friend request";
-				String link = "friends";
+			friend.setResponseDate(date);
+			String link = "friendrequest";
+			String notification=null;
+			if(button.equalsIgnoreCase("reject")){
+				friend.setStatus("You rejected request");
+
+				coll.updateById(friend.getId(),friend);
+
+				notification = userFriend.getName() +" rejected your friend request";					
 				System.out.println("Friend is" +userFriend.getName());
-				Date date = new Date();
-				notificationservice.send(fid,notification,link,date);
-				}
+
+
 			}
+			else if(button.equalsIgnoreCase("accept")){
+				friend.setStatus("Friends");
+
+				coll.updateById(friend.getId(), friend);
+				notification = userFriend.getName() +" accepted your friend request";
+
+				System.out.println("Friend is" +userFriend.getName());
+
+
+
+			}
+			notificationservice.send(fid,notification,link,date);
 		}
 		DBCursor<Friend> cursor1 = coll.find(queryfid);
 		while(cursor1.hasNext()){
 			Friend friend = cursor1.next();
 			System.out.println("friend 2 "+friend.getFid());
 			System.out.println(uid);
-			if(friend.getFid().equals(uid)){
-				if(button.equals("reject")){					
-					coll.removeById(friend.getId());
-				}
-				else if(button.equals("accept"))
-					friend.setStatus("Friends");
-				coll.updateById(friend.getId(), friend);
+			friend.setResponseDate(date);
+			if(button.equals("reject")){
+				friend.setStatus("Your request rejected");
+
 			}
+			else if(button.equals("accept"))
+				friend.setStatus("Friends");
+			coll.updateById(friend.getId(), friend);
 		}
+
 		System.out.println("Email is.... "+userFriend.getEmail());
 		hmap.put("recieveremail",userFriend.getEmail());
 		System.out.println("email is.... "+hmap.get("mailTo"));

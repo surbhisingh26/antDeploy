@@ -2,7 +2,7 @@ package com.surbhi.webProject1.requests;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Date;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -118,7 +118,7 @@ public class FriendActions extends HttpServlet {
 					//hmap.put("status",status.replaceAll(" ",""));
 
 					if(status.equals("Request pending")){
-						friendrequest(request,response);
+						showfriendrequest(request,response);
 						hmap.put("requestpending",true);
 					}
 					else if(status.equals("Friends"))
@@ -152,21 +152,23 @@ public class FriendActions extends HttpServlet {
 			EmailService emailservice = new EmailService();
 			Boolean subscription = emailservice.checkEmailSubscription(friend.getEmail());
 			System.out.println("Subscription for "+friend.getEmail()+"...."+subscription);
-			String sender = "surbhi.singh.ss05@gmail.com";
+			String sender = "singh.surabhi.055@gmail.com";
 			String purpose = "friendRequest";
 			String subject = "Friend Request";
-			String status=null;
-			Date date = new Date();
+			String status="Pending...";
+			
+			String id = emailservice.email(purpose,subject,friend.getEmail(),username,status);
+			System.out.println("Id is........................." + id);
 			if(subscription==true){
 			
 			EmailActions email = new EmailActions();
-			email.send(request,friend.getName(),sender,purpose,subject,date.getTime());
+			email.send(request,friend.getName(),sender,purpose,subject,id);
 			status="Sent";
 			}
 			else{
 				status="Failed";
 			}
-			emailservice.email(purpose,subject,friend.getEmail(),username,status,date);
+			emailservice.updateStatus(id,status);
 			}
 			
 			response.sendRedirect("friends");
@@ -175,14 +177,14 @@ public class FriendActions extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-	public void friendrequest(HttpServletRequest request, HttpServletResponse response){
+	public void showfriendrequest(HttpServletRequest request, HttpServletResponse response){
 		try {
 			Map<String, Object> hmap = new HashMap<String, Object>();	
 			List<User> RequestList = new ArrayList<User>();
 			hmap = utility.checkSession(request);
 			uid = (String) hmap.get("uid");
 			FriendService friendservice = new FriendService();
-			RequestList = friendservice.friendRequest(uid);
+			RequestList = friendservice.showfriendRequest(uid);
 			hmap.put("RequestList", RequestList);
 			utility.getHbs(response, "friendrequest", hmap);
 		}
@@ -206,27 +208,29 @@ public class FriendActions extends HttpServlet {
 			//User user = (User) hmap.get("loggedInUser");
 			System.out.println("userrrrr..................."+ hmap.get("loggedInUser"));
 			EmailActions email = new EmailActions();
-			String sender = "surbhi.singh.ss05@gmail.com";
+			String sender = "singh.surabhi.055@gmail.com";
 			String purpose = null;
 			String subject = null;
-			String status = null;
+			String status = "Pending...";
 			EmailService emailservice = new EmailService();
 			Boolean subscription = emailservice.checkEmailSubscription((String)hmap.get("recieveremail"));
 			System.out.println("Subscription for "+(String)hmap.get("recieveremail")+"...."+subscription);
-			Date date = new Date();
+			String id = null;
 			if(subscription==true){
 			if(button.equalsIgnoreCase("accept")){
 				
 				purpose = "requestAccepted";
 				subject = "Request Accepted";
-				email.send(request,(String)hmap.get("recievername"),sender,purpose,subject,date.getTime());
+			id =	emailservice.email(purpose,subject,(String)hmap.get("recieveremail"),username,status);
+				email.send(request,(String)hmap.get("recievername"),sender,purpose,subject,id);
 			
 			
 			}
 			else{
 				purpose = "requestRejected";
 				subject = "Request Rejected";
-			email.send(request,(String)hmap.get("recievername"),sender,purpose,subject,date.getTime());
+			id =	emailservice.email(purpose,subject,(String)hmap.get("recieveremail"),username,status);
+			email.send(request,(String)hmap.get("recievername"),sender,purpose,subject,id);
 			
 			
 			}
@@ -234,8 +238,8 @@ public class FriendActions extends HttpServlet {
 			}
 			else
 				status = "Failed";
-			emailservice.email(purpose,subject,(String)hmap.get("recieveremail"),username,status,date);
 			
+			emailservice.updateStatus(id,status);
 			response.sendRedirect("friends");
 
 		}

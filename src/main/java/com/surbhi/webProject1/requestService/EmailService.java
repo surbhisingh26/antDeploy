@@ -12,6 +12,7 @@ import org.mongojack.JacksonDBCollection;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
+
 import com.surbhi.webProject1.model.Email;
 import com.surbhi.webProject1.model.Unsubscribe;
 import com.surbhi.webProject1.requests.DBConnection;
@@ -19,7 +20,7 @@ import com.surbhi.webProject1.requests.DBConnection;
 public class EmailService {
 	DBConnection db1 = new DBConnection();
 	
-public void email(String purpose,String subject,String recieverEmail,String from,String status,Date date){
+public String email(String purpose,String subject,String recieverEmail,String from,String status){
 		
 		DB mongo;
 		mongo=db1.getDB();
@@ -27,7 +28,7 @@ public void email(String purpose,String subject,String recieverEmail,String from
 		DBCollection Emailcollection = mongo.getCollection("emails");
 		JacksonDBCollection<Email, String> coll = JacksonDBCollection.wrap(Emailcollection,Email.class, String.class);
 		Email email = new Email();
-		
+		Date date = new Date();
 		email.setPurpose(purpose);
 		email.setRecieverEmail(recieverEmail);
 		email.setSubject(subject);
@@ -35,7 +36,10 @@ public void email(String purpose,String subject,String recieverEmail,String from
 		email.setDate(date);
 		email.setStatus(status);
 		email.setViewCount(0);
-		coll.insert(email);
+		org.mongojack.WriteResult<Email, String> email1 = coll.insert(email);
+		email = email1.getSavedObject();
+		System.out.println("Email Id............." + email.getId());
+		return email.getId();
 	}
 	public Map<String, Object> emails(String uid, int page, int limit, String sortBy, String ascending){
 		
@@ -88,26 +92,49 @@ public void email(String purpose,String subject,String recieverEmail,String from
 		}
 		return true;
 	}
-	public void trackemail(String from,String to,Date date) {
+	public void trackemail(String id) {
+		
+		DB mongo;
+		mongo=db1.getDB();
+		System.out.println("Id................" + id);
+		DBCollection Emailcollection = mongo.getCollection("emails");
+		JacksonDBCollection<Email, String> coll = JacksonDBCollection.wrap(Emailcollection,Email.class, String.class);
+		Email email = coll.findOneById(id);
+		
+		if(email!=null){
+			
+		email.setViewCount(email.getViewCount() +1);
+		coll.updateById(id,email);
+		}
+		
+		
+	}
+	public void updateStatus(String id, String status) {
 		
 		DB mongo;
 		mongo=db1.getDB();
 		
 		DBCollection Emailcollection = mongo.getCollection("emails");
 		JacksonDBCollection<Email, String> coll = JacksonDBCollection.wrap(Emailcollection,Email.class, String.class);
+		System.out.println("Id in update status is ... "+id);
+		System.out.println(status);
+		Email email = coll.findOneById(id);
+		email.setStatus(status);
+		coll.updateById(id, email);
+	}
+	public String checkStatus(String recieverEmail, String username,String purpose ){
+		DB mongo;
+		mongo=db1.getDB();
+		
+		DBCollection Emailcollection = mongo.getCollection("emails");
+		JacksonDBCollection<Email, String> coll = JacksonDBCollection.wrap(Emailcollection,Email.class, String.class);
 		BasicDBObject query = new BasicDBObject();
-		query.put("from", from);
-		query.put("recieverEmail",to);
-		query.put("date", date);
-		System.out.println("Query is .... "+query);
+		query.put("recieverEmails", recieverEmail);
+		query.put("from", username);
+		query.put("purpose",purpose);
 		DBCursor<Email> cursor = coll.find(query);
-		Email email = new Email();
-		if(cursor.hasNext()){
-			System.out.println("Condition true");
-		email.setViewCount(email.getViewCount() +1);
-		String id = email.getId();
-		coll.updateById(id,email);
-		}
+		Email email = cursor.next();
+		return email.getStatus();
 		
 		
 	}

@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -99,9 +98,12 @@ public class UserActions extends HttpServlet {
 			uid = (String) hmap.get("uid");
 			System.out.println("uid in profile" +uid);
 			if(uid!=null){  
-
-				hmap.put("profile",true);
-				utility.getHbs(response,"message",hmap);
+				UserService userservice = new UserService();
+				hmap.putAll(userservice.profile(uid));
+				System.out.println("..........." + hmap + "...........");
+				System.out.println("..........." + hmap.get("Ounresponded") + "...........");
+				System.out.println("..........." + hmap.get("graph") + "...........");
+				utility.getHbs(response,"profile",hmap);
 
 			}  
 			else{  
@@ -156,18 +158,18 @@ public class UserActions extends HttpServlet {
 				utility.getHbs(response,"message",hmap);
 				utility.getHbs(response,"login",null);
 			}
-			
+
 			else if(result.equals("Register First")){
 				hmap.put("register", true);
 				//utility.getHbs(response,"registration",hmap);
 				response.setContentType("application/json");
-			    response.setCharacterEncoding("UTF-8");
-			    response.getWriter().write(new Gson().toJson(hmap));
-				
-				
+				response.setCharacterEncoding("UTF-8");
+				response.getWriter().write(new Gson().toJson(hmap));
+
+
 			}
 			else {
-				
+
 				Cookie loginCookie = new Cookie("uid",result);
 
 				System.out.println("uid is "+result);
@@ -176,16 +178,16 @@ public class UserActions extends HttpServlet {
 				UserService userservice = new UserService();
 				Boolean loggedIn = userservice.login(result);
 				hmap.put("LoggedIn", loggedIn);
-				
+
 				hmap.put("register", false);
 				response.setContentType("application/json");
-			    response.setCharacterEncoding("UTF-8");
-			    response.getWriter().write(new Gson().toJson(hmap));
-			    if(referenceId.equals("null"))
-			    response.sendRedirect("/webProject1");
-			    
+				response.setCharacterEncoding("UTF-8");
+				response.getWriter().write(new Gson().toJson(hmap));
+				if(referenceId.equals("null"))
+					response.sendRedirect("/webProject1");
+
 			}
-			
+
 
 		}
 		catch(Exception e){
@@ -203,25 +205,25 @@ public class UserActions extends HttpServlet {
 	}
 	public void logout(HttpServletRequest request, HttpServletResponse response){
 		try {
-			
+
 			Map<String, Object> hmap = new HashMap<String, Object>();
 			hmap = utility.checkSession(request);
 			uid = (String) hmap.get("uid");
-		String reference = request.getParameter("reference");
-		
-			
-			
+			String reference = request.getParameter("reference");
+
+
+
 			Cookie loginCookie=new Cookie("uid","");  
 			loginCookie.setMaxAge(0);  
 			response.addCookie(loginCookie); 
-			
+
 			UserService userservice = new UserService();
 			userservice.logout(uid);
 
 			//System.out.println(request.getContextPath());
 			//request.getRequestDispatcher("").forward(request, response);
 			if(reference==null)
-			response.sendRedirect("/webProject1");
+				response.sendRedirect("/webProject1");
 			return;
 		}
 		catch(Exception e){
@@ -239,7 +241,7 @@ public class UserActions extends HttpServlet {
 			String dob = request.getParameter("dob");
 			String mobile =request.getParameter("mobile");
 			String password = request.getParameter("pass");
-			
+
 			String reference = request.getParameter("reference");
 			if(reference==null)
 				reference = "No reference";
@@ -263,7 +265,7 @@ public class UserActions extends HttpServlet {
 			}
 			else
 				filePath = File.separator +"images" + File.separator + "default.jpg";
-			
+
 			UserService rs = new UserService();
 			Boolean result = rs.registerUser(fname, lname, uname,country,city,mobile,password,gender,dob,bgcolor,filePath,email,reference,referenceId);
 			Map<String, Object> hmap  = new HashMap<String, Object>();
@@ -277,8 +279,8 @@ public class UserActions extends HttpServlet {
 			else{
 				msg = "You are successfully registered!!! Login here";
 				hmap.put("message", msg);
-				
-				
+
+
 				if(!referenceId.equals("null")){
 					response.sendRedirect("/webProject1");
 				}
@@ -287,7 +289,7 @@ public class UserActions extends HttpServlet {
 					utility.getHbs(response,"message",hmap);
 					utility.getHbs(response,"login",null);
 				}
-					
+
 			}
 		}
 		catch(Exception e){
@@ -367,7 +369,7 @@ public class UserActions extends HttpServlet {
 	}
 	public void notification(HttpServletRequest request, HttpServletResponse response){
 		try {
-			
+
 			Map<String, Object> hmap = new HashMap<String, Object>();
 			List<Notify> Notifications = new ArrayList<Notify>();
 			hmap = utility.checkSession(request);
@@ -376,7 +378,7 @@ public class UserActions extends HttpServlet {
 			Notifications = notification.show(uid);
 			hmap.put("Notifications", Notifications);
 			utility.getHbs(response,"notification",hmap);
-			
+
 		}
 		catch(Exception e){
 			e.printStackTrace();
@@ -387,9 +389,9 @@ public class UserActions extends HttpServlet {
 			Map<String, Object> hmap = new HashMap<String, Object>();
 			hmap = utility.checkSession(request);
 			uid = (String) hmap.get("uid");
-			
+
 			utility.getHbs(response,"points",hmap);
-			
+
 		}
 		catch(Exception e){
 			e.printStackTrace();
@@ -412,30 +414,36 @@ public class UserActions extends HttpServlet {
 				//response.sendRedirect("points");
 				System.out.println("Message is .... "+hmap.get("mailMessage"));
 			}
-			else{
-			EmailActions email = new EmailActions();
-			EmailService emailservice = new EmailService();
-			Boolean subscription = emailservice.checkEmailSubscription(inviteEmail);
-			String subject = "Want to explore the world??";
-			String purpose = "inviteToJoin";
-			String status = null;
-			System.out.println("Subscription for "+ inviteEmail +"...."+subscription);
-			Date date = new Date();
-			if(subscription==true){
-			
-			email.send(request,"",inviteEmail,purpose, subject,date.getTime());
-			status = "Sent";
+			else if (from.equalsIgnoreCase("Already Invited")){
+				msg = "You already invited this user";
+				hmap.put("mailMessage", msg);
+				utility.getHbs(response,"points",hmap);
 			}
 			else{
-				status="Failed";
+				EmailActions email = new EmailActions();
+				EmailService emailservice = new EmailService();
+				Boolean subscription = emailservice.checkEmailSubscription(inviteEmail);
+				String subject = "Want to explore the world??";
+				String purpose = "inviteToJoin";
+				String status = "Pending...";
+				System.out.println("Subscription for "+ inviteEmail +"...."+subscription);
+
+				String id = emailservice.email(purpose,subject,inviteEmail,from,status);
+				if(subscription==true){
+
+					email.send(request,"",inviteEmail,purpose, subject,id);
+					status = "Sent";
+				}
+				else{
+					status="Failed";
+				}
+				emailservice.updateStatus(id,status);
+				msg = "Mail Sent...";
+				hmap.put("mailMessage", msg);
+				utility.getHbs(response,"points",hmap);
+				//response.sendRedirect("points");
 			}
-			emailservice.email(purpose,subject,inviteEmail,from,status,date);
-			msg = "Mail Sent...";
-			hmap.put("mailMessage", msg);
-			utility.getHbs(response,"points",hmap);
-			//response.sendRedirect("points");
-			}
-			
+
 		}
 		catch(Exception e){
 			e.printStackTrace();

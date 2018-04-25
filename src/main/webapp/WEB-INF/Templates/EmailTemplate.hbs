@@ -3,15 +3,15 @@
 	<div style="padding-top:30px;padding-bottom:30px;background-color:gray;font:Alegreya SC;padding-left:30px">
 		<p>Heyy {{name}},</p>
 	{{#if friendRequest}}
-		<p style="color:blue">You have a new friend request from {{#loggedInUser}}{{name}}{{/loggedInUser}}</p>
+		<p>You have a new friend request from {{#loggedInUser}}{{name}}{{/loggedInUser}}</p>
 		<a href="http://localhost:8080/webProject1/friendrequest"><button style=" background-color:#0B71A6;color:white">View on website</button></a>
 	{{/if}}
 	{{#if requestRejected}}
-		<p style="color:blue">You friend request is rejected by {{#loggedInUser}}{{name}}{{/loggedInUser}}</p>
+		<p >You friend request is rejected by {{#loggedInUser}}{{name}}{{/loggedInUser}}</p>
 		<a href="http://localhost:8080/webProject1/friends"><button style=" background-color:#0B71A6;color:white">View Friends</button></a>
 	{{/if}}
 	{{#if requestAccepted}}
-		<p style="color:blue">You friend request is accepted by {{#loggedInUser}}{{name}}{{/loggedInUser}}</p>
+		<p>You friend request is accepted by {{#loggedInUser}}{{name}}{{/loggedInUser}}</p>
 		<a href="http://localhost:8080/webProject1/friends"><button style=" background-color:#0B71A6;color:white">View Friends</button></a>
 	{{/if}}
 	{{#if inviteToJoin}}
@@ -22,12 +22,13 @@
 		<p>Click the button below to accept this invitation</p>
 		<a href="http://localhost:8080/webProject1/register"><button style="background-color:#0B71A6;color:white">Accept Invite</button></a>
 	{{/if}}
-		<h6 style="text-align:left;color:white;padding-left:20px">
+		<h6 style="text-align:left;color:white;">
 		<a href="http://localhost:8080/webProject1/emailunsubscribe?recieverEmail={{recieverEmail}}">Unsubscribe</a>
 		 to stop recieving these mails
-		 <img src="https://14caaf09.ngrok.io/webProject1/trackemails?from={{#loggedInUser}}{{name}}{{/loggedInUser}}&to={{recieverEmail}}&date={{date}}" width="1px" height="1px">
+		 <img src="https://df757a8a.ngrok.io/webProject1/trkemails?id={{id}}" width="1px" height="1px" >
 		</h6>
 		
 	</div>
-</html>
+
 </body>
+</html>

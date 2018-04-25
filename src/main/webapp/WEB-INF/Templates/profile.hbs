@@ -1,0 +1,79 @@
+{{>head}}
+{{>header}}
+
+<p style="margin-top:80px">Welcome {{#loggedInUser}}{{name}}{{/loggedInUser}}</p>
+
+<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+{{>footer}}
+
+<script>
+var list = [5, 3, 4, 7, 2,6,2,3,4,5,6,8]
+alert(list);
+Highcharts.chart('container', {
+
+    chart: {
+        type: 'column'
+    },
+
+    title: {
+        text: 'Monthly record of making new friends'
+    },
+
+    xAxis: {
+        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+		
+    },
+
+    yAxis: {
+        allowDecimals: false,
+        min: 0,
+        title: {
+            text: 'Total Request '
+        }
+    },
+
+    tooltip: {
+        formatter: function () {
+            return '<b>' + this.x + '</b><br/>' +
+                this.series.name + ': ' + this.y + '<br/>' +
+                'Total: ' + this.point.stackTotal;
+        }
+    },
+
+    plotOptions: {
+        column: {
+            stacking: 'normal'
+        }
+    },
+
+    series: [{
+        name: 'Accepted',
+        data: {{Oaccept}},
+        stack: 'Incoming requests'
+    }, {
+        name: 'Rejected',
+        data: [3, 4, 4, 2, 5,5,3, 4, 7, 2,6,2],
+        stack: 'Incoming requests'
+    }, {
+        name: 'Request Accepted',
+        data: [2, 5, 6, 2, 1,4,3, 4, 4, 2, 5,5],
+        stack: 'Outgoing requests'
+    }, {
+        name: 'Request Rejected',
+        data: [3, 0, 4, 4, 3,3,4, 7, 2,6,2,3],
+        stack: 'Outgoing requests'
+    }, {
+        name: 'Unresponded',
+        data: [3, 4, 4, 2, 5,2,0, 4, 4, 3,3,4],
+        stack: 'Incoming requests'
+    },{
+        name: 'request Unresponded',
+        data: [3, 4, 4, 2, 5,2,0, 4, 4, 3,3,4],
+        stack: 'Outgoing requests'
+    }
+	]
+});
+</script>
+
+{{>end}}

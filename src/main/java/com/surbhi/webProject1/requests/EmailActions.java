@@ -4,7 +4,6 @@ import java.io.BufferedOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.lang.reflect.Method;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -72,7 +71,7 @@ public class EmailActions extends HttpServlet{
 			} 
 		}
 	}
-    public void send(HttpServletRequest request,String recieverName,String mailTo,String purpose,String subject,Long date) throws ServletException, IOException{  
+    public void send(HttpServletRequest request,String recieverName,String mailTo,String purpose,String subject,String id) throws ServletException, IOException{  
           //Get properties object   
     	final String from = "surbhi.singh.ss05@gmail.com";
     	final String password="as192118020809";
@@ -102,7 +101,9 @@ public class EmailActions extends HttpServlet{
            hmap.put("name", recieverName);
       		hmap.put(purpose,true);
       		hmap.put("recieverEmail", mailTo);
-      		hmap.put("date", date);
+      		hmap.put("id", id);
+      		Date date = new Date();
+      		hmap.put("date",date.getTime());
       		
       		Utility utility = new Utility();
       		String text = utility.getHbsAsString("EmailTemplate",hmap);
@@ -187,7 +188,7 @@ public class EmailActions extends HttpServlet{
     	}
     	
     }
-    public void trackemails(HttpServletRequest request, HttpServletResponse response){
+    public void trkemails(HttpServletRequest request, HttpServletResponse response){
     	try{
     		System.out.println("Email tracking....................");
     		 response.setContentType("image/jpeg");  
@@ -207,18 +208,10 @@ public class EmailActions extends HttpServlet{
     		    fin.close();  
     		    bout.close();  
     		    out.close(); 
-    		    String from = request.getParameter("from");
-    		    String to = request.getParameter("to");   		    
-    		    String date = request.getParameter("date");
-    		    System.out.println(date);
-    		    Long date1 = Long.parseLong(date);
-    		    System.out.println(date1);
-    		    Date currentDate = new Date(date1);
-    		    System.out.println(currentDate);
-    		    //SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
-    		    //Date Date = dateFormat.format(currentDate);
+    		    String id = request.getParameter("id");
+    		   
     		    EmailService emailservice = new EmailService();
-    		    emailservice.trackemail(from,to,currentDate);
+    		    emailservice.trackemail(id);
     		  
     		    
     	}
