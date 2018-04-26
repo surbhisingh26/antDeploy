@@ -8,8 +8,7 @@
 {{>footer}}
 
 <script>
-var list = [5, 3, 4, 7, 2,6,2,3,4,5,6,8]
-alert(list);
+
 Highcharts.chart('container', {
 
     chart: {
@@ -48,29 +47,29 @@ Highcharts.chart('container', {
     },
 
     series: [{
-        name: 'Accepted',
-        data: {{Oaccept}},
-        stack: 'Incoming requests'
+        name: '{{#iAccept}}{{name}}{{/iAccept}}',
+        data: {{#iAccept}}{{data}}{{/iAccept}},
+        stack: '{{#iAccept}}{{stack}}{{/iAccept}}'
     }, {
-        name: 'Rejected',
-        data: [3, 4, 4, 2, 5,5,3, 4, 7, 2,6,2],
-        stack: 'Incoming requests'
+        name: '{{#iReject}}{{name}}{{/iReject}}',
+        data: {{#iReject}}{{data}}{{/iReject}},
+        stack: '{{#iReject}}{{stack}}{{/iReject}}'
     }, {
-        name: 'Request Accepted',
-        data: [2, 5, 6, 2, 1,4,3, 4, 4, 2, 5,5],
-        stack: 'Outgoing requests'
+        name: '{{#iUnresponded}}{{name}}{{/iUnresponded}}',
+        data: {{#iUnresponded}}{{data}}{{/iUnresponded}},
+        stack: '{{#iUnresponded}}{{stack}}{{/iUnresponded}}'
     }, {
-        name: 'Request Rejected',
-        data: [3, 0, 4, 4, 3,3,4, 7, 2,6,2,3],
-        stack: 'Outgoing requests'
+       name: '{{#oAccept}}{{name}}{{/oAccept}}',
+        data: {{#oAccept}}{{data}}{{/oAccept}},
+        stack: '{{#oAccept}}{{stack}}{{/oAccept}}'
     }, {
-        name: 'Unresponded',
-        data: [3, 4, 4, 2, 5,2,0, 4, 4, 3,3,4],
-        stack: 'Incoming requests'
+        name: '{{#oReject}}{{name}}{{/oReject}}',
+        data: {{#oReject}}{{data}}{{/oReject}},
+        stack: '{{#oReject}}{{stack}}{{/oReject}}'
     },{
-        name: 'request Unresponded',
-        data: [3, 4, 4, 2, 5,2,0, 4, 4, 3,3,4],
-        stack: 'Outgoing requests'
+        name: '{{#oUnresponded}}{{name}}{{/oUnresponded}}',
+        data: {{#oUnresponded}}{{data}}{{/oUnresponded}},
+        stack: '{{#oUnresponded}}{{stack}}{{/oUnresponded}}'
     }
 	]
 });

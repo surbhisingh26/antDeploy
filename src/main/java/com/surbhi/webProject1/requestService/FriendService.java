@@ -129,7 +129,7 @@ public class FriendService {
 			String fid = friend.getFid();
 			DBCollection collection = mongo.getCollection("registration");
 			JacksonDBCollection<User, String> coll1 = JacksonDBCollection.wrap(collection,User.class, String.class);
-			if(friend.getStatus().equals("Friends")){
+			if(friend.getStatus().contains("accepted")){
 				System.out.println("Friend found...");
 				User userFriend = coll1.findOneById(fid);
 				FriendsList.add(userFriend);
@@ -213,7 +213,7 @@ public class FriendService {
 			String link = "friendrequest";
 			String notification=null;
 			if(button.equalsIgnoreCase("reject")){
-				friend.setStatus("You rejected request");
+				friend.setStatus("I rejected request");
 
 				coll.updateById(friend.getId(),friend);
 
@@ -223,7 +223,7 @@ public class FriendService {
 
 			}
 			else if(button.equalsIgnoreCase("accept")){
-				friend.setStatus("Friends");
+				friend.setStatus("I accepted request");
 
 				coll.updateById(friend.getId(), friend);
 				notification = userFriend.getName() +" accepted your friend request";
@@ -242,11 +242,11 @@ public class FriendService {
 			System.out.println(uid);
 			friend.setResponseDate(date);
 			if(button.equals("reject")){
-				friend.setStatus("Your request rejected");
+				friend.setStatus("My request rejected");
 
 			}
 			else if(button.equals("accept"))
-				friend.setStatus("Friends");
+				friend.setStatus("My request accepted");
 			coll.updateById(friend.getId(), friend);
 		}
 

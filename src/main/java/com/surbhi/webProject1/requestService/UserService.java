@@ -3,6 +3,7 @@ package com.surbhi.webProject1.requestService;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -13,9 +14,9 @@ import org.mongojack.JacksonDBCollection;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
+import com.surbhi.webProject1.highchart.StackedChart;
 import com.surbhi.webProject1.model.Friend;
 import com.surbhi.webProject1.model.Invite;
-import com.surbhi.webProject1.model.Passenger;
 import com.surbhi.webProject1.model.User;
 import com.surbhi.webProject1.requests.DBConnection;
 
@@ -266,78 +267,209 @@ public class UserService  {
 
 		DB mongo;
 		mongo=db1.getDB();
-		int[] Oaccept = new int[12];
+		List<Integer> Oaccept = new ArrayList<Integer>();
+		List<Integer> Ounresponded =new  ArrayList<Integer>();
+		List<Integer> Oreject =new  ArrayList<Integer>();
+		List<Integer> Iaccept =new  ArrayList<Integer>();
+		List<Integer> Iunresponded =new  ArrayList<Integer>();
+		List<Integer> Ireject =new  ArrayList<Integer>();
+		/*int[] Oaccept = new int[12];
 		int[] Ounresponded = new int[12];
 		int[] Oreject = new int[12];
 		int[] Iaccept = new int[12];
 		int[] Iunresponded = new int[12];
-		int[] Ireject = new int[12];
+		int[] Ireject = new int[12];*/
+//		Ireject.size() > i
+		//Ireject.a
+		
+		
 		Map<String,Object> hmap = new HashMap<String,Object>();
-		List<Integer> graph = new ArrayList<Integer>();
+		
 		DBCollection collection = mongo.getCollection("friends");
 		JacksonDBCollection<Friend, String> coll = JacksonDBCollection.wrap(collection,Friend.class, String.class);
-		BasicDBObject sentRequest = new BasicDBObject();
-		sentRequest.put("uid", uid);
-		DBCursor<Friend> cursor = coll.find(sentRequest);
+		BasicDBObject request = new BasicDBObject();
+		request.put("uid", uid);
+		
+	//	DBCursor<Friend> cursor1 = coll.find(sentRequest);
+		for(int i = 0;i<12;i++){
+			DBCursor<Friend> cursor1 = coll.find(request);
+		//int oucount = 0;
+		int oucount = 0;
+		int oacount = 0;
+		int orcount = 0;
+		int iucount = 0;
+		int iacount = 0;
+		int ircount = 0;
+		
+			while(cursor1.hasNext()){
+				Friend friend = cursor1.next();
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(friend.getRequestDate());
+				int requestMonth = cal.get(Calendar.MONTH);
+				String status = friend.getStatus();
+				if(requestMonth==i){
+					if(status.equalsIgnoreCase("Request sent")){
+						oucount += 1;
+						//graph.add(1);
+					}
+					else if(status.equalsIgnoreCase("Request pending")){
+						iucount += 1;
+						//graph.add(1);
+					}
+					else if(friend.getResponseDate()!=null){
+						cal.setTime(friend.getResponseDate());
+						int responseMonth = cal.get(Calendar.MONTH);
+						System.out.println("Month..........." + requestMonth);
+						
+						if(status.equalsIgnoreCase("My request Accepted")){
+							if(requestMonth!=responseMonth){
+								oucount += 1;
+								
+							}
+							oacount += 1;
+
+						}
+						else if(status.equalsIgnoreCase("My request rejected")){
+							orcount += 1;
+						}
+						
+						if(status.equalsIgnoreCase("I accepted Request")){
+							if(requestMonth!=responseMonth){
+								iucount += 1;
+							}
+							iacount += 1;
+
+						}
+						else if(status.equalsIgnoreCase("I rejected request")){
+							ircount += 1;
+						}
+					}
+				}
+				
+			}
+			Oaccept.add(oacount);
+			Ounresponded.add(oucount);
+			Oreject.add(orcount);
+			Iaccept.add(iacount);
+			Iunresponded.add(iucount);
+			Ireject.add(ircount);
+			
+		}
+		/*DBCursor<Friend> cursor = coll.find(sentRequest);
 		while(cursor.hasNext()){
 			Friend friend = cursor.next();
 			String status = friend.getStatus();
-			int requestMonth = friend.getRequestDate().getMonth();
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(friend.getRequestDate());
+			int requestMonth = cal.get(Calendar.MONTH);
 			if(status.equalsIgnoreCase("Request sent")){
 				Ounresponded[requestMonth] += 1;
 			}
 			else{
-			int responseMonth = friend.getResponseDate().getMonth();
-			System.out.println("Month..........." + requestMonth);
-			if(requestMonth!=responseMonth){
-				Ounresponded[requestMonth] += 1;
-			}
-			if(status.equalsIgnoreCase("Friends")){
-				
-				Oaccept[responseMonth] += 1;
-			
-			}
-			else if(status.equalsIgnoreCase("Your request rejected")){
-				Oreject[responseMonth] += 1;
-			}
-			}
-		}
+				cal.setTime(friend.getResponseDate());
+				int responseMonth = cal.get(Calendar.MONTH);
+				System.out.println("Month..........." + requestMonth);
+				if(requestMonth!=responseMonth){
+					Ounresponded[requestMonth] += 1;
+				}
+				if(status.equalsIgnoreCase("Friends")){
 
-		BasicDBObject gotRequest = new BasicDBObject();
-		gotRequest.put("fid", uid);
+					Oaccept[responseMonth] += 1;
+
+				}
+				else if(status.equalsIgnoreCase("Your request rejected")){
+					Oreject[responseMonth] += 1;
+				}
+			}
+		}*/
+
+		//BasicDBObject gotRequest = new BasicDBObject();
+		//gotRequest.put("fid", uid);
+		//DBCursor<Friend> cursor1 = coll.find(gotRequest);
+		//for(int i = 0;i<12;i++){
+			//DBCursor<Friend> cursor1 = coll.find(gotRequest);
+		//int oucount = 0;
 		
-		DBCursor<Friend> cursor1 = coll.find(gotRequest);
-		while(cursor1.hasNext()){
+		
+			
+			
+			
+		
+		/*while(cursor1.hasNext()){
 			Friend friend = cursor1.next();
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(friend.getRequestDate());
+			int requestMonth = cal.get(Calendar.MONTH);
+			System.out.println("Request month........... " + requestMonth);
 			String status = friend.getStatus();
-			int requestMonth = friend.getRequestDate().getMonth();
+			
+			//			int count = 0;
+			//			
+			//			if(requestMonth==i){
+			//				count++;
+			//			}
+			//			
 			if(status.equalsIgnoreCase("Request pending")){
 				Ounresponded[requestMonth] += 1;
-				//graph.add();
+				//graph.add(1);
 			}
 			else{
-			int responseMonth = friend.getResponseDate().getMonth();
-			System.out.println("Month..........." + requestMonth);
-			if(requestMonth!=responseMonth){
-				Iunresponded[requestMonth] += 1;
+				cal.setTime(friend.getResponseDate());
+				int responseMonth = cal.get(Calendar.MONTH);
+				System.out.println("Month..........." + requestMonth);
+				if(requestMonth!=responseMonth){
+					Iunresponded[requestMonth] += 1;
+				}
+				if(status.equalsIgnoreCase("Friends")){
+
+					Iaccept[responseMonth] += 1;
+
+				}
+				else if(status.equalsIgnoreCase("Your request rejected")){
+					Ireject[responseMonth] += 1;
+				}
 			}
-			if(status.equalsIgnoreCase("Friends")){
-				
-				Iaccept[responseMonth] += 1;
-			
-			}
-			else if(status.equalsIgnoreCase("Your request rejected")){
-				Ireject[responseMonth] += 1;
-			}
-			}
-		}
-		hmap.put("Oaccept", Oaccept);
-		hmap.put("Ounresponded", Ounresponded);
-		hmap.put("Oreject", Oreject);
-		hmap.put("Iaccept", Iaccept);
-		hmap.put("Iunresponded", Iunresponded);
-		hmap.put("Ireject", Ireject);
-		hmap.put("graph", graph);
+		}*/
+
+		StackedChart iAccept = new StackedChart();
+		StackedChart iReject = new StackedChart();
+		StackedChart iUnresponded = new StackedChart();
+		StackedChart oAccept = new StackedChart();
+		StackedChart oReject = new StackedChart();
+		StackedChart oUnresponded = new StackedChart();
+		
+		oUnresponded.setData(Ounresponded);
+		oUnresponded.setName("My unresponded requests");
+		oUnresponded.setStack("Outgoing requests");
+		
+		iAccept.setData(Iaccept);
+		iAccept.setName("I Accepted");
+		iAccept.setStack("Incoming requests");
+		
+		iReject.setData(Ireject);
+		iReject.setName("I Rejected");
+		iReject.setStack("Incoming requests");
+		
+		iUnresponded.setData(Iunresponded);
+		iUnresponded.setName("I did not respond to");
+		iUnresponded.setStack("Incoming requests");
+		
+		oAccept.setData(Oaccept);
+		oAccept.setName("My Accepted Requests");
+		oAccept.setStack("Outgoing requests");
+		
+		oReject.setData(Oreject);
+		oReject.setName("My Rejected Requests");
+		oReject.setStack("Outgoing requests");
+	
+		hmap.put("iAccept", iAccept);
+		hmap.put("iReject", iReject);
+		hmap.put("iUnresponded", iUnresponded);
+		hmap.put("oAccept", oAccept);
+		hmap.put("oReject", oReject);
+		hmap.put("oUnresponded", oUnresponded);
+		
+		
 		return hmap;
 	}
 

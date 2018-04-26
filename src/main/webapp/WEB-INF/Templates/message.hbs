@@ -1,6 +1,11 @@
 {{>head}}
 {{>header}}
-<p style='margin-top:80px;margin-left:20px'>{{message}}</p>
+<p style='margin-top:80px;margin-left:20px' id = "msg">{{message}}</p>
 
 {{>footer}}
+<script>
+$(document).ready(function(){
+$("p").hide(10000);
+});
+</script>
 {{>end}}

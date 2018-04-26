@@ -2,7 +2,7 @@ package com.surbhi.webProject1.requests;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.surbhi.webProject1.requests.EmailActions;
+
 import com.surbhi.webProject1.app.Utility;
 import com.surbhi.webProject1.model.User;
 import com.surbhi.webProject1.requestService.EmailService;
@@ -157,11 +158,17 @@ public class FriendActions extends HttpServlet {
 			String subject = "Friend Request";
 			String status="Pending...";
 			
+			
+			//Date date = new Date();
+			//E reminder = new Reminder(100);
+			
 			String id = emailservice.email(purpose,subject,friend.getEmail(),username,status);
-			System.out.println("Id is........................." + id);
+			System.out.println("Id is add friend........................." + id);
+			EmailService emailserve = new EmailService(50,id,request);
 			if(subscription==true){
 			
 			EmailActions email = new EmailActions();
+			
 			email.send(request,friend.getName(),sender,purpose,subject,id);
 			status="Sent";
 			}
@@ -240,7 +247,8 @@ public class FriendActions extends HttpServlet {
 				status = "Failed";
 			
 			emailservice.updateStatus(id,status);
-			response.sendRedirect("friends");
+			response.sendRedirect("showfriendrequest");
+			
 
 		}
 		catch(Exception e){
