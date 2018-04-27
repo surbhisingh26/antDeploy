@@ -14,12 +14,13 @@ public class Reminder {
     class RemindTask extends TimerTask {
         public void run() {
             System.out.println("Time's up!");
+            new Reminder(5);
             timer.cancel(); //Terminate the timer thread
         }
     }
 
-    /*public static void main(String args[]) {
+    public static void main(String args[]) {
         new Reminder(5);
         System.out.println("Task scheduled.");
-    }*/
+    }
 }

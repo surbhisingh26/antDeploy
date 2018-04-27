@@ -2,77 +2,44 @@
 {{>header}}
 
 <p style="margin-top:80px">Welcome {{#loggedInUser}}{{name}}{{/loggedInUser}}</p>
+<div class="row">
+<div class="col-md-6" id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 
-<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 
+<div class="col-md-6" id="piecontainer" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto margin-top:20px"></div>
+</div>
 {{>footer}}
 
 <script>
-
-Highcharts.chart('container', {
-
-    chart: {
-        type: 'column'
-    },
-
-    title: {
-        text: 'Monthly record of making new friends'
-    },
-
-    xAxis: {
-        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
-		
-    },
-
-    yAxis: {
-        allowDecimals: false,
-        min: 0,
-        title: {
-            text: 'Total Request '
-        }
-    },
-
-    tooltip: {
-        formatter: function () {
-            return '<b>' + this.x + '</b><br/>' +
-                this.series.name + ': ' + this.y + '<br/>' +
-                'Total: ' + this.point.stackTotal;
-        }
-    },
-
-    plotOptions: {
-        column: {
-            stacking: 'normal'
-        }
-    },
-
-    series: [{
-        name: '{{#iAccept}}{{name}}{{/iAccept}}',
-        data: {{#iAccept}}{{data}}{{/iAccept}},
-        stack: '{{#iAccept}}{{stack}}{{/iAccept}}'
-    }, {
-        name: '{{#iReject}}{{name}}{{/iReject}}',
-        data: {{#iReject}}{{data}}{{/iReject}},
-        stack: '{{#iReject}}{{stack}}{{/iReject}}'
-    }, {
-        name: '{{#iUnresponded}}{{name}}{{/iUnresponded}}',
-        data: {{#iUnresponded}}{{data}}{{/iUnresponded}},
-        stack: '{{#iUnresponded}}{{stack}}{{/iUnresponded}}'
-    }, {
-       name: '{{#oAccept}}{{name}}{{/oAccept}}',
-        data: {{#oAccept}}{{data}}{{/oAccept}},
-        stack: '{{#oAccept}}{{stack}}{{/oAccept}}'
-    }, {
-        name: '{{#oReject}}{{name}}{{/oReject}}',
-        data: {{#oReject}}{{data}}{{/oReject}},
-        stack: '{{#oReject}}{{stack}}{{/oReject}}'
-    },{
-        name: '{{#oUnresponded}}{{name}}{{/oUnresponded}}',
-        data: {{#oUnresponded}}{{data}}{{/oUnresponded}},
-        stack: '{{#oUnresponded}}{{stack}}{{/oUnresponded}}'
-    }
-	]
+ $(document).ready(function(response){
+ var request = $.ajax({
+	url: "gethighcharts",
+	method: "POST",
+	
+	dataType: "json"	
+	 });
+  request.done(function(response) {
+   console.log( "success ", response );
+   
+	 Highcharts.chart('piecontainer', response.highchart);
+	// var func = eval(response.stackedChart.tooltip.formatter);
+// console.log(func);
+	//JSON.parse(response.stackedChart.tooltip.formatter)
+	//window[response.stackedChart.tooltip.formatter];
+	// console.log(response.stackedChart.tooltip.formatter);
+	 Highcharts.chart('container', response.stackedChart);
+	 
+	})
+  request.fail(function(response) {
+    console.log( "error ", response );
+  })
+  request.always(function(response) {
+    console.log( "complete ", response );
+	
+  });
+ 
 });
+
 </script>
 
 {{>end}}
