@@ -71,7 +71,7 @@ public class EmailActions extends HttpServlet{
 			} 
 		}
 	}
-    public void send(HttpServletRequest request,String recieverName,String mailTo,String purpose,String subject,String id) throws ServletException, IOException{  
+    public void send(HttpServletRequest request,String recieverName,String mailTo,String purpose,String subject,String id,String template,int count) throws ServletException, IOException{  
           //Get properties object   
     	final String from = "surbhi.singh.ss05@gmail.com";
     	final String password="as192118020809";
@@ -102,11 +102,12 @@ public class EmailActions extends HttpServlet{
       		hmap.put(purpose,true);
       		hmap.put("recieverEmail", mailTo);
       		hmap.put("id", id);
+      		hmap.put("count",count);
       		Date date = new Date();
       		hmap.put("date",date.getTime());
       		
       		Utility utility = new Utility();
-      		String text = utility.getHbsAsString("EmailTemplate",hmap);
+      		String text = utility.getHbsAsString(template,hmap);
       		System.out.println("Text is ...." + text);
            //message.setText(text);   
            message.setContent(text,"text/html");

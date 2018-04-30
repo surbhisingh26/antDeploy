@@ -10,11 +10,21 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
+import com.surbhi.webProject1.app.Reminder;
+
 public class Filters implements Filter{
 
 
 	public void init(FilterConfig filterConfig) throws ServletException {
 		System.out.println("Filter init called");
+		System.out.println("Task scheduled");
+		//Reminder reminder = new Reminder(5);
+		int n=2;
+   //	 for(int i=0;i<n;i++){
+   	 new Reminder(5);
+   	 //Thread.sleep(2000);
+   	// }
+		
 	}
 
 	public void destroy() {

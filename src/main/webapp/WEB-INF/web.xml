@@ -49,7 +49,11 @@
 		<description></description>
 		<servlet-class>com.surbhi.webProject1.requests.EmailActions</servlet-class>
 	</servlet>
-
+	<servlet>
+    	<servlet-name>Reminder</servlet-name>
+    	<servlet-class>com.surbhi.webProject1.requests.EmailService</servlet-class>
+   		 <load-on-startup>1</load-on-startup>
+	</servlet>
 	<!-- <servlet-mapping>
 		<servlet-name>Calls</servlet-name>
 		<url-pattern>/paths/*</url-pattern>

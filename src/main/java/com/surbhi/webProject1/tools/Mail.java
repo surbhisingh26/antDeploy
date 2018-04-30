@@ -28,7 +28,7 @@ public class Mail {
 		//Utility utility = new Utility();
 		//utility.getHbs(response,"EmailTemplate",input);
 		try {
-			email.send(null,"surbhi.singh.ss05@gmail.com","http://localhost:8080/webProject1/friend","","",null);
+			email.send(null,"surbhi.singh.ss05@gmail.com","http://localhost:8080/webProject1/friend","","",null,"",0);
 		} catch (ServletException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

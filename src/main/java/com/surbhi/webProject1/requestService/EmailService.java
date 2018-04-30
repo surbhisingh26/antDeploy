@@ -1,16 +1,10 @@
 package com.surbhi.webProject1.requestService;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
 
 import org.mongojack.DBCursor;
 import org.mongojack.JacksonDBCollection;
@@ -21,16 +15,20 @@ import com.mongodb.DBCollection;
 import com.surbhi.webProject1.model.Email;
 import com.surbhi.webProject1.model.Unsubscribe;
 import com.surbhi.webProject1.requests.DBConnection;
-import com.surbhi.webProject1.requests.EmailActions;
+
 
 public class EmailService {
 	
 	
-	Timer timer;
+	/*Timer timer;
 	String id;
 	HttpServletRequest request;
 	public EmailService(){
 		
+	}
+	public EmailService(int seconds){
+		  timer = new Timer();
+		  timer.schedule(new RemindTask(), seconds*1000);
 	}
     public EmailService(int seconds,String id,HttpServletRequest request) {
         timer = new Timer();
@@ -41,6 +39,9 @@ public class EmailService {
 	}
     
     class RemindTask extends TimerTask {
+    	public void init(){
+    		System.out.println("INIT...........");
+    	}
         public void run() {
         	System.out.println("IN CONSTRUCTOR" +id);
             try {
@@ -57,7 +58,7 @@ public class EmailService {
 			}
             timer.cancel(); //Terminate the timer thread
         }
-    }
+    }*/
 	
 	DBConnection db1 = new DBConnection();
 	
@@ -179,14 +180,5 @@ public String email(String purpose,String subject,String recieverEmail,String fr
 		
 		
 	}
-	public Email sendEmail(String id) throws ServletException, IOException{
-		DB mongo;
-		mongo=db1.getDB();
-		
-		DBCollection Emailcollection = mongo.getCollection("emails");
-		JacksonDBCollection<Email, String> coll = JacksonDBCollection.wrap(Emailcollection,Email.class, String.class);
-		Email email = coll.findOneById(id);
-		return email;
-		
-	}
+	
 }

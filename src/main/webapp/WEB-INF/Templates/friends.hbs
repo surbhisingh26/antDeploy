@@ -30,7 +30,7 @@
 			{{else}}{{#if Requestsent}}
 			<button class="btn btn-info" disabled="disabled">Request Sent...</button>
 			{{else}}{{#if Requestpending}}
-			<form action = "friendresponse">
+			<form action = "addfriend">
 			<input type="hidden" value="{{#RequestList}}{{id}}{{/RequestList}}" id="fid" name="fid" >
 			<button class="btn btn-info">Accept</button>
 			<button class="btn btn-info">Reject</button>

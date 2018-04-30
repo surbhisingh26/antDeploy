@@ -70,14 +70,14 @@ public class FriendService {
 		JacksonDBCollection<Friend, String> coll = JacksonDBCollection.wrap(collec,Friend.class, String.class);
 
 
-		BasicDBObject query = new BasicDBObject();
+	/*	BasicDBObject query = new BasicDBObject();
 		query.put("uid", uid);
 		DBCursor<Friend> cursor = coll.find(query);
 		while(cursor.hasNext()){
 			Friend friend = cursor.next();
 			if(friend.getFid().equals(fid))
 				return null;
-		}
+		}*/
 		Date date = new Date();
 		Friend friend = new Friend();
 		friend.setFid(fid);
@@ -102,7 +102,7 @@ public class FriendService {
 		String link = "friendrequest";
 		notificationservice.send(fid,notification,link,date);
 
-		System.out.println("lalala...."+userFriend.getUsername());
+		System.out.println("lalala......................." + userFriend.getUsername());
 
 		return userFriend;
 

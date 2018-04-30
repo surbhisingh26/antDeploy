@@ -1,0 +1,7 @@
+<html>
+</body>
+	<h4>Hello {{name}}</h4>
+	<p>You have {{count}} pending requests</p>
+
+</body>
+</html>

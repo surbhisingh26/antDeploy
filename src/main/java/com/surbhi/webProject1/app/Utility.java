@@ -51,7 +51,7 @@ public class Utility {
 	public String getHbsAsString(String file,Map<String, Object> hmap) throws ServletException, IOException {
 		System.out.println("I am here in hbs...");
 
-		TemplateLoader loader = new FileTemplateLoader("C:/soft/apache-tomcat-8.5.23/webapps/webProject1/WEB-INF/Templates",".hbs");
+		TemplateLoader loader = new FileTemplateLoader("C:/soft/apache-tomcat-8.5.23/webapps/webProject1/WEB-INF/Templates/EmailTemplates",".hbs");
 		Handlebars handlebars = new Handlebars(loader);
 		Template template = handlebars.compile(file);
 		if(hmap==null){			
