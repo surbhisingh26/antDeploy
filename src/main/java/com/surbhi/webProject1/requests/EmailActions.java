@@ -4,15 +4,20 @@ import java.io.BufferedOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.lang.reflect.Method;
+
 import java.util.Date;
 import java.util.HashMap;
+
 import java.util.Map;
 import java.util.Properties;    
 import javax.mail.*;
 
+import com.google.gson.Gson;
 import com.surbhi.webProject1.app.Pager;
 import com.surbhi.webProject1.app.Utility;
+
 import com.surbhi.webProject1.requestService.EmailService;
+
 
 import javax.mail.internet.*;
 import javax.servlet.ServletException;
@@ -71,11 +76,12 @@ public class EmailActions extends HttpServlet{
 			} 
 		}
 	}
-    public void send(HttpServletRequest request,String recieverName,String mailTo,String purpose,String subject,String id,String template,int count) throws ServletException, IOException{  
+    public void send(HttpServletRequest request,String recieverName,String mailTo,String purpose,String subject,String id,String template,long count,String thread) throws ServletException, IOException{  
           //Get properties object   
     	final String from = "surbhi.singh.ss05@gmail.com";
     	final String password="as192118020809";
     	Map<String, Object> hmap = new HashMap<String, Object>();
+    	if(request!=null)
     	hmap = utility.checkSession(request);
           Properties props = new Properties();    
           props.put("mail.smtp.host", "smtp.gmail.com");    
@@ -105,6 +111,7 @@ public class EmailActions extends HttpServlet{
       		hmap.put("count",count);
       		Date date = new Date();
       		hmap.put("date",date.getTime());
+      		hmap.put("thread",thread);
       		
       		Utility utility = new Utility();
       		String text = utility.getHbsAsString(template,hmap);
@@ -221,4 +228,34 @@ public class EmailActions extends HttpServlet{
     	}
     	
     }
+    
+    public void emailFromAjax(HttpServletRequest request, HttpServletResponse response){
+		try {
+			Map<String, Object> hmap = new HashMap<String, Object>();	
+			
+			hmap = utility.checkSession(request);
+			String uid = (String) hmap.get("uid");
+			EmailService emailservice = new EmailService();
+			//hmap.putAll(emailservice.emails(uid,currentPage,pageLimit,sortBy,ascending));
+			
+						
+			utility.getHbs(response, "emailtable", hmap);
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+    public void emailtable(HttpServletRequest request, HttpServletResponse response){
+		try {
+			Map<String, Object> hmap = new HashMap<String, Object>();
+		
+				response.setContentType("application/json");
+				response.setCharacterEncoding("UTF-8");
+				response.getWriter().write(new Gson().toJson(hmap));
+		
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+	}
 }

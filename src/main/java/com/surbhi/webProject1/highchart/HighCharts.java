@@ -3,7 +3,7 @@ package com.surbhi.webProject1.highchart;
 import java.util.List;
 
 public class HighCharts {
-	
+
 	Chart chart;
 	Title title;
 	ToolTip tooltip;

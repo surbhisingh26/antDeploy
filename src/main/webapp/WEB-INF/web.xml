@@ -8,7 +8,9 @@
 
 	</welcome-file-list>
 	<display-name>Archetype Created Web Application</display-name>
- 
+ <listener>
+ <listener-class>com.surbhi.webProject1.requests.UserActions</listener-class>
+ </listener>
 	<filter>
 		<filter-name>Call</filter-name>
 		<filter-class>com.surbhi.webProject1.requests.Filters</filter-class>

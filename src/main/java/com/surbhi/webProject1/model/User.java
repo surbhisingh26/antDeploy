@@ -25,6 +25,7 @@ public class User extends BaseObject{
 	private String reference;
 	private String referenceId;
 	private int points;
+	private Boolean reminder;
 	public String getName() {
 		return name;
 	}
@@ -140,6 +141,14 @@ public class User extends BaseObject{
 
 	public void setPoints(int points) {
 		this.points = points;
+	}
+
+	public Boolean getReminder() {
+		return reminder;
+	}
+
+	public void setReminder(Boolean reminder) {
+		this.reminder = reminder;
 	}
 	
 }

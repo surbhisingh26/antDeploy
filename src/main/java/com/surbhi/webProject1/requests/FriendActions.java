@@ -172,7 +172,7 @@ public class FriendActions extends HttpServlet {
 			
 			EmailActions email = new EmailActions();
 			
-			email.send(request,friend.getName(),sender,purpose,subject,id,"EmailTemplate",0);
+			email.send(request,friend.getName(),sender,purpose,subject,id,"EmailTemplate",0,null);
 			status="Sent";
 			}
 			else{
@@ -232,7 +232,7 @@ public class FriendActions extends HttpServlet {
 				purpose = "requestAccepted";
 				subject = "Request Accepted";
 			id =	emailservice.email(purpose,subject,(String)hmap.get("recieveremail"),username,status);
-				email.send(request,(String)hmap.get("recievername"),sender,purpose,subject,id,"EmailTemplate",0);
+				email.send(request,(String)hmap.get("recievername"),sender,purpose,subject,id,"EmailTemplate",0,null);
 			
 			
 			}
@@ -240,7 +240,7 @@ public class FriendActions extends HttpServlet {
 				purpose = "requestRejected";
 				subject = "Request Rejected";
 			id =	emailservice.email(purpose,subject,(String)hmap.get("recieveremail"),username,status);
-			email.send(request,(String)hmap.get("recievername"),sender,purpose,subject,id,"EmailTemplate",0);
+			email.send(request,(String)hmap.get("recievername"),sender,purpose,subject,id,"EmailTemplate",0,null);
 			
 			
 			}
@@ -258,5 +258,6 @@ public class FriendActions extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
+	
 	
 }

@@ -70,10 +70,7 @@
 		<h5 style="color:black;">{{name}}</h5>
 		
 		<h6 style="color:gray;"> {{city}}</h6>
-		
-		
-		
-		
+
 		</div>
 		
 		<div class= "col-md-3 col-md-offset-2">
@@ -101,7 +98,7 @@
 		<div class="col-md-9">
 		<h4 style="color:black">{{name}}{{#if loggedIn}}<i class = "fa fa-circle" style="padding-left:5px; color:green;font-size:70% "></i>{{else}}
 		<input type="hidden" class="lastLoggedInAt{{id}}" value="{{lastLoggedInAt}}">
-		<small style="padding-left:10px"><label class="lastLoggedin{{id}}"></label></small>
+		<small style="padding-left:10px"><label class="lastLoggedin{{id}}">{{lastLoggedInAt}}</label></small>
 		
 		
 		{{/if}}</h4>
@@ -140,10 +137,8 @@ var Seconds =  moment.duration(now - lastloginVal).seconds();
 
 if(Days!=0)
 $('.lastLoggedin{{id}}').text(Days+"d ago");
-if(Days<=10)
-$('.time{{id}}').text(Days+"d ago");
-else
-$('.time{{id}}').text("a while ago");
+if(Days>10)
+$('.lastLoggedin{{id}}').text("a while ago");
 else if(Hours!=0)
 $('.lastLoggedin{{id}}').text(Hours+"h ago");
 else if(Minutes!=0)

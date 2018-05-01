@@ -97,15 +97,16 @@ public class UserActions extends HttpServlet {
 			hmap=utility.checkSession(request);
 			uid = (String) hmap.get("uid");
 			System.out.println("uid in profile" +uid);
-			if(uid!=null){  
-				UserService userservice = new UserService();
-				hmap.putAll(userservice.profile(uid));
-				System.out.println("..........." + hmap + "...........");
-				System.out.println("..........." + hmap.get("Ounresponded") + "...........");
-				System.out.println("..........." + hmap.get("graph") + "...........");
-				utility.getHbs(response,"profile",hmap);
+			String chart = request.getParameter("chart");
+			System.out.println(chart);
 
-			}  
+			if(uid!=null){  
+				
+					utility.getHbs(response,"profile",hmap);
+
+				
+
+			}
 			else{  
 				msg = "Please login first";
 
@@ -114,7 +115,9 @@ public class UserActions extends HttpServlet {
 				utility.getHbs(response,"login",null);
 			}  
 
+
 		}
+
 		catch(Exception e){
 			e.printStackTrace();
 		}
@@ -431,7 +434,7 @@ public class UserActions extends HttpServlet {
 				String id = emailservice.email(purpose,subject,inviteEmail,from,status);
 				if(subscription==true){
 
-					email.send(request,"",inviteEmail,purpose, subject,id,"EmailTemplate",0);
+					email.send(request,"",inviteEmail,purpose, subject,id,"EmailTemplate",0,null);
 					status = "Sent";
 				}
 				else{
@@ -449,5 +452,20 @@ public class UserActions extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-	
+	public void gethighcharts(HttpServletRequest request, HttpServletResponse response){
+		try {
+			Map<String, Object> hmap = new HashMap<String, Object>();
+			hmap = utility.checkSession(request);
+			uid = (String) hmap.get("uid");
+			UserService userservice = new UserService();
+			hmap.putAll(userservice.requestpiechart(uid));
+			hmap.putAll(userservice.stackedgraph(uid));
+			response.setContentType("application/json");
+			response.setCharacterEncoding("UTF-8");
+			response.getWriter().write(new Gson().toJson(hmap));
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+	}
 }
