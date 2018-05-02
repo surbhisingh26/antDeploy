@@ -234,8 +234,8 @@ public class EmailActions extends HttpServlet{
 			Map<String, Object> hmap = new HashMap<String, Object>();	
 			
 			hmap = utility.checkSession(request);
-			String uid = (String) hmap.get("uid");
-			EmailService emailservice = new EmailService();
+		//	String uid = (String) hmap.get("uid");
+			//EmailService emailservice = new EmailService();
 			//hmap.putAll(emailservice.emails(uid,currentPage,pageLimit,sortBy,ascending));
 			
 						
@@ -248,7 +248,27 @@ public class EmailActions extends HttpServlet{
     public void emailtable(HttpServletRequest request, HttpServletResponse response){
 		try {
 			Map<String, Object> hmap = new HashMap<String, Object>();
-		
+			
+			EmailService emailservice = new EmailService();
+			
+			String Varlimit = request.getParameter("limit");
+			String offset = request.getParameter("offset");
+			String order = request.getParameter("order");
+			String sort = request.getParameter("sort");
+			int limit = Integer.parseInt(Varlimit);
+			int skip = Integer.parseInt(offset);
+			if(sort==null){
+				sort = "date";
+			}
+			String ascending = "false";
+			if (order!=null && order.equalsIgnoreCase("asc")) {
+				ascending = "true";
+			} else {
+				ascending = "false";
+			}
+			
+			hmap.putAll(emailservice.emailtable(limit,skip,ascending,sort));
+			
 				response.setContentType("application/json");
 				response.setCharacterEncoding("UTF-8");
 				response.getWriter().write(new Gson().toJson(hmap));

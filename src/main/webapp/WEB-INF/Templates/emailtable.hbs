@@ -1,17 +1,36 @@
 {{>head}}
 {{>header}}
 
-<h1  style="margin-top:100px;text-align:center;color:black" >Email History</h1>
-<div class=""row>
-	<div class="col-md-10 col-md-offset-1">
-		<table id="table" class="table table-striped table-bordered"
-               data-toggle="table"
-               data-height="460"
-               data-ajax="ajaxRequest"
-               data-search="true"
-               data-side-pagination="server"
-               data-pagination="true">
-            <thead>
+<h1  style="margin-top:90px;text-align:center;color:black">Email History</h1>
+<div class="row table" >
+	<div class="col-md-10" style="width: 100%; height: 100%;margin-left:20px; "id="ajaxTable">
+		 <table id="table"
+           data-toolbar="#toolbar"
+           data-search="true"
+           data-show-refresh="true"
+           data-show-toggle="false"
+           data-show-columns="true"
+           data-show-export="true"
+           data-detail-view="false"
+           
+           data-minimum-count-columns="2"
+           data-show-pagination-switch="true"
+           data-pagination="true"
+           data-id-field="id"
+           data-page-list="[1, 10, 20, 30, ALL]"
+           data-page-size="10"
+		   data-side-pagination="server"
+           data-show-footer="true"
+		   data-url="emailtable"
+           data-response-handler="responseHandler">
+		   <!--data-side-pagination="server"
+		   data-detail-formatter="detailFormatter"-->
+           
+    </table>
+	
+	
+	
+            <!--<thead>
             <tr>
                 <th data-field="recieveremail">Reciever's email</th>
                 <th data-field="subject">Mail Subject</th>
@@ -23,7 +42,7 @@
 				
             </tr>
             </thead>
-        </table>
+        </table>-->
 	</div>
 </div>
 
@@ -32,17 +51,245 @@
 {{>footer}}
 
 <script>
-    //var $table = $('#table');
-    $(document).ready(function(response){
-    var request = $.ajax({
-	url: "emailFromAjax?ref=abc",
-	method: "POST",
+    var $table = $('#table'),
+        $remove = $('#remove'),
+        selections = [];
+    function initTable() {
+	console.log("initTable");
 	
-	dataType: "json"	
-	 });
-	 request.done(function(response) {
-   console.log( "success ", response );
-   });
+        $table.bootstrapTable({
+            height: getHeight(),
+			
+            columns: [
+                 {
+                        title: 'Reciever\'s Email',
+                        field: 'recieverEmail',
+                        
+                        align: 'center',
+                        valign: 'middle',
+                        sortable: true,
+                      
+                    },
+					{
+                        title: 'Mail subject',
+                        field: 'subject',
+                        
+                        align: 'center',
+                        valign: 'middle',
+                        sortable: true,
+                    
+                    },
+					{
+                        title: 'Mail Purpose',
+                        field: 'purpose',
+                        
+                        align: 'center',
+                        valign: 'middle',
+                        sortable: true,
+                     
+                    },
+					{
+                        title: 'Mail from',
+                        field: 'from',
+                        
+                        align: 'center',
+                        valign: 'middle',
+                        sortable: true,
+                  
+                    },
+					{
+                        title: 'Date',
+                        field: 'date',
+                        
+                        align: 'center',
+                        valign: 'middle',
+                        sortable: true,
+                    
+                    },{
+                        title: 'Status',
+                        field: 'status',
+                        
+                        align: 'center',
+                        valign: 'middle',
+                        sortable: true,
+                     
+                    },{
+                        title: 'View',
+                        field: 'viewCount',
+                        
+                        align: 'center',
+                        valign: 'middle',
+                        sortable: true,
+                     
+                    }
+					
+                
+            ]
+			
+        });
+		
+        // sometimes footer render error.
+        setTimeout(function () {
+		console.log("setTimeout");
+            $table.bootstrapTable('resetView');
+        }, 200);
+        $table.on('check.bs.table uncheck.bs.table ' +
+                'check-all.bs.table uncheck-all.bs.table', function () {
+				console.log("table.on1");
+            $remove.prop('disabled', !$table.bootstrapTable('getSelections').length);
+            // save your data, here just save the current page
+            selections = getIdSelections();
+            // push or splice the selections if you want to save all data selections
+        });
+        $table.on('expand-row.bs.table', function (e, index, row, $detail) {
+		console.log("table.on2");
+            if (index % 2 == 1) {
+                $detail.html('Loading from ajax request...');
+                $.get('LICENSE', function (res) {
+				console.log(res);
+                    $detail.html(res.replace(/\n/g, '<br>'));
+                });
+            }
+        });
+        $table.on('all.bs.table', function (e, name, args) {
+		console.log("table.on3");
+            console.log(name, args);
+        });
+        $remove.click(function () {
+		console.log("remove.click");
+            var ids = getIdSelections();
+            $table.bootstrapTable('remove', {
+                field: 'id',
+                values: ids
+            });
+            $remove.prop('disabled', true);
+        });
+        $(window).resize(function () {
+		console.log("window.resize");
+            $table.bootstrapTable('resetView', {
+                height: getHeight()
+            });
+        });
+    }
+    function getIdSelections() {
+	console.log("getIdSelections");
+        return $.map($table.bootstrapTable('getSelections'), function (row) {
+            return row.id
+        });
+    }
+    function responseHandler(res) {
+	console.log("responseHandler");
+	console.log(res);
+       
+        return res;
+    }
+   /* function detailFormatter(index, row) {
+        var html = [];
+        $.each(row, function (key, value) {
+            html.push('<p><b>' + key + ':</b> ' + value + '</p>');
+        });
+        return html.join('');
+    }*/
+    /*function operateFormatter(value, row, index) {
+	console.log("operateFormatter");
+        return [
+            '<a class="like" href="javascript:void(0)" title="Like">',
+            '<i class="glyphicon glyphicon-heart"></i>',
+            '</a>  ',
+            '<a class="remove" href="javascript:void(0)" title="Remove">',
+            '<i class="glyphicon glyphicon-remove"></i>',
+            '</a>'
+        ].join('');
+    }*/
+   /* window.operateEvents = {
+        'click .like': function (e, value, row, index) {
+            alert('You click like action, row: ' + JSON.stringify(row));
+        },
+        'click .remove': function (e, value, row, index) {
+            $table.bootstrapTable('remove', {
+                field: 'id',
+                values: [row.id]
+            });
+        }
+    };*/
+  /*  function totalTextFormatter(data) {
+	console.log("totalTextFormatter");
+	
+        return 'Total';
+    }
+    function totalNameFormatter(data) {
+        return data.length;
+    }
+    function totalPriceFormatter(data) {
+        var total = 0;
+        $.each(data, function (i, row) {
+            total += +(row.price.substring(1));
+        });
+        return '$' + total;
+    }*/
+    function getHeight() {
+        return $(window).height() - $('h1').outerHeight(true);
+    }
+    $(function () {
+	console.log("scripts");
+        var scripts = [
+                location.search.substring(1) || 
+                'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.12.1/bootstrap-table.js',
+				'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.12.1/extensions/export/bootstrap-table-export.js',
+                'http://rawgit.com/hhurz/tableExport.jquery.plugin/master/tableExport.js',
+                'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.12.1/extensions/editable/bootstrap-table-editable.js',
+                'http://rawgit.com/vitalets/x-editable/master/dist/bootstrap3-editable/js/bootstrap-editable.js'
+            ],
+            eachSeries = function (arr, iterator, callback) {
+			console.log("eachSeries");
+                callback = callback || function () {};
+                if (!arr.length) {
+                    return callback();
+                }
+                var completed = 0;
+                var iterate = function () {
+				console.log("iterate");
+                    iterator(arr[completed], function (err) {
+                        if (err) {
+                            callback(err);
+                            callback = function () {};
+                        }
+                        else {
+                            completed += 1;
+                            if (completed >= arr.length) {
+                                callback(null);
+                            }
+                            else {
+                                iterate();
+                            }
+                        }
+                    });
+                };
+                iterate();
+            };
+        eachSeries(scripts, getScript, initTable);
+    });
+    function getScript(url, callback) {
+	console.log("getScript");
+        var head = document.getElementsByTagName('head')[0];
+        var script = document.createElement('script');
+        script.src = url;
+        var done = false;
+        // Attach handlers for all browsers
+        script.onload = script.onreadystatechange = function() {
+            if (!done && (!this.readyState ||
+                    this.readyState == 'loaded' || this.readyState == 'complete')) {
+                done = true;
+                if (callback)
+                    callback();
+                // Handle memory leak in IE
+                script.onload = script.onreadystatechange = null;
+            }
+        };
+        head.appendChild(script);
+        // We handle everything using the script element injection
+        return undefined;
+    }
 </script>
 
 

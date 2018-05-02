@@ -6,8 +6,11 @@ public class BaseThread {
 	public void start(){
 		System.out.println("Starting base thread" + Thread.currentThread().getName());
 		TestThread t = new TestThread();
+		for(int i=0;i<2;i++){
 		thread = new Thread(t);
 		thread.start();
+		
+		}
 		System.out.println("Started base thread" + Thread.currentThread().getName());
 	}
 	
@@ -25,8 +28,13 @@ class TestThread implements Runnable {
 	
 	public void run() {
 		try{
-		for(int i = 0; i < 10; i++)
+		for(int i = 0; i < 10; i++){
+			try{Thread.sleep(500);}catch(InterruptedException e){System.out.println(e);} 
+		
+			 
 		System.out.println("Thread " + Thread.currentThread().getName() + " Running......");
+		}
+		
 		}
 		catch(Exception e){
 			e.printStackTrace();

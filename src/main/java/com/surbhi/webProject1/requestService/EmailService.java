@@ -180,5 +180,31 @@ public String email(String purpose,String subject,String recieverEmail,String fr
 		
 		
 	}
+	public Map<String,Object> emailtable(int limit, int skip,String ascending,String sortBy) {
+		DB mongo;
+		mongo=db1.getDB();
+		List<Email> emailList = new ArrayList<Email>();
+		Map<String,Object> hmap = new HashMap<String, Object>();
+		DBCollection Emailcollection = mongo.getCollection("emails");
+		JacksonDBCollection<Email, String> coll = JacksonDBCollection.wrap(Emailcollection,Email.class, String.class);
+		long totalCount = coll.getCount();
+		BasicDBObject query = new BasicDBObject();
+		if(ascending.equalsIgnoreCase("true")){
+			query.put(sortBy, -1);
+		}
+		else
+			query.put(sortBy, 1);
+		DBCursor<Email> cursor = coll.find().skip(skip).limit(limit).sort(query);
+		
+		
+		while(cursor.hasNext()){
+			Email email = cursor.next();
+			emailList.add(email);
+		}
+		hmap.put("total", totalCount);
+		hmap.put("rows", emailList);
+		return hmap;
+	}
+	
 	
 }

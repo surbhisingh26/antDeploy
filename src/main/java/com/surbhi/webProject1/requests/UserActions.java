@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
@@ -17,6 +19,7 @@ import javax.servlet.http.Part;
 
 import com.google.gson.Gson;
 import com.surbhi.webProject1.requests.EmailActions;
+import com.surbhi.webProject1.app.BaseThread;
 import com.surbhi.webProject1.app.Utility;
 import com.surbhi.webProject1.model.Notify;
 import com.surbhi.webProject1.model.User;
@@ -28,11 +31,12 @@ import com.surbhi.webProject1.requestService.UserValidService;
 /**
  * Servlet implementation class UserActions
  */
-public class UserActions extends HttpServlet {
+public class UserActions extends HttpServlet implements ServletContextListener{
 	private static final long serialVersionUID = 1L;
 	Utility utility = new Utility();
 	String uid;
 	String msg;
+	BaseThread thread;
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -467,5 +471,23 @@ public class UserActions extends HttpServlet {
 		catch(Exception e){
 			e.printStackTrace();
 		}
+	}
+
+	public void contextInitialized(ServletContextEvent sce) {
+		System.out.println("Context Initialized");
+		try{
+			thread = new BaseThread();
+		thread.start();
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		System.out.println("Called start");
+		
+	}
+
+	public void contextDestroyed(ServletContextEvent sce) {
+		
+		thread.stop();
 	}
 }
