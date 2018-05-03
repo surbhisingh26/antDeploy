@@ -11,6 +11,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
 
+
 public class Filters implements Filter{
 
 
@@ -18,9 +19,9 @@ public class Filters implements Filter{
 		System.out.println("Filter init called");
 		System.out.println("Task scheduled");
 		//Reminder reminder = new Reminder(5);
-		/*int n=2;
-   	 for(int i=0;i<n;i++){
-   	 new Reminder(5);
+	//	int n=2;
+   	/* for(int i=0;i<n;i++){
+   	 new Reminder(5*i);
    	 
    	 }*/
 		

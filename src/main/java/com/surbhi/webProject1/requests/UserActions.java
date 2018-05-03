@@ -20,6 +20,7 @@ import javax.servlet.http.Part;
 import com.google.gson.Gson;
 import com.surbhi.webProject1.requests.EmailActions;
 import com.surbhi.webProject1.app.BaseThread;
+import com.surbhi.webProject1.app.Reminder;
 import com.surbhi.webProject1.app.Utility;
 import com.surbhi.webProject1.model.Notify;
 import com.surbhi.webProject1.model.User;
@@ -475,19 +476,19 @@ public class UserActions extends HttpServlet implements ServletContextListener{
 
 	public void contextInitialized(ServletContextEvent sce) {
 		System.out.println("Context Initialized");
-		try{
+		/*try{
 			thread = new BaseThread();
 		thread.start();
 		}
 		catch(Exception e){
 			e.printStackTrace();
 		}
-		System.out.println("Called start");
-		
+		System.out.println("Called start");*/
+		new Reminder(1);
 	}
 
 	public void contextDestroyed(ServletContextEvent sce) {
 		
-		thread.stop();
+		Thread.currentThread().interrupt();
 	}
 }

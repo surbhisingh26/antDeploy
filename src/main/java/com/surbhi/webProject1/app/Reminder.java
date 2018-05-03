@@ -24,7 +24,7 @@ public class Reminder  {
 	public Reminder(int seconds) {
 		
 		timer = new Timer();
-		timer.scheduleAtFixedRate(new RemindTask(), seconds*1000, seconds*100000);
+		timer.scheduleAtFixedRate(new RemindTask(), seconds*1000*60*60*24, seconds*1000*60*60*24*10);
 
 	}
 
@@ -33,8 +33,9 @@ public class Reminder  {
 		public void run() {
 
 			try {
+				
 				sendMail();
-				Thread.sleep(20000);
+				
 
 			} catch (ServletException e) {
 				// TODO Auto-generated catch block
@@ -42,10 +43,7 @@ public class Reminder  {
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			} 
 			// System.out.println("Time's up!");
 			System.out.println("Task performed on: " + new Date() + "n" +
 					"Thread's name: " + Thread.currentThread().getName());
@@ -64,6 +62,7 @@ public class Reminder  {
 	//    }
 	public void sendMail() throws ServletException, IOException{
 		UserService userservice = new UserService();
+		
 		List<User> users =  userservice.getAllUsers();
 		EmailService emailservice = new EmailService();
 		//EmailActions emailaction = new EmailActions();
@@ -74,41 +73,43 @@ public class Reminder  {
 		Boolean subscription;
 
 		for(User user:users){
-			//	System.out.println("Username.............." + user.getUsername());
+				System.out.println("Username.............." + user.getUsername());
 
+			System.out.println(user.getName());
+			subscription = emailservice.checkEmailSubscription(user.getEmail());
+			if(subscription==true){
+			System.out.println("UID...................." + user.getId());
+			count = userservice.checkPendingRequests(user.getId());
+				System.out.println("Count is ..............." + count);
+			if(count>2){
 
-			//subscription = emailservice.checkEmailSubscription(user.getEmail());
-			//if(subscription==true){
-			//System.out.println("UID...................." + user.getId());
-			//count = userservice.checkPendingRequests(user.getId());
-			//	System.out.println("Count is ..............." + count);
-			//if(count>2){
-
-			//String id = emailservice.email("PendingRequest","Pending Request",user.getEmail(),"surbhi.singh.ss05@gmail.com",status);
-			//email.send(null,user.getName(),"singh.surabhi.055@gmail.com","PendingRequest","Pending Request",id,"pendingRequests",count,Thread.currentThread().getName());
-			//	status="Sent";
+			String id = emailservice.email("PendingRequest","Pending Request",user.getEmail(),"surbhi.singh.ss05@gmail.com",status);
+			email.send(null,user.getName(),"singh.surabhi.055@gmail.com","PendingRequest","Pending Request",id,"pendingRequests",count,Thread.currentThread().getName());
+				status="Sent";
+			
 			System.out.println(user.getReminder());
 			System.out.println("BEFORE " + user.getName() +  " On " + Thread.currentThread().getName() + "\t" + user.getReminder());
 			reminder = true;
 			user = userservice.updateReminder(user.getId(), reminder);
 			System.out.println("AFTER " + user.getName() +  " On " + Thread.currentThread().getName() + "\t" + user.getReminder());
 			
+			}
 
-
-			/*else{
+			else{
     				System.out.println("......................." + user.getName() +  "On " + Thread.currentThread().getName());
-    				reminder = "sent";
+    				reminder = true;
         			userservice.updateReminder(user.getId(), reminder);
     				status="Failed";
-    				//emailservice.email("PendingRequest","Pending Request",user.getEmail(),"surbhi.singh.ss05@gmail.com",status);
-    			}*/
+    				emailservice.email("PendingRequest","Pending Request",user.getEmail(),"surbhi.singh.ss05@gmail.com",status);
+    			}
+
+		
 
 		}
-
-		//}
-		// for(User user:users){
-		//	userservice.updateReminder(user.getId(), "not sent");
-		//  }
+		}
+		 for(User user:users){
+			userservice.updateReminder(user.getId(), false);
+		  }
 
 	}
 

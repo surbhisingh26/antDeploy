@@ -20,7 +20,7 @@
            data-page-list="[1, 10, 20, 30, ALL]"
            data-page-size="10"
 		   data-side-pagination="server"
-           data-show-footer="true"
+           data-show-footer="false"
 		   data-url="emailtable"
            data-response-handler="responseHandler">
 		   <!--data-side-pagination="server"
@@ -67,7 +67,7 @@
                         
                         align: 'center',
                         valign: 'middle',
-                        sortable: true,
+                        sortable: true
                       
                     },
 					{
@@ -76,7 +76,7 @@
                         
                         align: 'center',
                         valign: 'middle',
-                        sortable: true,
+                        sortable: true
                     
                     },
 					{
@@ -85,8 +85,8 @@
                         
                         align: 'center',
                         valign: 'middle',
-                        sortable: true,
-                     
+                        sortable: true
+                   
                     },
 					{
                         title: 'Mail from',
@@ -94,7 +94,7 @@
                         
                         align: 'center',
                         valign: 'middle',
-                        sortable: true,
+                        sortable: true
                   
                     },
 					{
@@ -104,7 +104,7 @@
                         align: 'center',
                         valign: 'middle',
                         sortable: true,
-                    
+                    editable: true
                     },{
                         title: 'Status',
                         field: 'status',
@@ -112,7 +112,7 @@
                         align: 'center',
                         valign: 'middle',
                         sortable: true,
-                     
+                     editable: true
                     },{
                         title: 'View',
                         field: 'viewCount',
@@ -120,8 +120,16 @@
                         align: 'center',
                         valign: 'middle',
                         sortable: true,
-                     
-                    }
+                     editable: true
+                    },
+					{
+					title: 'Actions',
+					align: 'center',
+					valign: 'middle',
+					events: operateEvents,
+                        formatter: operateFormatter
+					
+					}
 					
                 
             ]
@@ -190,18 +198,18 @@
         });
         return html.join('');
     }*/
-    /*function operateFormatter(value, row, index) {
+    function operateFormatter(value, row, index) {
 	console.log("operateFormatter");
         return [
             '<a class="like" href="javascript:void(0)" title="Like">',
-            '<i class="glyphicon glyphicon-heart"></i>',
+            '<i class="glyphicon glyphicon-edit"></i>',
             '</a>  ',
             '<a class="remove" href="javascript:void(0)" title="Remove">',
             '<i class="glyphicon glyphicon-remove"></i>',
             '</a>'
         ].join('');
-    }*/
-   /* window.operateEvents = {
+    }
+    window.operateEvents = {
         'click .like': function (e, value, row, index) {
             alert('You click like action, row: ' + JSON.stringify(row));
         },
@@ -211,7 +219,7 @@
                 values: [row.id]
             });
         }
-    };*/
+    };
   /*  function totalTextFormatter(data) {
 	console.log("totalTextFormatter");
 	

@@ -606,7 +606,7 @@ public class UserService  {
 		JacksonDBCollection<User, String> coll = JacksonDBCollection.wrap(collec,User.class, String.class);
 		BasicDBObject query = new BasicDBObject();
 		query.put("reminder", false);
-		DBCursor<User> cursor = coll.find();
+		DBCursor<User> cursor = coll.find(query);
 		while(cursor.hasNext()){
 			User user = cursor.next();
 			userList.add(user);
@@ -645,6 +645,24 @@ public class UserService  {
 		coll.updateById(uid, user);
 		return user;
 				
+	}
+	
+public User getUser(){
+		
+	//	List<User> userList = new ArrayList<User>();
+		DB mongo;
+		mongo=db1.getDB();
+
+		DBCollection collec = mongo.getCollection("registration");
+		JacksonDBCollection<User, String> coll = JacksonDBCollection.wrap(collec,User.class, String.class);
+		BasicDBObject query = new BasicDBObject();
+		query.put("reminder", false);
+		User user = coll.findOne(query);
+		if(user!=null)
+		System.out.println(user.getName() + " found");
+		
+		return user;
+		
 	}
 
 }
