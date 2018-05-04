@@ -278,4 +278,45 @@ public class EmailActions extends HttpServlet{
 			e.printStackTrace();
 		}
 	}
+    public void updateemail(HttpServletRequest request, HttpServletResponse response){
+		try {
+			//Map<String, Object> hmap = new HashMap<String, Object>();
+			
+			EmailService emailservice = new EmailService();
+			
+			
+			String id = request.getParameter("id");
+			String email = request.getParameter("email");
+			String subject = request.getParameter("subject");
+			String purpose = request.getParameter("purpose");
+			String from = request.getParameter("from");
+			String date = request.getParameter("date");
+			System.out.println("Date is.......... " + date);
+			String status = request.getParameter("status");
+			String view = request.getParameter("view");
+			emailservice.updateEmail(id,email,subject,purpose,from,date,status,view);
+			response.sendRedirect("emailFromAjax");
+			
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+    public void deleteemail(HttpServletRequest request, HttpServletResponse response){
+		try {
+			//Map<String, Object> hmap = new HashMap<String, Object>();
+			
+			EmailService emailservice = new EmailService();
+			
+			
+			String id = request.getParameter("id");
+			System.out.println("Is in delete email....... " + id);
+			emailservice.deleteeEmail(id);
+			response.sendRedirect("emailFromAjax");
+			
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+	}
 }

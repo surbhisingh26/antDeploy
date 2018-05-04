@@ -1,5 +1,6 @@
 	<script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src = "https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
@@ -14,13 +15,15 @@
 	<script src="https://code.highcharts.com/highcharts.js"></script>
 <script src = "https://code.highcharts.com/modules/exporting.js"></script>
 <script src = "https://code.highcharts.com/modules/export-data.js"></script>
-<script src = "https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src = "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.12.1/bootstrap-table.js">
-</script>
-<script src = "https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.1/bootstrap-editable/js/bootstrap-editable.js"></script>
-<script src = "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.12.1/extensions/editable/bootstrap-table-editable.js"></script>
+
+<!--<script src = "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.12.1/bootstrap-table.js"></script>
+<script src = "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.12.1/extensions/export/bootstrap-table-export.js" ></script>
+<script src = "http://rawgit.com/hhurz/tableExport.jquery.plugin/master/tableExport.js" ></script>
+<script src = "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.12.1/extensions/editable/bootstrap-table-editable.js" ></script>
+<script src = "https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js" ></script>-->
+
 <!-- Latest compiled and minified Locales -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.12.1/bootstrap-table.min.js"></script>
+
 	<script>
 	{{currentPage}}
 	$(document).ready(function(){
@@ -49,8 +52,11 @@ var reference;
 	  var accessToken = response.authResponse.accessToken;
     } else {
       // The person is not logged into your app or we are unable to tell.
-      document.getElementById('status').innerHTML = 'Please log ' +
+	  if(typeof document.getElementById('status') != 'undefined' && document.getElementById('status') != null) {
+	   document.getElementById('status').innerHTML = 'Please log ' +
         'into this app.';
+	  }
+     
 		reference='';
     }
   }

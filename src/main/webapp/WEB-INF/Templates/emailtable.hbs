@@ -1,9 +1,12 @@
 {{>head}}
 {{>header}}
-
+<div class="container" id="container">
 <h1  style="margin-top:90px;text-align:center;color:black">Email History</h1>
-<div class="row table" >
-	<div class="col-md-10" style="width: 100%; height: 100%;margin-left:20px; "id="ajaxTable">
+ <div id="toolbar">
+        <button id="remove" class="btn btn-danger" disabled>
+            <i class="glyphicon glyphicon-remove"></i> Delete
+        </button>
+    </div>
 		 <table id="table"
            data-toolbar="#toolbar"
            data-search="true"
@@ -43,8 +46,48 @@
             </tr>
             </thead>
         </table>-->
+		
+		<div class="modal fade" id="emailModal" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header text-center" style="background-color: #323232;color:white">
+					Edit Email
+					</div>
+					<div class="modal-body" style="background-color: white;">
+						<form action="updateemail">
+							<div class = "form-group" method="post">
+							<input type="hidden" id="id" name="id">
+								<label>Reciever Email</label>
+								<input type="text" class="form-control" id="email" name="email">
+								<label>Subject</label>
+								<input type="text" class="form-control" id="subject" name="subject">
+								<label>Purpose</label>
+								<input type="text" class="form-control" id="purpose" name="purpose">
+								<label>Mail from</label>
+								<input type="text" class="form-control" id="from" name="from">
+								<label>Date</label>
+								<input type="datetime-local" class="form-control" id="date" name = "date">
+								<label>Status</label>
+								
+								<select class="form-control" id="statuss" name="status">
+								<option>Sent</option>
+								<option>Failed</option>
+								<option>Pending..</option>
+								</select>
+								
+
+								<label>View</label>
+								<input type="number" min= "0" class="form-control" id="view" name="view">
+								<button type="submit" class="btn btn-default" value="Update" style="margin-top:20px">Update</button>
+								
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
-</div>
+
 
 
 
@@ -62,10 +105,16 @@
 			
             columns: [
                  {
+                        field: 'state',
+                        checkbox: true,
+                       
+                        align: 'center',
+                        valign: 'middle'
+                    },{
                         title: 'Reciever\'s Email',
                         field: 'recieverEmail',
-                        
-                        align: 'center',
+                       
+                        align: 'left',
                         valign: 'middle',
                         sortable: true
                       
@@ -82,7 +131,7 @@
 					{
                         title: 'Mail Purpose',
                         field: 'purpose',
-                        
+                       
                         align: 'center',
                         valign: 'middle',
                         sortable: true
@@ -100,11 +149,11 @@
 					{
                         title: 'Date',
                         field: 'date',
-                        
+                       type:'datetime-local',
                         align: 'center',
                         valign: 'middle',
                         sortable: true,
-                    editable: true
+					editable: true
                     },{
                         title: 'Status',
                         field: 'status',
@@ -113,6 +162,8 @@
                         valign: 'middle',
                         sortable: true,
                      editable: true
+								
+								
                     },{
                         title: 'View',
                         field: 'viewCount',
@@ -120,7 +171,10 @@
                         align: 'center',
                         valign: 'middle',
                         sortable: true,
-                     editable: true
+                     editable: {
+								type:'number',
+								min:'0'
+							}
                     },
 					{
 					title: 'Actions',
@@ -135,6 +189,8 @@
             ]
 			
         });
+		
+	
 		
         // sometimes footer render error.
         setTimeout(function () {
@@ -163,6 +219,31 @@
 		console.log("table.on3");
             console.log(name, args);
         });
+		
+		
+		$table.on('click-cell.bs.table', function (field,value, row,$element) {
+		console.log("table.on4");
+		if(value=='status'){
+           $('.editable-input input').replaceWith('<form><select class="form-control statusselect" style="margin-bottom:5px"><option>Sent</option><option>Failed</option><option>Pending..</option></select></form>');
+		   
+		   $('.statusselect').val(row);
+		   }
+		 else if(value=='date'){
+		 $('.editable-input input').replaceWith('<form><input type="datetime-local" class="form-control" id="datetime" style="margin-bottom:5px"></form>')
+		 $('#datetime').val(moment(row).format('YYYY-MM-DDTHH:mm'));
+		 }
+		 
+		 if(value=='viewCount'){
+		 $('.editable-input input').css('margin-bottom','5px');
+		 $('#view').val(row);
+		 }
+        });
+		
+		//$('button').click(function(){
+		//alert("ff");
+		//});
+		
+		
         $remove.click(function () {
 		console.log("remove.click");
             var ids = getIdSelections();
@@ -170,6 +251,7 @@
                 field: 'id',
                 values: ids
             });
+			alert(values);
             $remove.prop('disabled', true);
         });
         $(window).resize(function () {
@@ -178,10 +260,13 @@
                 height: getHeight()
             });
         });
+		
+		
     }
     function getIdSelections() {
 	console.log("getIdSelections");
         return $.map($table.bootstrapTable('getSelections'), function (row) {
+		
             return row.id
         });
     }
@@ -201,25 +286,48 @@
     function operateFormatter(value, row, index) {
 	console.log("operateFormatter");
         return [
-            '<a class="like" href="javascript:void(0)" title="Like">',
+            '<a class="edit" href="javascript:void(0)" title="Edit">',
             '<i class="glyphicon glyphicon-edit"></i>',
             '</a>  ',
-            '<a class="remove" href="javascript:void(0)" title="Remove">',
+            '<a class="remove" href="deleteemail?id='+row.id+'" title="Remove">',
             '<i class="glyphicon glyphicon-remove"></i>',
             '</a>'
         ].join('');
     }
+	
     window.operateEvents = {
-        'click .like': function (e, value, row, index) {
-            alert('You click like action, row: ' + JSON.stringify(row));
+        'click .edit': function (e, value, row, index,url) {
+		//console.log(moment(row.date).format(MM/DD/YY HH:mm));
+          //  alert('You click edit action, row: ' + JSON.stringify(row.recieverEmail));
+			//function openInParent(url) {
+			
+     $('#emailModal').modal();
+$("#email").val(row.recieverEmail);
+$("#subject").val(row.subject);
+$("#purpose").val(row.purpose);
+$("#from").val(row.from);
+datetime = moment(row.date).format('YYYY-MM-DDTHH:mm');
+
+$("#date").val(datetime);
+//alert()
+$("#statuss").val(row.status);
+$("#view").val(row.viewCount);
+$("#id").val(row.id);
         },
         'click .remove': function (e, value, row, index) {
             $table.bootstrapTable('remove', {
                 field: 'id',
                 values: [row.id]
             });
-        }
+			
+        }	
+		
     };
+	//$('#emailModal').on('show.bs.modal', function (e) {
+	//alert(res);
+  // $("#email").val();
+//})
+	//}
   /*  function totalTextFormatter(data) {
 	console.log("totalTextFormatter");
 	
@@ -235,6 +343,13 @@
         });
         return '$' + total;
     }*/
+	function dateFormatter(data){
+	alert(data);
+	
+	}
+	function statusFormat(data){
+	alert(data);
+	}
     function getHeight() {
         return $(window).height() - $('h1').outerHeight(true);
     }
@@ -246,7 +361,7 @@
 				'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.12.1/extensions/export/bootstrap-table-export.js',
                 'http://rawgit.com/hhurz/tableExport.jquery.plugin/master/tableExport.js',
                 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.12.1/extensions/editable/bootstrap-table-editable.js',
-                'http://rawgit.com/vitalets/x-editable/master/dist/bootstrap3-editable/js/bootstrap-editable.js'
+                'https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js'
             ],
             eachSeries = function (arr, iterator, callback) {
 			console.log("eachSeries");

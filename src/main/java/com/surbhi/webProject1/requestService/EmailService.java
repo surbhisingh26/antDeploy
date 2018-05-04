@@ -1,5 +1,7 @@
 package com.surbhi.webProject1.requestService;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -205,6 +207,44 @@ public String email(String purpose,String subject,String recieverEmail,String fr
 		hmap.put("rows", emailList);
 		return hmap;
 	}
+	public void updateEmail(String id,String recieverEmail, String subject, String purpose, String from, String date, String status,String view) {
+		try {	
+		DB mongo;
+		mongo=db1.getDB();
+		DBCollection Emailcollection = mongo.getCollection("emails");
+			
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+			Date datetime = format.parse(date);
+		System.out.println("Date time is ............. " + datetime);
+		System.out.println(id);
+		JacksonDBCollection<Email, String> coll = JacksonDBCollection.wrap(Emailcollection,Email.class, String.class);
+		Email email = coll.findOneById(id);
+		System.out.println(email);
+		email.setDate(datetime);
+		email.setFrom(from);
+		email.setPurpose(purpose);
+		email.setRecieverEmail(recieverEmail);
+		email.setStatus(status);
+		email.setViewCount(Integer.parseInt(view));
+		email.setSubject(subject);
+		coll.updateById(id, email);
+		
+	
+	} catch (ParseException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
 	
 	
+}
+	public void deleteeEmail(String id) {
+		DB mongo;
+		mongo=db1.getDB();
+		DBCollection Emailcollection = mongo.getCollection("emails");
+		JacksonDBCollection<Email, String> coll = JacksonDBCollection.wrap(Emailcollection,Email.class, String.class);
+		System.out.println(id);
+		coll.removeById(id);
+	
+		
+	}
 }
