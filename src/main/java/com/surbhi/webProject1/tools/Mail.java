@@ -7,17 +7,17 @@ import java.util.Map;
 import javax.servlet.ServletException;
 
 
-import com.surbhi.webProject1.app.Utility;
 import com.surbhi.webProject1.requests.EmailActions;
 
 public class Mail {
 	public static void main(String args[]) throws ServletException, IOException{
 		//sendMail();
-		Utility uti = new Utility();
-		Map<String, Object> hmap = new HashMap<String, Object>();
-		hmap.put("name", "viveka");
-		hmap.put("frindName", "Surabhi");
-		uti.getHbsAsString("EmailTemplate", hmap);
+//		Utility uti = new Utility();
+//		Map<String, Object> hmap = new HashMap<String, Object>();
+//		hmap.put("name", "viveka");
+//		hmap.put("frindName", "Surabhi");
+//		uti.getHbsAsString("EmailTemplate", hmap);
+		testReflection();
 	}
 
 	public static void sendMail() {
@@ -36,5 +36,9 @@ public class Mail {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	public static void testReflection(){
+	
+		
 	}
 }

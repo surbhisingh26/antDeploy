@@ -319,4 +319,49 @@ public class EmailActions extends HttpServlet{
 			e.printStackTrace();
 		}
 	}
+    public void deletemanyemail(HttpServletRequest request, HttpServletResponse response){
+		try {
+			
+			
+			EmailService emailservice = new EmailService();
+			
+			
+			String ids = request.getParameter("ids");
+			System.out.println("Id in delete email....... " + ids);
+			String id[] = ids.split(",");
+			System.out.println(id.length);
+			for(int i=0; i<id.length; i++){
+				System.out.println(id[i]);
+			emailservice.deleteeEmail(id[i]);
+			}
+			response.sendRedirect("emailFromAjax");
+			
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+    }
+    public void editemail(HttpServletRequest request, HttpServletResponse response){
+		try {
+			
+			
+			EmailService emailservice = new EmailService();
+			
+			
+			String id = request.getParameter("pk");
+			String field = request.getParameter("name");
+			String change = request.getParameter("value");
+			System.out.println("id is "+id);
+			System.out.println("name "+field);
+			System.out.println("value "+change);
+			emailservice.editemail(id,field,change);
+			
+		
+			//response.sendRedirect("emailFromAjax");
+			
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+    }
 }

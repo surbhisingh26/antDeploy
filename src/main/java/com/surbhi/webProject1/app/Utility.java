@@ -2,6 +2,9 @@ package com.surbhi.webProject1.app;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -86,5 +89,32 @@ public class Utility {
 		hmap.put("uid", uid);
 		hmap.put("loggedInUser", user);
 		return hmap;
+	}
+	public Object changeType(String type,String data){
+		Object changedData = null;
+		if(type.equals("int")){
+			changedData = Integer.parseInt(data);
+		}
+		if(type.equals("Float")){
+			changedData = Float.parseFloat(data);
+		}
+		if(type.equals("Double")){
+			changedData = Double.parseDouble(data);
+		}
+		if(type.equals("Boolean")){
+			changedData = Boolean.parseBoolean(data);
+		}
+		if(type.equals("Date")){
+			System.out.println("I am date");
+			SimpleDateFormat format = new SimpleDateFormat("MMM dd, yyyy hh:mm:ss a");
+			try {
+				changedData = format.parse(data);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		return changedData;
 	}
 }

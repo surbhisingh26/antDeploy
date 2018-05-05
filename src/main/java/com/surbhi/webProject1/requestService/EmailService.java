@@ -1,5 +1,6 @@
 package com.surbhi.webProject1.requestService;
 
+import java.lang.reflect.Method;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -14,19 +15,21 @@ import org.mongojack.JacksonDBCollection;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
+import com.surbhi.webProject1.app.Utility;
 import com.surbhi.webProject1.model.Email;
 import com.surbhi.webProject1.model.Unsubscribe;
 import com.surbhi.webProject1.requests.DBConnection;
 
 
+
 public class EmailService {
-	
-	
+
+
 	/*Timer timer;
 	String id;
 	HttpServletRequest request;
 	public EmailService(){
-		
+
 	}
 	public EmailService(int seconds){
 		  timer = new Timer();
@@ -34,12 +37,12 @@ public class EmailService {
 	}
     public EmailService(int seconds,String id,HttpServletRequest request) {
         timer = new Timer();
-        
+
         this.id = id;
         this.request = request;
         timer.schedule(new RemindTask(), seconds*1000);
 	}
-    
+
     class RemindTask extends TimerTask {
     	public void init(){
     		System.out.println("INIT...........");
@@ -50,7 +53,7 @@ public class EmailService {
 				Email email = sendEmail(id);
 				EmailActions emailactions = new EmailActions();
 				emailactions.send(request, "", email.getRecieverEmail(), email.getPurpose(), email.getPurpose(), id);
-				
+
 			} catch (ServletException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -61,11 +64,11 @@ public class EmailService {
             timer.cancel(); //Terminate the timer thread
         }
     }*/
-	
+
 	DBConnection db1 = new DBConnection();
-	
-public String email(String purpose,String subject,String recieverEmail,String from,String status){
-		
+
+	public String email(String purpose,String subject,String recieverEmail,String from,String status){
+
 		DB mongo;
 		mongo=db1.getDB();
 		System.out.println("STATUS..."+status);
@@ -86,7 +89,7 @@ public String email(String purpose,String subject,String recieverEmail,String fr
 		return email.getId();
 	}
 	public Map<String, Object> emails(String uid, int page, int limit, String sortBy, String ascending){
-		
+
 		Map<String, Object> hmap = new HashMap<String, Object>();
 		DB mongo;
 		mongo=db1.getDB();
@@ -108,10 +111,10 @@ public String email(String purpose,String subject,String recieverEmail,String fr
 		hmap.put("mailList",mailList);
 		hmap.put("count",count);
 		return hmap;
-		
+
 	}
 	public void unsubscribe(String emails) {
-		
+
 		DB mongo;
 		mongo=db1.getDB();
 		DBCollection collection = mongo.getCollection("unsubscribe");
@@ -122,7 +125,7 @@ public String email(String purpose,String subject,String recieverEmail,String fr
 		unsubscribe.setDate(date);
 		coll.insert(unsubscribe);
 	}
-	
+
 	public Boolean checkEmailSubscription(String email){
 		DB mongo;
 		mongo=db1.getDB();
@@ -137,27 +140,27 @@ public String email(String purpose,String subject,String recieverEmail,String fr
 		return true;
 	}
 	public void trackemail(String id) {
-		
+
 		DB mongo;
 		mongo=db1.getDB();
 		System.out.println("Id................" + id);
 		DBCollection Emailcollection = mongo.getCollection("emails");
 		JacksonDBCollection<Email, String> coll = JacksonDBCollection.wrap(Emailcollection,Email.class, String.class);
 		Email email = coll.findOneById(id);
-		
+
 		if(email!=null){
-			
-		email.setViewCount(email.getViewCount() +1);
-		coll.updateById(id,email);
+
+			email.setViewCount(email.getViewCount() +1);
+			coll.updateById(id,email);
 		}
-		
-		
+
+
 	}
 	public void updateStatus(String id, String status) {
-		
+
 		DB mongo;
 		mongo=db1.getDB();
-		
+
 		DBCollection Emailcollection = mongo.getCollection("emails");
 		JacksonDBCollection<Email, String> coll = JacksonDBCollection.wrap(Emailcollection,Email.class, String.class);
 		System.out.println("Id in update status is ... "+id);
@@ -169,7 +172,7 @@ public String email(String purpose,String subject,String recieverEmail,String fr
 	public String checkStatus(String recieverEmail, String username,String purpose ){
 		DB mongo;
 		mongo=db1.getDB();
-		
+
 		DBCollection Emailcollection = mongo.getCollection("emails");
 		JacksonDBCollection<Email, String> coll = JacksonDBCollection.wrap(Emailcollection,Email.class, String.class);
 		BasicDBObject query = new BasicDBObject();
@@ -179,8 +182,8 @@ public String email(String purpose,String subject,String recieverEmail,String fr
 		DBCursor<Email> cursor = coll.find(query);
 		Email email = cursor.next();
 		return email.getStatus();
-		
-		
+
+
 	}
 	public Map<String,Object> emailtable(int limit, int skip,String ascending,String sortBy) {
 		DB mongo;
@@ -197,8 +200,8 @@ public String email(String purpose,String subject,String recieverEmail,String fr
 		else
 			query.put(sortBy, 1);
 		DBCursor<Email> cursor = coll.find().skip(skip).limit(limit).sort(query);
-		
-		
+
+
 		while(cursor.hasNext()){
 			Email email = cursor.next();
 			emailList.add(email);
@@ -209,34 +212,34 @@ public String email(String purpose,String subject,String recieverEmail,String fr
 	}
 	public void updateEmail(String id,String recieverEmail, String subject, String purpose, String from, String date, String status,String view) {
 		try {	
-		DB mongo;
-		mongo=db1.getDB();
-		DBCollection Emailcollection = mongo.getCollection("emails");
-			
+			DB mongo;
+			mongo=db1.getDB();
+			DBCollection Emailcollection = mongo.getCollection("emails");
+
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
 			Date datetime = format.parse(date);
-		System.out.println("Date time is ............. " + datetime);
-		System.out.println(id);
-		JacksonDBCollection<Email, String> coll = JacksonDBCollection.wrap(Emailcollection,Email.class, String.class);
-		Email email = coll.findOneById(id);
-		System.out.println(email);
-		email.setDate(datetime);
-		email.setFrom(from);
-		email.setPurpose(purpose);
-		email.setRecieverEmail(recieverEmail);
-		email.setStatus(status);
-		email.setViewCount(Integer.parseInt(view));
-		email.setSubject(subject);
-		coll.updateById(id, email);
-		
-	
-	} catch (ParseException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
+			System.out.println("Date time is ............. " + datetime);
+			System.out.println(id);
+			JacksonDBCollection<Email, String> coll = JacksonDBCollection.wrap(Emailcollection,Email.class, String.class);
+			Email email = coll.findOneById(id);
+			System.out.println(email);
+			email.setDate(datetime);
+			email.setFrom(from);
+			email.setPurpose(purpose);
+			email.setRecieverEmail(recieverEmail);
+			email.setStatus(status);
+			email.setViewCount(Integer.parseInt(view));
+			email.setSubject(subject);
+			coll.updateById(id, email);
+
+
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+
 	}
-	
-	
-}
 	public void deleteeEmail(String id) {
 		DB mongo;
 		mongo=db1.getDB();
@@ -244,7 +247,45 @@ public String email(String purpose,String subject,String recieverEmail,String fr
 		JacksonDBCollection<Email, String> coll = JacksonDBCollection.wrap(Emailcollection,Email.class, String.class);
 		System.out.println(id);
 		coll.removeById(id);
-	
-		
+
+
+	}
+	public void editemail(String id, String field, String change) {
+		try {
+			DB mongo;
+			mongo=db1.getDB();
+			DBCollection Emailcollection = mongo.getCollection("emails");
+			JacksonDBCollection<Email, String> coll = JacksonDBCollection.wrap(Emailcollection,Email.class, String.class);
+			Email email = coll.findOneById(id);
+			String fieldName = field.substring(0,1).toUpperCase() + field.substring(1);
+			System.out.println(fieldName);
+
+			String callMethod1 = "get"+fieldName;
+
+			Method method1 = Email.class.getDeclaredMethod(callMethod1);
+
+			method1.invoke(email);
+			String type = method1.getReturnType().getSimpleName();
+			
+			Class<?> typeClass1 = method1.getReturnType();
+			
+			Object changes = change;
+			if(!type.equalsIgnoreCase("String")){
+			Utility utility = new Utility();
+			changes = utility.changeType(type.toString(), change);
+			}
+			System.out.println("Change is " + changes);
+			String callMethod = "set"+fieldName;
+
+			Method method = Email.class.getDeclaredMethod(callMethod,typeClass1);
+			
+			method.invoke(email,changes);
+			
+			coll.updateById(id, email);
+		} 
+		catch (Exception e) {
+
+			e.printStackTrace();
+		} 
 	}
 }
