@@ -150,12 +150,32 @@
 					{
                         title: 'Date',
                         field: 'date',
-                       type:'datetime-local',
+                       type:'combodate',
                         align: 'center',
                         valign: 'middle',
                         sortable: true,
-					editable: {method: "POST",
-                                   url: "editemail"}
+						editable: {
+						type:'combodate',
+						method: "POST",
+						url: "editemail",
+						format : 'MMM D,YYYY HH:mm:ss',
+						viewformat : 'MMM D,YYYY HH:mm:ss',
+						inputclass : "datepick",
+						template:"D MMM YYYY  HH:mm:ss",
+						emptytext: '...',
+						
+						combodate:{
+							showbuttons: true,
+							roundTime: false,
+							smartDays: true,
+							minuteStep: 1,
+							maxYear:(new Date()).getFullYear()
+									}     
+        
+						
+								}	   
+								   
+								   
                     },{
                         title: 'Status',
                         field: 'status',
@@ -164,33 +184,18 @@
                         valign: 'middle',
                         sortable: true,
 						
-                     editable: {type:'select',
-					 source: [
-                        {value: 'Sent', text: 'Sent'},
-                        {value: 'Pending', text: 'Pending'},
-                        {value: 'Failed', text: 'Failed'}
-                    ],
-						//url: function (params) {
-                            //params['recieverEmail'] = params.recieverEmail;
-					
-                         //  var previousValue = $(this).text();
-							
-                         // bootbox.confirm("Are you sure?", function() {
-                           //    $.ajax({
-                                   method: "POST",
-                                   url: "editemail",
-                                  
-                            //   }).done(function (res) {
-                                  
-                            //       console.log("success");
-                            //   }).fail(function (err) {
-                              //     $table.bootstrapTable('refresh');
-                             //      alert('Error: ' + err.responseText);
-                             //  });
-                      // })
-                  // }
-								
-					}			
+						editable: {
+							type:'select',
+					// mode: 'inline',
+							source: [
+								{value: 'Sent', text: 'Sent'},
+								{value: 'Pending', text: 'Pending'},
+								{value: 'Failed', text: 'Failed'}
+									],
+							method: "POST",
+							url: "editemail",
+				
+							}			
                     },{
                         title: 'View',
                         field: 'viewCount',
@@ -199,7 +204,9 @@
                         valign: 'middle',
                         sortable: true,
                      editable: {
+					 //mode: 'inline',
 								type:'number',
+								
 								min:'0',
 								method: "POST",
                                    url: "editemail"
