@@ -24,7 +24,6 @@ public class Utility {
 	String uid;
 	public void getHbs(HttpServletResponse response,String file,Map<String, Object> hmap) throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
-		System.out.println("I am here in hbs...");
 
 		TemplateLoader loader = new FileTemplateLoader("C:/soft/apache-tomcat-8.5.23/webapps/webProject1/WEB-INF/Templates",".hbs");
 		Handlebars handlebars = new Handlebars(loader);

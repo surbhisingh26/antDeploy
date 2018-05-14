@@ -358,6 +358,7 @@ public class UserActions extends HttpServlet implements ServletContextListener{
 
 			Part file = request.getPart("file");
 			String path = request.getParameter("filename");
+			System.out.println("File is ................ " + file);
 			String fileName = path.replace("C:\\fakepath\\", "");
 			file.write(fileSaveDir + File.separator + fileName);
 			String filePath= File.separator +"images" + File.separator + fileName;
