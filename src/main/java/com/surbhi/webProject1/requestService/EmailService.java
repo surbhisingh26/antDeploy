@@ -1,5 +1,6 @@
 package com.surbhi.webProject1.requestService;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -24,46 +25,6 @@ import com.surbhi.webProject1.requests.DBConnection;
 
 public class EmailService {
 
-
-	/*Timer timer;
-	String id;
-	HttpServletRequest request;
-	public EmailService(){
-
-	}
-	public EmailService(int seconds){
-		  timer = new Timer();
-		  timer.schedule(new RemindTask(), seconds*1000);
-	}
-    public EmailService(int seconds,String id,HttpServletRequest request) {
-        timer = new Timer();
-
-        this.id = id;
-        this.request = request;
-        timer.schedule(new RemindTask(), seconds*1000);
-	}
-
-    class RemindTask extends TimerTask {
-    	public void init(){
-    		System.out.println("INIT...........");
-    	}
-        public void run() {
-        	System.out.println("IN CONSTRUCTOR" +id);
-            try {
-				Email email = sendEmail(id);
-				EmailActions emailactions = new EmailActions();
-				emailactions.send(request, "", email.getRecieverEmail(), email.getPurpose(), email.getPurpose(), id);
-
-			} catch (ServletException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-            timer.cancel(); //Terminate the timer thread
-        }
-    }*/
 
 	DBConnection db1 = new DBConnection();
 
@@ -259,28 +220,33 @@ public class EmailService {
 			Email email = coll.findOneById(id);
 			String fieldName = field.substring(0,1).toUpperCase() + field.substring(1);
 			System.out.println(fieldName);
-
-			String callMethod1 = "get"+fieldName;
-
-			Method method1 = Email.class.getDeclaredMethod(callMethod1);
-
-			method1.invoke(email);
-			String type = method1.getReturnType().getSimpleName();
 			
-			Class<?> typeClass1 = method1.getReturnType();
+			Class<?> classType = Email.class.getDeclaredField(field).getType();
 			
+			String	fieldType = classType.getSimpleName();
+			System.out.println(classType);
+			System.out.println(fieldType);
+			//String callMethod1 = "get"+fieldName;
+			//
+			//	Method method1 = Email.class.getDeclaredMethod(callMethod1);
+
+			//method1.invoke(email);
+			//	String type = method1.getReturnType().getSimpleName();
+
+			//Class<?> typeClass1 = method1.getReturnType();
+
 			Object changes = change;
-			if(!type.equalsIgnoreCase("String")){
-			Utility utility = new Utility();
-			changes = utility.changeType(type.toString(), change);
+			if(!fieldType.equalsIgnoreCase("String")){
+				Utility utility = new Utility();
+				changes = utility.changeType(fieldType.toString(), change);
 			}
 			System.out.println("Change is " + changes);
 			String callMethod = "set"+fieldName;
 
-			Method method = Email.class.getDeclaredMethod(callMethod,typeClass1);
-			
+			Method method = Email.class.getDeclaredMethod(callMethod,classType);
+
 			method.invoke(email,changes);
-			
+
 			coll.updateById(id, email);
 		} 
 		catch (Exception e) {

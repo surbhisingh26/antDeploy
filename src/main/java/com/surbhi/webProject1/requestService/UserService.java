@@ -287,13 +287,6 @@ public class UserService  {
 		List<Data> Iaccept =new  ArrayList<Data>();
 		List<Data> Iunresponded =new  ArrayList<Data>();
 		List<Data> Ireject =new  ArrayList<Data>();
-		/*int[] Oaccept = new int[12];
-		int[] Ounresponded = new int[12];
-		int[] Oreject = new int[12];
-		int[] Iaccept = new int[12];
-		int[] Iunresponded = new int[12];
-		int[] Ireject = new int[12];*/
-		
 		
 		Map<String,Object> hmap = new HashMap<String,Object>();
 		

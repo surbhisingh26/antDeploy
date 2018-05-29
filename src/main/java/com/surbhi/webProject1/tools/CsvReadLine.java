@@ -68,7 +68,7 @@ public class CsvReadLine {
 									System.out.println(setmethod[column]);
 								}
 								else{
-
+									//Field field = Email.class.getField(name)
 									Method method1 = Email.class.getDeclaredMethod(getmethod[column]);
 									System.out.println(getmethod[column]);
 									method1.invoke(email);
