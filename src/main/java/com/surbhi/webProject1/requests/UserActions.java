@@ -61,7 +61,7 @@ public class UserActions extends HttpServlet implements ServletContextListener{
 
 
 		String path = request.getPathInfo();
-		System.out.println("path "+ path);
+	//	System.out.println("path "+ path);
 
 
 		if(path==null||path.equals("/")){
@@ -491,5 +491,21 @@ public class UserActions extends HttpServlet implements ServletContextListener{
 	public void contextDestroyed(ServletContextEvent sce) {
 		
 		Thread.currentThread().interrupt();
+	}
+	public void chat(HttpServletRequest request, HttpServletResponse response){
+		try {
+			utility.getHbs(response, "chat", null);
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	public void weather(HttpServletRequest request, HttpServletResponse response){
+		try {
+			utility.getHbs(response, "weather", null);
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
 	}
 }

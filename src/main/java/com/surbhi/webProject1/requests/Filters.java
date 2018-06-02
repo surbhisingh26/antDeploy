@@ -56,7 +56,18 @@ public class Filters implements Filter{
 				request.getRequestDispatcher("/emailpaths" + path).forward(request, response);
 				System.out.println("email");
 			}
-			
+			else if(path.contains("LongPollingServlet")){
+				request.getRequestDispatcher("/longpaths" + path).forward(request, response);
+				System.out.println("email");
+			}
+			else if(path.contains("chatt")){
+				request.getRequestDispatcher("/chatpaths" + path).forward(request, response);
+				System.out.println("email");
+			}
+			else if(path.contains("TomcatWeatherServlet")){
+				request.getRequestDispatcher("/weatherpaths" + path).forward(request, response);
+				System.out.println("WEATHER");
+			}
 			else{
 				
 				request.getRequestDispatcher("/userpaths" + path).forward(request, response);

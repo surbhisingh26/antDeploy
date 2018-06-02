@@ -9,6 +9,13 @@
 	<url>http://maven.apache.org</url>
 	
 	<dependencies>
+	<!-- https://mvnrepository.com/artifact/com.rometools/rome -->
+<dependency>
+    <groupId>com.rometools</groupId>
+    <artifactId>rome</artifactId>
+    <version>1.6.0</version>
+</dependency>
+	
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -58,6 +65,32 @@
     <artifactId>handlebars-guava-cache</artifactId>
     <version>4.0.5</version>
 </dependency>
+<!-- https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-catalina -->
+<dependency>
+    <groupId>org.apache.tomcat</groupId>
+    <artifactId>tomcat-catalina</artifactId>
+    <version>7.0.16</version>
+</dependency>
+<!-- https://mvnrepository.com/artifact/commons-logging/commons-logging -->
+<dependency>
+    <groupId>commons-logging</groupId>
+    <artifactId>commons-logging</artifactId>
+    <version>1.2</version>
+</dependency>
+<!-- https://mvnrepository.com/artifact/org.apache.tomcat/catalina -->
+<dependency>
+    <groupId>org.apache.tomcat</groupId>
+    <artifactId>catalina</artifactId>
+    <version>6.0.26</version>
+    <scope>provided</scope>
+</dependency>
+<!-- https://mvnrepository.com/artifact/org.atmosphere/atmosphere-compat-tomcat7 -->
+<dependency>
+    <groupId>org.atmosphere</groupId>
+    <artifactId>atmosphere-compat-tomcat7</artifactId>
+    <version>2.0.1</version>
+</dependency>
+
 <!-- https://mvnrepository.com/artifact/javax.mail/javax.mail-api -->
 <dependency>
 	<groupId>com.sun.mail</groupId>

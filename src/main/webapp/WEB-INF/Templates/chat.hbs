@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Long polling</title>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $("#startPolling").click(function(event) {
+                    event.preventDefault();
+                    longPolling.stop = false;
+                    longPolling.poll();
+                });
+                $("#stopPolling").click(function(event) {
+                    event.preventDefault();
+                    longPolling.stop = true;
+                });
+            });
+ 
+            var longPolling = {
+                stop: false,
+                poll: function() {
+                    if (longPolling.stop === true) {
+                        console.log("Stopping the long polling process");
+                        return;
+                    }
+                    $.ajax(
+                            {
+                                type: 'GET',
+                                url: "longPollingServlet",
+                                data: {},
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                // crossDomain: true,
+                                timeout: 15000
+                            }
+                    ).done(function(data, textStatus, jqXHR) {
+                        //console.log("data: " + data);
+                        var serverDate = new Date(data.serverDate);
+                        console.log(serverDate.toLocaleString());
+                        $("#serverResponseDiv").html(serverDate);
+                    }).fail(function(jqxhr, textStatus, errorThrown) {
+                        console.log("jqxhr.statusText: " + jqxhr.statusText);
+                        console.log("status: " + jqxhr.status);
+                        console.log("textStatus: " + textStatus); //null, "timeout", "error", "abort", and "parsererror"
+                        console.log("errorThrown: " + errorThrown);
+                    }).always(longPolling.poll);
+                }
+            };
+        </script>
+    </head>
+    <body>
+        <h1>Long polling</h1>
+        <div>
+            <br/><br/><br/>
+            <a id="startPolling" href="#">Start</a>
+            <br/>
+            <a id="stopPolling" href="#">Stop</a>
+            <br/><br/><br/>
+            <div id="serverResponseDiv"></div>   
+            <a href="chatting"> Chatting    </a>    
+        </div>
+    </body>
+</html>

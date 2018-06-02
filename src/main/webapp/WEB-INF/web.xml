@@ -51,6 +51,24 @@
 		<description></description>
 		<servlet-class>com.surbhi.webProject1.requests.EmailActions</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>LongPollingServlet</servlet-name>
+		<display-name>LongPollingServlet</display-name>
+		<description></description>
+		<servlet-class>com.surbhi.webProject1.chatDemo.LongPollingServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>ChatServlet</servlet-name>
+		<display-name>ChatServlet</display-name>
+		<description></description>
+		<servlet-class>com.surbhi.webProject1.chatDemo.ChatServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>TomcatWeatherServlet</servlet-name>
+		<display-name>TomcatWeatherServlet</display-name>
+		<description></description>
+		<servlet-class>com.surbhi.webProject1.chatDemo.TomcatWeatherServlet</servlet-class>
+	</servlet>
 	<!-- <servlet>
     	<servlet-name>Reminder</servlet-name>
     	<servlet-class>com.surbhi.webProject1.requests.EmailService</servlet-class>
@@ -60,6 +78,14 @@
 		<servlet-name>Calls</servlet-name>
 		<url-pattern>/paths/*</url-pattern>
 	</servlet-mapping> -->
+	<servlet-mapping>
+		<servlet-name>LongPollingServlet</servlet-name>
+		<url-pattern>/longpaths/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ChatServlet</servlet-name>
+		<url-pattern>/chatpaths/*</url-pattern>
+	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>UserActions</servlet-name>
 		<url-pattern>/userpaths/*</url-pattern>
@@ -76,6 +102,11 @@
 		<servlet-name>EmailActions</servlet-name>
 		<url-pattern>/emailpaths/*</url-pattern>
 	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>TomcatWeatherServlet</servlet-name>
+		<url-pattern>/weatherpaths/*</url-pattern>
+	</servlet-mapping>
+	
 	
 </web-app>
 	
